@@ -21,17 +21,29 @@ export function ChatIA() {
 
     return (
         <div style={{ fontFamily: "sans-serif", textAlign: "center", marginTop: "3rem" }}>
-            <h1>💬 Chat con OpenAI</h1>
+            <h1>¡Bienvenido!</h1>
+            <p>¡Ho, ho, ho! 🎅✨
+
+                ¡Bienvenido, pequeño soñador y gran creador!
+                Te habla Santa Claus, directo desde el Polo Norte, con la chimenea encendida, el taller a toda marcha y una taza humeante de chocolate caliente en la mano.
+                Aquí, en este mágico espacio, tú y yo, junto a un poco de polvo de estrellas y mucha imaginación, daremos vida a una historia única, tejida con las chispas de la Navidad.
+
+                Prepárate para dejar volar tu creatividad entre copos de nieve, renos risueños y luces centelleantes. Cada palabra que escribas será como un regalo bajo el árbol: especial,
+                brillante y lleno de emoción.
+
+                Así que ajusta tu gorro navideño, toma tu pluma digital y… ¡comencemos a escribir juntos una historia que hará sonar las campanas del espíritu navideño en cada rincón del mundo!
+
+                🎄✨ ¡Ho, ho, ho! ¡La magia de la Navidad está a punto de comenzar!</p>
             <div>
                 <input
                     type="text"
-                    placeholder="Escribe algo..."
+                    placeholder="Inicia tu historia..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     style={{ padding: "0.5rem", width: "60%" }}
                 />
                 <button onClick={handleSend} disabled={loading} style={{ marginLeft: "1rem" }}>
-                    {loading ? "Enviando..." : "Enviar"}
+                    {loading ? "Pensando" : "Enviar"}
                 </button>
                 <p style={{ marginTop: "1rem" }}>{reply}</p>
             </div>

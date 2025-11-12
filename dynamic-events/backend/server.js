@@ -1,31 +1,54 @@
-import express from "express";
-import OpenAI from "openai";
-import dotenv from "dotenv";
-import cors from "cors";
+import express from "express"; //Se importa Express para levantar el servidor y crear rutas.
+import OpenAI from "openai"; //Se importa API de OpenAI.
+import dotenv from "dotenv"; //Se importa para hacer uso de las variables de entorno.
+import cors from "cors"; //Se utiliza para evitar conflictos con las peticiones que hace Vite (localhost:5173) al backend (localhost:3000).
+import fs from "fs";
+import rateLimit from "express-rate-limit";
 
-dotenv.config();
+let dataContextIA = ""; //Variable para almacenar el pre-prompt del modelo IA.
+
+fs.readFile("data/christmas.txt", "utf-8", (err, data) => {
+  if (err) throw err;
+  dataContextIA = data;
+});
+
+dotenv.config(); //Lee .env.
+
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+//Habilita CORS para que reciba peticiones desde un origen específico.
+app.use(cors({
+  origin: 'http://localhost:5173'
+})); 
+
+app.use("/api/chat", rateLimit({windowMs: 60_000, max: 30})); //Limita las peticiones
+
+app.use(express.json()); //Parsea el body recibido de las peticiones.
+
+if (!process.env.OPENAI_API_KEY) {
+  console.error("ERROR: API_KEY no encontrada");
+  process.exit(1); //Finaliza el proceso de ejecución si no encuentra la Api_Key.
+}
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Endpoint de prueba
-app.get("/", (req, res) => {
+//Endpoint de prueba.
+app.get("/test", (req, res) => {
   res.send("Servidor Ok: " + res.statusCode);
 });
 
-// Endpoint para conectarse con OpenAI
+//Endpoint para conectarse con OpenAI.
 app.post("/api/chat", async (req, res) => {
-  const { prompt } = req.body;
+  const { prompt } = req.body; //Extrae "prompt" del body.
+
+  //Se llama al cliente de OpenAI de forma asíncrona.
   try {
     const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o-mini", 
       messages: [
-        { role: "system", content: "Hola!, cómo estas?" },
+        { role: "system", content: dataContextIA },
         { role: "user", content: prompt }
       ],
     });
