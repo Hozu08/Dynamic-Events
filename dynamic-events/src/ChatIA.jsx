@@ -1,54 +1,91 @@
 import { useState } from "react";
 
 export function ChatIA() {
-    const userName = "Luis"
-    const [input, setInput] = useState("");
-    const [reply, setReply] = useState("");
-    const [loading, setLoading] = useState(false);
+  const userName = "Luis";
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]); //Historial de conversación
+  const [loading, setLoading] = useState(false);
 
-    const handleSend = async () => {
-        if (!input.trim()) return;
-        setLoading(true);
-        const res = await fetch("/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: `${userName} dice: ${input}` }),
-        });
-        const data = await res.json();
-        setReply(data.reply);
-        setLoading(false);
-    };
+  const handleSend = async () => {
+    if (!input.trim()) return;
 
-    return (
-        <div style={{ fontFamily: "sans-serif", textAlign: "center", marginTop: "3rem" }}>
-            <h1>¡Bienvenido!</h1>
-            <p>¡Ho, ho, ho! 🎅✨
+    const newUserMessage = { role: "user", content: `${userName} dice: ${input}` };
+    const newMessages = [...messages, newUserMessage];
 
-                ¡Bienvenido, pequeño soñador y gran creador!
-                Te habla Santa Claus, directo desde el Polo Norte, con la chimenea encendida, el taller a toda marcha y una taza humeante de chocolate caliente en la mano.
-                Aquí, en este mágico espacio, tú y yo, junto a un poco de polvo de estrellas y mucha imaginación, daremos vida a una historia única, tejida con las chispas de la Navidad.
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
 
-                Prepárate para dejar volar tu creatividad entre copos de nieve, renos risueños y luces centelleantes. Cada palabra que escribas será como un regalo bajo el árbol: especial,
-                brillante y lleno de emoción.
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
 
-                Así que ajusta tu gorro navideño, toma tu pluma digital y… ¡comencemos a escribir juntos una historia que hará sonar las campanas del espíritu navideño en cada rincón del mundo!
+      const data = await res.json();
+      const aiMessage = { role: "assistant", content: data.reply };
 
-                🎄✨ ¡Ho, ho, ho! ¡La magia de la Navidad está a punto de comenzar!</p>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Inicia tu historia..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    style={{ padding: "0.5rem", width: "60%" }}
-                />
-                <button onClick={handleSend} disabled={loading} style={{ marginLeft: "1rem" }}>
-                    {loading ? "Pensando" : "Enviar"}
-                </button>
-                <p style={{ marginTop: "1rem" }}>{reply}</p>
-            </div>
-        </div>
-    )
+      setMessages([...newMessages, aiMessage]);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  return (
+    <div style={{ fontFamily: "sans-serif", textAlign: "center", marginTop: "3rem" }}>
+      <h1>🎅 ¡Bienvenido a la historia navideña!</h1>
+      <p>
+        ¡Ho, ho, ho! 🎄✨  
+        ¡Bienvenido, pequeño soñador y gran creador!  
+        Aquí tú y yo escribiremos juntos una historia mágica de Navidad.  
+        Escribe tu primera frase para comenzar la aventura.
+      </p>
+
+      <div
+        style={{
+          background: "#4e4e4eff",
+          borderRadius: "12px",
+          padding: "1rem",
+          width: "60%",
+          margin: "1rem auto",
+          textAlign: "left",
+          height: "300px",
+          overflowY: "auto",
+        }}
+      >
+        {messages.map((msg, i) => (
+          <p
+            key={i}
+            style={{
+              background: msg.role === "user" ? "#1a546eff" : "#141414ff",
+              padding: "0.5rem",
+              borderRadius: "8px",
+              margin: "0.5rem 0",
+            }}
+          >
+            <strong>{msg.role === "user" ? userName : "Santa Claus"}:</strong>{" "}
+            {msg.content}
+          </p>
+        ))}
+        {loading && <p>🎅 Santa está pensando...</p>}
+      </div>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Escribe aquí tu parte de la historia..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          style={{ padding: "0.5rem", width: "60%" }}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        />
+        <button onClick={handleSend} disabled={loading} style={{ marginLeft: "1rem" }}>
+          {loading ? "Pensando..." : "Enviar"}
+        </button>
+      </div>
+    </div>
+  );
 }
-

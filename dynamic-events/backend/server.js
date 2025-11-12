@@ -21,7 +21,13 @@ app.use(cors({
   origin: 'http://localhost:5173'
 })); 
 
-app.use("/api/chat", rateLimit({windowMs: 60_000, max: 30})); //Limita las peticiones
+//Limita las peticiones a 30 solicitudes por minuto
+app.use(
+  "/api/chat", 
+  rateLimit({windowMs: 60_000, 
+    max: 30,
+    message: "Demasiadas solicitudes, intenta de nuevo en un momento."  
+})); 
 
 app.use(express.json()); //Parsea el body recibido de las peticiones.
 
@@ -41,23 +47,24 @@ app.get("/test", (req, res) => {
 
 //Endpoint para conectarse con OpenAI.
 app.post("/api/chat", async (req, res) => {
-  const { prompt } = req.body; //Extrae "prompt" del body.
+  const { messages } = req.body;
 
-  //Se llama al cliente de OpenAI de forma asíncrona.
   try {
     const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini", 
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: dataContextIA },
-        { role: "user", content: prompt }
+        ...messages, // Se mantiene todo el historial
       ],
     });
+
     res.json({ reply: completion.choices[0].message.content });
   } catch (error) {
     console.error("Error en OpenAI:", error);
     res.status(500).json({ error: "Error al generar respuesta" });
   }
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
