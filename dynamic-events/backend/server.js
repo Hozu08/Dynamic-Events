@@ -55,8 +55,10 @@ app.post("/api/chat", async (req, res) => {
       messages: [
         { role: "system", content: dataContextIA },
         ...messages, // Se mantiene todo el historial
-      ],
+      ]
     });
+
+    console.log(completion.usage);
 
     res.json({ reply: completion.choices[0].message.content });
   } catch (error) {
