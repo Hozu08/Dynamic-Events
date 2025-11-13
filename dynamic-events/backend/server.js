@@ -54,13 +54,13 @@ app.post("/api/chat", async (req, res) => {
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: dataContextIA },
-        ...messages, // Se mantiene todo el historial
+        ...messages, //Se mantiene todo el historial.
       ]
     });
 
     console.log(completion.usage);
 
-    res.json({ reply: completion.choices[0].message.content });
+    res.json({ reply: completion.choices[0].message.content }); //Devuelve la respuesta al frontend.
   } catch (error) {
     console.error("Error en OpenAI:", error);
     res.status(500).json({ error: "Error al generar respuesta" });
