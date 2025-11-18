@@ -1,0 +1,183 @@
+/* ==========================================
+   OBJETOS BASE (Estructura)
+   ========================================== */
+
+/* Contenedor principal del chat */
+.chat-container {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 3rem;
+  max-width: 100%;
+}
+
+/* Área de mensajes */
+.chat-messages {
+  border-radius: 12px;
+  padding: 1rem;
+  width: 60%;
+  margin: 1rem auto;
+  text-align: left;
+  height: 300px;
+  overflow-y: auto;
+}
+
+/* Mensaje individual */
+.chat-message {
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}
+
+/* Área de input */
+.chat-input-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Input de texto base */
+.chat-input {
+  padding: 0.5rem;
+  width: 60%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Botón base */
+.chat-button {
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+/* ==========================================
+   SKINS (Apariencia/Temas)
+   ========================================== */
+
+/* Tema oscuro para mensajes */
+.chat-messages--dark {
+  background: #4e4e4eff;
+}
+
+/* Mensaje del usuario */
+.chat-message--user {
+  background: #1a546eff;
+}
+
+/* Mensaje del asistente */
+.chat-message--assistant {
+  background: #141414ff;
+}
+
+/* Botón primario */
+.chat-button--primary {
+  background-color: #1a546eff;
+  color: white;
+}
+
+.chat-button--primary:hover:not(:disabled) {
+  background-color: #2a647eff;
+}
+
+/* Botón secundario */
+.chat-button--secondary {
+  background-color: #dc3545;
+  color: white;
+}
+
+.chat-button--secondary:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+/* Estado deshabilitado */
+.chat-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chat-input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+
+/* ==========================================
+   ESTADOS
+   ========================================== */
+
+/* Indicador de carga */
+.chat-loading {
+  color: #888;
+  font-style: italic;
+  padding: 0.5rem;
+}
+
+
+/* ==========================================
+   MODIFICADORES DE LAYOUT
+   ========================================== */
+
+/* Contenedor centrado */
+.chat-container--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Texto en negrita */
+.text-bold {
+  font-weight: bold;
+}
+
+/* Scrollbar personalizado (opcional) */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .chat-messages,
+  .chat-input {
+    width: 90%;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  .chat-input {
+    width: 100%;
+  }
+
+  .chat-button {
+    width: 100%;
+  }
+}

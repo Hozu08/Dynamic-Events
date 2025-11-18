@@ -1,0 +1,229 @@
+/* ==========================================
+   OBJETOS BASE (Estructura)
+   ========================================== */
+
+/* Contenedor principal del juego */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+/* Canvas del juego */
+.game-canvas {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Área de controles */
+.game-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Botón de juego base */
+.game-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+}
+
+/* Título del juego */
+.game-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Descripción del juego */
+.game-description {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+
+/* ==========================================
+   SKINS (Apariencia/Temas)
+   ========================================== */
+
+/* Canvas tema oscuro */
+.game-canvas--dark {
+  background: #012;
+  border: 3px solid #fff;
+}
+
+/* Canvas tema navideño */
+.game-canvas--christmas {
+  background: linear-gradient(180deg, #001a33 0%, #003366 100%);
+  border: 3px solid #ffd700;
+}
+
+/* Botón verde (iniciar) */
+.game-button--start {
+  background-color: #28a745;
+  color: white;
+}
+
+.game-button--start:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón rojo (reiniciar) */
+.game-button--restart {
+  background-color: #dc3545;
+  color: white;
+}
+
+.game-button--restart:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón amarillo (pausar) */
+.game-button--pause {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.game-button--pause:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón deshabilitado */
+.game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ==========================================
+   ESTADOS Y ANIMACIONES
+   ========================================== */
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-button--animated {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Efecto de pulso para botón activo */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.game-button--pulse {
+  animation: pulse 2s infinite;
+}
+
+
+/* ==========================================
+   MODIFICADORES DE UTILIDAD
+   ========================================== */
+
+/* Centrado */
+.u-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Espaciado */
+.u-margin-top-sm {
+  margin-top: 0.5rem;
+}
+
+.u-margin-top-md {
+  margin-top: 1rem;
+}
+
+.u-margin-top-lg {
+  margin-top: 2rem;
+}
+
+/* Texto */
+.u-text-center {
+  text-align: center;
+}
+
+.u-text-bold {
+  font-weight: bold;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .game-canvas {
+    max-width: 90vw;
+  }
+
+  .game-title {
+    font-size: 1.5rem;
+  }
+
+  .game-description {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+
+  .game-button {
+    min-width: 150px;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .game-controls {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-canvas {
+    max-width: 95vw;
+  }
+
+  .game-button {
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+}
