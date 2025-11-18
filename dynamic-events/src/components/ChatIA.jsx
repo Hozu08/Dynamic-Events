@@ -133,7 +133,7 @@ export function ChatIA({
         className={`chat-messages chat-messages--${theme}`}
         style={{ height: maxMessagesHeight }}
       >
-        {messages.map((msg, i) => (
+        {messages.map((msg, i) => ( 
           <div
             key={i}
             className={`chat-message ${
@@ -151,7 +151,7 @@ export function ChatIA({
 
         {/* Indicador de carga */}
         {loading && (
-          <div className="chat-loading">🤔 {assistantName} está pensando...</div>
+          <div className="chat-loading">🎅 {assistantName} está pensando...</div>
         )}
 
         {/* Mensaje de error */}

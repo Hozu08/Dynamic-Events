@@ -4,9 +4,10 @@
 
 .chat-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #e8f4f8 0%, #f5f5dc 100%);
+  background: white;
   display: flex;
   flex-direction: column;
+  width: 100vw;
 }
 
 /* Header igual que la landing */
@@ -104,7 +105,7 @@
 .chat-page__chat-wrapper {
   width: 100%;
   max-width: 1200px;
-  background: white;
+  background: slategray;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   overflow: hidden;
@@ -122,6 +123,8 @@
   margin: 1rem 0;
   height: 400px;
   border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 2rem;
 }
 
 .chat-page__chat-wrapper .chat-input {
@@ -129,6 +132,8 @@
   max-width: 100%;
   font-size: 1rem;
   padding: 1rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
 }
 
 .chat-page__chat-wrapper .chat-input-area {

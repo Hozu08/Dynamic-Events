@@ -16,9 +16,10 @@ import "../styles/game.css";
  * @param {string} props.theme - Tema visual
  */
 export function CanvasGame({
-  width = 400,
-  height = 400,
-  title = "Minijuego",
+  //Medidas del canva
+  width = 700,
+  height = 700,
+  title = "Minijuego", 
   description = "¡Juega y diviértete!",
   gameConfig = {
     initialLives: 5,
@@ -83,7 +84,7 @@ export function CanvasGame({
     const player = {
       x: width / 2 - 30,
       y: height - 70,
-      width: 60,
+      width: 120,
       height: 60,
       sprite: preloadedAssets.player,
     };
