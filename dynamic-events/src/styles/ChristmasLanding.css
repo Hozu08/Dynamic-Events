@@ -1,0 +1,499 @@
+/* ==========================================
+   LANDING PAGE - CHRISTMAS ADVENTURE
+   ========================================== */
+
+/* Variables */
+:root {
+  --color-primary: #2d5a3d;
+  --color-secondary: #8b4513;
+  --color-accent: #c41e3a;
+  --color-gold: #d4af37;
+  --bg-light: #f5f5dc;
+  --text-dark: #2c3e50;
+  --border-radius: 20px;
+}
+
+/* Container principal */
+.christmas-landing {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e8f4f8 0%, #f5f5dc 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+/* ==========================================
+   HEADER / NAVBAR
+   ========================================== */
+.christmas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.christmas-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.christmas-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-pill {
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  border: none;
+  background: #e8e8e8;
+  color: var(--text-dark);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-pill:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.nav-pill--active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.christmas-hero {
+  position: relative;
+  height: 400px;
+  background: linear-gradient(180deg, #87ceeb 0%, #e8f4f8 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-illustration {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3C!-- Pinos izquierda --%3E%3Cpolygon points='50,300 80,200 110,300' fill='%232d5a3d'/%3E%3Cpolygon points='80,220 110,140 140,220' fill='%233a6f4a'/%3E%3Cpolygon points='120,300 150,200 180,300' fill='%232d5a3d'/%3E%3Cpolygon points='150,220 180,140 210,220' fill='%233a6f4a'/%3E%3C!-- Casa izquierda --%3E%3Cpolygon points='240,200 280,160 320,200 320,300 240,300' fill='%23c41e3a'/%3E%3Cpolygon points='240,200 280,160 320,200' fill='%23a01729'/%3E%3Crect x='260' y='240' width='40' height='60' fill='%238b4513'/%3E%3Crect x='265' y='200' width='15' height='15' fill='%23ffd700'/%3E%3Crect x='290' y='200' width='15' height='15' fill='%23ffd700'/%3E%3C!-- Pinos derecha --%3E%3Cpolygon points='1090,300 1120,200 1150,300' fill='%232d5a3d'/%3E%3Cpolygon points='1120,220 1150,140 1180,220' fill='%233a6f4a'/%3E%3Cpolygon points='1020,300 1050,200 1080,300' fill='%232d5a3d'/%3E%3Cpolygon points='1050,220 1080,140 1110,220' fill='%233a6f4a'/%3E%3C!-- Casa derecha --%3E%3Cpolygon points='880,200 920,160 960,200 960,300 880,300' fill='%23c41e3a'/%3E%3Cpolygon points='880,200 920,160 960,200' fill='%23a01729'/%3E%3Crect x='900' y='240' width='40' height='60' fill='%238b4513'/%3E%3Crect x='905' y='200' width='15' height='15' fill='%23ffd700'/%3E%3Crect x='930' y='200' width='15' height='15' fill='%23ffd700'/%3E%3C!-- Casa pequeña centro --%3E%3Cpolygon points='540,240 570,220 600,240 600,300 540,300' fill='%23d2691e'/%3E%3Cpolygon points='540,240 570,220 600,240' fill='%238b4513'/%3E%3Crect x='560' y='260' width='20' height='40' fill='%23654321'/%3E%3Crect x='565' y='230' width='10' height='10' fill='%23ffd700'/%3E%3C!-- Suelo nevado --%3E%3Cellipse cx='600' cy='320' rx='600' ry='80' fill='%23f5f5dc'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: bottom;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+}
+
+.hero-button {
+  padding: 1rem 3rem;
+  background: white;
+  border: 2px solid var(--text-dark);
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.hero-button:hover {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   CAROUSEL SECTION
+   ========================================== */
+.carousel-section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.carousel-arrow {
+  background: rgba(0,0,0,0.3);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.6);
+  transform: scale(1.1);
+}
+
+.carousel-track {
+  display: flex;
+  gap: 2rem;
+  overflow: hidden;
+  flex: 1;
+}
+
+.theme-card {
+  min-width: 250px;
+  height: 300px;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.theme-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.theme-card--green {
+  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
+}
+
+.theme-card--brown {
+  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+}
+
+.theme-card--red {
+  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
+}
+
+.theme-card__icon {
+  font-size: 8rem;
+  margin-bottom: 1rem;
+}
+
+.theme-card__title {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ==========================================
+   SANTA SECTION
+   ========================================== */
+.santa-section {
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.santa-card {
+  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.santa-card__inner {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.santa-card__text {
+  flex: 1;
+}
+
+.santa-card__message {
+  background: #f5deb3;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.santa-card__button {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.santa-card__button:hover {
+  background: #234a2f;
+  transform: scale(1.05);
+}
+
+.santa-card__image {
+  font-size: 10rem;
+}
+
+/* ==========================================
+   MINIGAMES SECTION
+   ========================================== */
+.minigames-section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.minigames-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.minigame-card {
+  height: 250px;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.minigame-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.minigame-card--green {
+  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
+}
+
+.minigame-card--brown {
+  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+}
+
+.minigame-card--red {
+  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
+}
+
+.minigame-card__preview {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.minigame-card__title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: rgba(0,0,0,0.4);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.christmas-footer {
+  padding: 2rem;
+  background: var(--color-primary);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.footer-button {
+  padding: 0.8rem 2rem;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer-button:hover {
+  background: white;
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   MODAL
+   ========================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--border-radius);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(0,0,0,0.8);
+  transform: rotate(90deg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 1024px) {
+  .minigames-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .christmas-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .christmas-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .carousel-track {
+    gap: 1rem;
+  }
+
+  .theme-card {
+    min-width: 200px;
+    height: 250px;
+  }
+
+  .santa-card__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .minigames-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .christmas-footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  .theme-card__icon {
+    font-size: 5rem;
+  }
+
+  .santa-card__image {
+    font-size: 6rem;
+  }
+}
