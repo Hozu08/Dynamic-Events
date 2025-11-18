@@ -1,14 +1,15 @@
 import { useState } from "react";
 import "../styles/ChristmasLanding.css";
-import { ChatIA } from "./ChatIA";
 import { MinigameTest } from "./MinigameTest";
 
 /**
- * ChristmasLanding - Landing page completa de la aventura navideña
+ * ChristmasLanding - Landing page con navegación a Chat
+ * 
+ * @param {Object} props
+ * @param {Function} props.onNavigateToChat - Callback para navegar al chat
  */
-export function ChristmasLanding() {
-  const [activeModal, setActiveModal] = useState(null); // null | 'chat' | 'game'
-  const [selectedTheme, setSelectedTheme] = useState(null);
+export function ChristmasLanding({ onNavigateToChat }) {
+  const [activeModal, setActiveModal] = useState(null); // null | 'game'
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   // Temas disponibles para las historias
@@ -45,10 +46,11 @@ export function ChristmasLanding() {
     setCarouselIndex((prev) => (prev - 1 + themes.length) % themes.length);
   };
 
-  // Abrir chat con tema seleccionado
-  const openChat = (theme = null) => {
-    setSelectedTheme(theme);
-    setActiveModal("chat");
+  // Navegar al chat con o sin tema
+  const goToChat = (theme = null) => {
+    if (onNavigateToChat) {
+      onNavigateToChat(theme);
+    }
   };
 
   // Abrir minijuego
@@ -59,7 +61,6 @@ export function ChristmasLanding() {
   // Cerrar modal
   const closeModal = () => {
     setActiveModal(null);
-    setSelectedTheme(null);
   };
 
   return (
@@ -83,7 +84,7 @@ export function ChristmasLanding() {
             <br />
             Navidad
           </h1>
-          <button className="hero-button" onClick={() => openChat()}>
+          <button className="hero-button" onClick={() => goToChat()}>
             Crea tu historia
           </button>
         </div>
@@ -101,7 +102,7 @@ export function ChristmasLanding() {
               <div
                 key={theme.id}
                 className={`theme-card theme-card--${theme.color}`}
-                onClick={() => openChat(theme)}
+                onClick={() => goToChat(theme)}
                 style={{
                   transform: `translateX(-${carouselIndex * 110}%)`,
                   transition: "transform 0.5s ease"
@@ -133,7 +134,7 @@ export function ChristmasLanding() {
                 <br />
                 ¡Estoy listo para vivir esta aventura contigo!
               </div>
-              <button className="santa-card__button" onClick={() => openChat()}>
+              <button className="santa-card__button" onClick={() => goToChat()}>
                 Click aquí
               </button>
             </div>
@@ -174,41 +175,7 @@ export function ChristmasLanding() {
         <button className="footer-button">Conócenos</button>
       </footer>
 
-      {/* MODAL CHAT */}
-      {activeModal === "chat" && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
-              ×
-            </button>
-            <ChatIA
-              userName="Aventurero"
-              assistantName="Santa Claus"
-              apiEndpoint="/api/chat"
-              title={
-                selectedTheme
-                  ? `🎄 ${selectedTheme.title}`
-                  : "🎅 Crea tu Historia Navideña"
-              }
-              description={
-                selectedTheme
-                  ? selectedTheme.description
-                  : "¡Ho, ho, ho! 🎄✨ Escribe tu primera frase para comenzar la aventura."
-              }
-              finishMarker="<<FIN_DE_LA_HISTORIA>>"
-              placeholder="Continúa la historia..."
-              theme="dark"
-              maxMessagesHeight="500px"
-              onFinish={(messages) => {
-                console.log("Historia completa:", messages);
-                // Aquí podrías guardar la historia o mostrar un resumen
-              }}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* MODAL MINIJUEGO */}
+      {/* MODAL MINIJUEGO (solo para el juego) */}
       {activeModal === "game" && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
