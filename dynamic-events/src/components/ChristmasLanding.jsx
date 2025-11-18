@@ -1,15 +1,14 @@
 import { useState } from "react";
 import "../styles/ChristmasLanding.css";
-import { MinigameTest } from "./MinigameTest";
 
 /**
- * ChristmasLanding - Landing page con navegación a Chat
+ * ChristmasLanding - Landing page con navegación a Chat y Juego
  * 
  * @param {Object} props
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
+ * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  */
-export function ChristmasLanding({ onNavigateToChat }) {
-  const [activeModal, setActiveModal] = useState(null); // null | 'game'
+export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   // Temas disponibles para las historias
@@ -19,21 +18,24 @@ export function ChristmasLanding({ onNavigateToChat }) {
       title: "Un regalo especial",
       icon: "🎁",
       color: "green",
-      description: "Un elfo que perdió un regalo importante"
+      description: "Un elfo que perdió un regalo importante",
+      image: "/images/theme-gift.png" // Opcional
     },
     {
       id: 2,
       title: "El árbol mágico",
       icon: "🎄",
       color: "brown",
-      description: "Una estrella mágica que guía a los duendes"
+      description: "Una estrella mágica que guía a los duendes",
+      image: "/images/theme-tree.png" // Opcional
     },
     {
       id: 3,
       title: "Leyenda de nieve",
       icon: "⛄",
       color: "red",
-      description: "Un pueblo sin nieve en víspera de Navidad"
+      description: "Un pueblo sin nieve en víspera de Navidad",
+      image: "/images/theme-snowman.png" // Opcional
     }
   ];
 
@@ -53,14 +55,11 @@ export function ChristmasLanding({ onNavigateToChat }) {
     }
   };
 
-  // Abrir minijuego
-  const openGame = () => {
-    setActiveModal("game");
-  };
-
-  // Cerrar modal
-  const closeModal = () => {
-    setActiveModal(null);
+  // Navegar al juego
+  const goToGame = () => {
+    if (onNavigateToGame) {
+      onNavigateToGame();
+    }
   };
 
   return (
@@ -98,7 +97,7 @@ export function ChristmasLanding({ onNavigateToChat }) {
           </button>
 
           <div className="carousel-track">
-            {themes.map((theme, index) => (
+            {themes.map((theme) => (
               <div
                 key={theme.id}
                 className={`theme-card theme-card--${theme.color}`}
@@ -108,7 +107,28 @@ export function ChristmasLanding({ onNavigateToChat }) {
                   transition: "transform 0.5s ease"
                 }}
               >
-                <div className="theme-card__icon">{theme.icon}</div>
+                {/* Imagen del tema si existe */}
+                {theme.image ? (
+                  <img 
+                    src={theme.image} 
+                    alt={theme.title}
+                    className="theme-card__image"
+                    onError={(e) => {
+                      // Fallback al emoji si la imagen falla
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                ) : null}
+                
+                {/* Emoji como fallback */}
+                <div 
+                  className="theme-card__icon"
+                  style={{ display: theme.image ? 'none' : 'block' }}
+                >
+                  {theme.icon}
+                </div>
+                
                 <h3 className="theme-card__title">{theme.title}</h3>
               </div>
             ))}
@@ -138,7 +158,19 @@ export function ChristmasLanding({ onNavigateToChat }) {
                 Click aquí
               </button>
             </div>
-            <div className="santa-card__image">🎅</div>
+            
+            {/* Imagen de Santa */}
+            <div className="santa-card__image-wrapper">
+              <img 
+                src="/images/santa.png" 
+                alt="Santa Claus"
+                onError={(e) => {
+                  // Fallback al emoji si la imagen no existe
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = '<div class="santa-card__image">🎅</div>';
+                }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -146,23 +178,51 @@ export function ChristmasLanding({ onNavigateToChat }) {
       {/* SECCIÓN MINIJUEGOS */}
       <section className="minigames-section">
         <div className="minigames-grid">
+          {/* Minijuego 1 */}
           <div className="minigame-card minigame-card--green">
-            <div className="minigame-card__preview">🎮</div>
-            <h3 className="minigame-card__title">minijuego</h3>
-          </div>
-
-          <div
-            className="minigame-card minigame-card--brown"
-            onClick={openGame}
-          >
             <div className="minigame-card__preview">
-              🎁❄️🎄
+              <img 
+                src="/images/game-preview-1.png" 
+                alt="Minijuego 1"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = '<span style="font-size: 4rem;">🎮</span>';
+                }}
+              />
             </div>
             <h3 className="minigame-card__title">minijuego</h3>
           </div>
 
+          {/* Minijuego 2 - Atrapa regalos (principal) */}
+          <div
+            className="minigame-card minigame-card--brown"
+            onClick={goToGame}
+          >
+            <div className="minigame-card__preview">
+              <img 
+                src="/images/game-preview-2.png" 
+                alt="Atrapa los regalos"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = '<div style="font-size: 3rem;">🎁❄️🎄</div>';
+                }}
+              />
+            </div>
+            <h3 className="minigame-card__title">minijuego</h3>
+          </div>
+
+          {/* Minijuego 3 */}
           <div className="minigame-card minigame-card--red">
-            <div className="minigame-card__preview">🎮</div>
+            <div className="minigame-card__preview">
+              <img 
+                src="/images/game-preview-3.png" 
+                alt="Minijuego 3"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = '<span style="font-size: 4rem;">🎮</span>';
+                }}
+              />
+            </div>
             <h3 className="minigame-card__title">minijuego</h3>
           </div>
         </div>
@@ -174,18 +234,6 @@ export function ChristmasLanding({ onNavigateToChat }) {
         <button className="footer-button">Políticas</button>
         <button className="footer-button">Conócenos</button>
       </footer>
-
-      {/* MODAL MINIJUEGO (solo para el juego) */}
-      {activeModal === "game" && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
-              ×
-            </button>
-            <MinigameTest />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

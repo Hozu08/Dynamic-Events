@@ -1,0 +1,226 @@
+/* ==========================================
+   GAME PAGE - Página completa del Minijuego
+   ========================================== */
+
+.game-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.game-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.game-page__logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.game-page__back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 2rem;
+  background: #2d5a3d;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.game-page__back-button:hover {
+  background: #234a2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Hero Section */
+.game-page__hero {
+  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.game-page__hero-title {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.game-page__hero-description {
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.9);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Área del juego */
+.game-page__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.game-page__game-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Instrucciones */
+.game-page__instructions {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-top: 2rem;
+  max-width: 800px;
+  color: white;
+}
+
+.game-page__instructions h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #ffd700;
+}
+
+.game-page__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-page__instructions li {
+  padding: 0.8rem 0;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.game-page__instructions li::before {
+  content: "🎁";
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+}
+
+/* Stats del juego */
+.game-page__stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.game-stat {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2.5rem;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 150px;
+}
+
+.game-stat__label {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.game-stat__value {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+  .game-page__header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .game-page__hero-title {
+    font-size: 2rem;
+  }
+
+  .game-page__hero-description {
+    font-size: 1rem;
+  }
+
+  .game-page__content {
+    padding: 1.5rem 1rem;
+  }
+
+  .game-page__game-wrapper {
+    padding: 1rem;
+  }
+
+  .game-page__instructions {
+    padding: 1.5rem;
+  }
+
+  .game-page__instructions h3 {
+    font-size: 1.5rem;
+  }
+
+  .game-page__instructions li {
+    font-size: 1rem;
+  }
+
+  .game-page__stats {
+    gap: 1rem;
+  }
+
+  .game-stat {
+    padding: 1rem 1.5rem;
+    min-width: 120px;
+  }
+
+  .game-stat__value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-page__hero-title {
+    font-size: 1.5rem;
+  }
+
+  .game-page__back-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}

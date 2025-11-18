@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { ChristmasLanding } from "./components/ChristmasLanding";
 import { ChatPage } from "./components/ChatPage";
+import { GamePage } from "./components/GamePage";
 
 /**
- * App - Router simple para navegar entre Landing y Chat
+ * App - Router simple para navegar entre Landing, Chat y Juego
  */
 function App() {
-  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat'
+  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'game'
   const [selectedTheme, setSelectedTheme] = useState(null);
 
   // Navegar al chat
   const navigateToChat = (theme = null) => {
     setSelectedTheme(theme);
     setCurrentPage("chat");
-    // Scroll to top
+    window.scrollTo(0, 0);
+  };
+
+  // Navegar al juego
+  const navigateToGame = () => {
+    setCurrentPage("game");
     window.scrollTo(0, 0);
   };
 
@@ -21,14 +27,16 @@ function App() {
   const navigateToLanding = () => {
     setCurrentPage("landing");
     setSelectedTheme(null);
-    // Scroll to top
     window.scrollTo(0, 0);
   };
 
   return (
     <>
       {currentPage === "landing" && (
-        <ChristmasLanding onNavigateToChat={navigateToChat} />
+        <ChristmasLanding 
+          onNavigateToChat={navigateToChat}
+          onNavigateToGame={navigateToGame}
+        />
       )}
 
       {currentPage === "chat" && (
@@ -36,6 +44,10 @@ function App() {
           onBack={navigateToLanding} 
           selectedTheme={selectedTheme}
         />
+      )}
+
+      {currentPage === "game" && (
+        <GamePage onBack={navigateToLanding} />
       )}
     </>
   );
