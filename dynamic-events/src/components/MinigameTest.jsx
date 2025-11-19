@@ -38,6 +38,11 @@ export function CanvasGame({
   const [finalScore, setFinalScore] = useState(0);
   const [gameKey, setGameKey] = useState(0);
 
+  // Referencias para evitar re-renders
+  const scoreRef = useRef(0);
+  const livesRef = useRef(gameConfig.initialLives);
+  const levelRef = useRef(1);
+
   // Precarga de imágenes
   const preloadedAssets = useMemo(() => {
     const playerImg = new Image();
@@ -67,11 +72,12 @@ export function CanvasGame({
     
     const ctx = canvas.getContext("2d");
     let running = true;
+    let animationFrameId;
 
-    // Estado del juego
-    let score = 0;
-    let lives = gameConfig.initialLives;
-    let level = 1;
+    // Inicializar referencias
+    scoreRef.current = 0;
+    livesRef.current = gameConfig.initialLives;
+    levelRef.current = 1;
 
     // Actualizar estados React
     setCurrentScore(0);
@@ -108,7 +114,7 @@ export function CanvasGame({
       return {
         x: Math.random() * (width - 40),
         y: -40,
-        speed: gameConfig.itemSpeed + Math.random() * (1 + level * 0.5),
+        speed: gameConfig.itemSpeed + Math.random() * (1 + levelRef.current * 0.5),
         size: 40,
         img: preloadedAssets.items[
           Math.floor(Math.random() * preloadedAssets.items.length)
@@ -131,7 +137,7 @@ export function CanvasGame({
       items.push(createItem());
     }
 
-    // Movimiento del mouse - MEJORADO para trabajar fuera del canvas
+    // Movimiento del mouse - GLOBAL
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -143,7 +149,7 @@ export function CanvasGame({
       );
     };
 
-    // Evento global en document para capturar movimiento fuera del canvas
+    // Evento global en document
     document.addEventListener("mousemove", handleMouseMove);
 
     // Fin del juego
@@ -152,9 +158,13 @@ export function CanvasGame({
       sounds.music.pause();
       sounds.gameOver.currentTime = 0;
       sounds.gameOver.play();
-      setFinalScore(score);
+      setFinalScore(scoreRef.current);
       setGameState("gameover");
-      onGameOver({ score, level, lives: 0 });
+      onGameOver({ 
+        score: scoreRef.current, 
+        level: levelRef.current, 
+        lives: 0 
+      });
     }
 
     // Loop del juego
@@ -202,15 +212,18 @@ export function CanvasGame({
         ) {
           sounds.catch.currentTime = 0;
           sounds.catch.play();
-          score++;
           
-          // Actualizar estados React
-          setCurrentScore(score);
-          onScoreChange(score);
+          // Incrementar score usando ref
+          scoreRef.current++;
+          
+          // Actualizar estado React (no causa re-render del useEffect)
+          setCurrentScore(scoreRef.current);
+          onScoreChange(scoreRef.current);
 
-          if (score % 10 === 0) {
-            level++;
-            setCurrentLevel(level);
+          // Subir nivel cada 10 puntos
+          if (scoreRef.current % 10 === 0) {
+            levelRef.current++;
+            setCurrentLevel(levelRef.current);
           }
 
           items[i] = createItem();
@@ -220,8 +233,10 @@ export function CanvasGame({
         if (item.y > height) {
           sounds.hit.currentTime = 0;
           sounds.hit.play();
-          lives--;
-          setCurrentLives(lives);
+          
+          livesRef.current--;
+          setCurrentLives(livesRef.current);
+          
           items[i] = createItem();
         }
       });
@@ -229,16 +244,16 @@ export function CanvasGame({
       // UI en el canvas
       ctx.fillStyle = "white";
       ctx.font = "bold 24px Arial";
-      ctx.fillText(`🎁 Puntaje: ${score}`, 15, 30);
-      ctx.fillText(`❤️ Vidas: ${lives}`, 15, 60);
-      ctx.fillText(`🔥 Nivel: ${level}`, 15, 90);
+      ctx.fillText(`🎁 Puntaje: ${scoreRef.current}`, 15, 30);
+      ctx.fillText(`❤️ Vidas: ${livesRef.current}`, 15, 60);
+      ctx.fillText(`🔥 Nivel: ${levelRef.current}`, 15, 90);
 
-      if (lives <= 0) {
+      if (livesRef.current <= 0) {
         endGame();
         return;
       }
 
-      requestAnimationFrame(gameLoop);
+      animationFrameId = requestAnimationFrame(gameLoop);
     }
 
     gameLoop();
@@ -246,20 +261,13 @@ export function CanvasGame({
     // Limpieza
     return () => {
       running = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
       document.removeEventListener("mousemove", handleMouseMove);
       sounds.music.pause();
     };
-  }, [
-    gameState,
-    gameKey,
-    width,
-    height,
-    gameConfig,
-    preloadedAssets,
-    assets.sounds,
-    onGameOver,
-    onScoreChange,
-  ]);
+  }, [gameState, gameKey]); // Solo estas dependencias
 
   // Handlers
   const handleStart = () => {
