@@ -181,31 +181,6 @@
   gap: 3rem;
 }
 
-/* Flechas simplificadas */
-.carousel-arrow {
-  background: rgba(0,0,0,0.2);
-  border: none;
-  color: white;
-  font-size: 3rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.carousel-arrow:hover {
-  background: rgba(0,0,0,0.4);
-  transform: scale(1.05);
-}
-
-.carousel-arrow--simple {
-  background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(5px);
-}
-
 .carousel-track {
   display: flex;
   gap: 3rem;
@@ -495,10 +470,7 @@
   background: rgba(0,0,0,0.5);
   color: white;
   border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 2rem;
+  font-size: 1rem;
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
@@ -506,8 +478,7 @@
 }
 
 .modal-close:hover {
-  background: rgba(0,0,0,0.8);
-  transform: rotate(90deg);
+  background: rgba(255, 56, 56, 0.8);
 }
 
 /* Story Modal */

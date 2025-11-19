@@ -121,7 +121,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
         </div>
 
         <div className="carousel-container">
-          <button className="carousel-arrow carousel-arrow--simple" onClick={prevSlide}>
+          <button onClick={prevSlide}>
             ‹
           </button>
 
@@ -162,7 +162,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
             ))}
           </div>
 
-          <button className="carousel-arrow carousel-arrow--simple" onClick={nextSlide}>
+          <button onClick={nextSlide}>
             ›
           </button>
         </div>
