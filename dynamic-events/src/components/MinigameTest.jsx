@@ -3,23 +3,11 @@ import "../styles/game.css";
 
 /**
  * CanvasGame - Componente reutilizable de juego en canvas
- * 
- * @param {Object} props
- * @param {number} props.width - Ancho del canvas
- * @param {number} props.height - Alto del canvas
- * @param {string} props.title - Título del juego
- * @param {string} props.description - Descripción del juego
- * @param {Object} props.gameConfig - Configuración del juego
- * @param {Object} props.assets - Rutas de assets (imágenes, sonidos)
- * @param {Function} props.onGameOver - Callback cuando termina el juego
- * @param {Function} props.onScoreChange - Callback cuando cambia el score
- * @param {string} props.theme - Tema visual
  */
 export function CanvasGame({
-  //Medidas del canva
   width = 700,
   height = 700,
-  title = "Minijuego", 
+  title = "Minijuego",
   description = "¡Juega y diviértete!",
   gameConfig = {
     initialLives: 5,
@@ -44,6 +32,9 @@ export function CanvasGame({
 }) {
   const canvasRef = useRef(null);
   const [gameState, setGameState] = useState("idle");
+  const [currentScore, setCurrentScore] = useState(0);
+  const [currentLives, setCurrentLives] = useState(gameConfig.initialLives);
+  const [currentLevel, setCurrentLevel] = useState(1);
   const [finalScore, setFinalScore] = useState(0);
   const [gameKey, setGameKey] = useState(0);
 
@@ -72,6 +63,8 @@ export function CanvasGame({
     if (gameState !== "playing") return;
 
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d");
     let running = true;
 
@@ -80,9 +73,14 @@ export function CanvasGame({
     let lives = gameConfig.initialLives;
     let level = 1;
 
+    // Actualizar estados React
+    setCurrentScore(0);
+    setCurrentLives(gameConfig.initialLives);
+    setCurrentLevel(1);
+
     // Jugador
     const player = {
-      x: width / 2 - 30,
+      x: width / 2 - 60,
       y: height - 70,
       width: 120,
       height: 60,
@@ -110,7 +108,7 @@ export function CanvasGame({
       return {
         x: Math.random() * (width - 40),
         y: -40,
-        speed: gameConfig.itemSpeed + Math.random() * (1 + level),
+        speed: gameConfig.itemSpeed + Math.random() * (1 + level * 0.5),
         size: 40,
         img: preloadedAssets.items[
           Math.floor(Math.random() * preloadedAssets.items.length)
@@ -133,16 +131,20 @@ export function CanvasGame({
       items.push(createItem());
     }
 
-    // Movimiento del mouse
+    // Movimiento del mouse - MEJORADO para trabajar fuera del canvas
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
+      
+      // Permite controlar incluso si el mouse está fuera del canvas
       player.x = Math.max(
         0,
         Math.min(x - player.width / 2, width - player.width)
       );
     };
-    canvas.addEventListener("mousemove", handleMouseMove);
+
+    // Evento global en document para capturar movimiento fuera del canvas
+    document.addEventListener("mousemove", handleMouseMove);
 
     // Fin del juego
     function endGame() {
@@ -201,9 +203,15 @@ export function CanvasGame({
           sounds.catch.currentTime = 0;
           sounds.catch.play();
           score++;
+          
+          // Actualizar estados React
+          setCurrentScore(score);
           onScoreChange(score);
 
-          if (score % 10 === 0) level++;
+          if (score % 10 === 0) {
+            level++;
+            setCurrentLevel(level);
+          }
 
           items[i] = createItem();
         }
@@ -213,16 +221,17 @@ export function CanvasGame({
           sounds.hit.currentTime = 0;
           sounds.hit.play();
           lives--;
+          setCurrentLives(lives);
           items[i] = createItem();
         }
       });
 
-      // UI
+      // UI en el canvas
       ctx.fillStyle = "white";
-      ctx.font = "20px Arial";
-      ctx.fillText(`🎁 Puntaje: ${score}`, 10, 25);
-      ctx.fillText(`❤️ Vidas: ${lives}`, 10, 50);
-      ctx.fillText(`🔥 Nivel: ${level}`, 10, 75);
+      ctx.font = "bold 24px Arial";
+      ctx.fillText(`🎁 Puntaje: ${score}`, 15, 30);
+      ctx.fillText(`❤️ Vidas: ${lives}`, 15, 60);
+      ctx.fillText(`🔥 Nivel: ${level}`, 15, 90);
 
       if (lives <= 0) {
         endGame();
@@ -237,7 +246,7 @@ export function CanvasGame({
     // Limpieza
     return () => {
       running = false;
-      canvas.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mousemove", handleMouseMove);
       sounds.music.pause();
     };
   }, [
@@ -272,6 +281,24 @@ export function CanvasGame({
       {/* Descripción */}
       {description && <p className="game-description">{description}</p>}
 
+      {/* Stats en vivo (fuera del canvas) */}
+      {gameState === "playing" && (
+        <div className="game-live-stats">
+          <div className="game-live-stat">
+            <span className="game-live-stat__label">Puntaje</span>
+            <span className="game-live-stat__value">{currentScore}</span>
+          </div>
+          <div className="game-live-stat">
+            <span className="game-live-stat__label">Vidas</span>
+            <span className="game-live-stat__value">{currentLives}</span>
+          </div>
+          <div className="game-live-stat">
+            <span className="game-live-stat__label">Nivel</span>
+            <span className="game-live-stat__value">{currentLevel}</span>
+          </div>
+        </div>
+      )}
+
       {/* Canvas */}
       <canvas
         ref={canvasRef}
@@ -294,7 +321,7 @@ export function CanvasGame({
         {gameState === "gameover" && (
           <>
             <p className="game-description">
-              ¡Juego terminado! Tu puntaje: <strong>{finalScore}</strong>
+              ¡Juego terminado! Tu puntaje final: <strong>{finalScore}</strong>
             </p>
             <button
               onClick={handleRestart}
@@ -309,15 +336,15 @@ export function CanvasGame({
   );
 }
 
-// Componente específico del minijuego navideño (mantiene compatibilidad)
-export function MinigameTest() {
+// Componente específico del minijuego navideño
+export function MinigameTest({ onGameOver, onScoreChange }) {
   return (
     <CanvasGame
-      title="🎄 Atrapa los Regalos Navideños"
-      description="¡Mueve el trineo con el mouse y atrapa todos los regalos que puedas!"
+      title=""
+      description=""
       theme="christmas"
-      onGameOver={(stats) => console.log("Game Over:", stats)}
-      onScoreChange={(score) => console.log("Score:", score)}
+      onGameOver={onGameOver}
+      onScoreChange={onScoreChange}
     />
   );
 }

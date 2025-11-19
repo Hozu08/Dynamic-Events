@@ -4,7 +4,7 @@
 
 .chat-page {
   min-height: 100vh;
-  background: white;
+  background: linear-gradient(180deg, #e8f4f8 0%, #f5f5dc 100%);
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -90,6 +90,21 @@
   margin-bottom: 0;
 }
 
+/* Imagen de Santa en hero */
+.chat-page__hero-santa-wrapper {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-page__hero-santa-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .chat-page__hero-santa {
   font-size: 8rem;
 }
@@ -105,7 +120,7 @@
 .chat-page__chat-wrapper {
   width: 100%;
   max-width: 1200px;
-  background: slategray;
+  background: white;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   overflow: hidden;
@@ -125,6 +140,7 @@
   border: 2px solid #e8e8e8;
   border-radius: 10px;
   padding: 2rem;
+  overflow-y: auto; /* Asegura el scroll */
 }
 
 .chat-page__chat-wrapper .chat-input {
@@ -171,6 +187,11 @@
 
   .chat-page__hero-title {
     font-size: 1.5rem;
+  }
+
+  .chat-page__hero-santa-wrapper {
+    width: 150px;
+    height: 150px;
   }
 
   .chat-page__hero-santa {

@@ -36,7 +36,22 @@ export function ChatPage({ onBack, selectedTheme = null }) {
                 : "¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! Aquí tú y yo escribiremos juntos una historia mágica de Navidad. Escribe tu primera frase para comenzar la aventura."}
             </p>
           </div>
-          <div className="chat-page__hero-santa">🎅</div>
+          
+          {/* Imagen de Santa */}
+          <div className="chat-page__hero-santa-wrapper">
+            <img 
+              src="/images/santa.png" 
+              alt="Santa Claus"
+              className="chat-page__hero-santa-img"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                const emojiDiv = document.createElement('div');
+                emojiDiv.className = 'chat-page__hero-santa';
+                emojiDiv.textContent = '🎅';
+                e.target.parentElement.appendChild(emojiDiv);
+              }}
+            />
+          </div>
         </div>
       </section>
 
@@ -64,7 +79,6 @@ export function ChatPage({ onBack, selectedTheme = null }) {
             maxMessagesHeight="400px"
             onFinish={(messages) => {
               console.log("Historia completa:", messages);
-              // Aquí podrías mostrar un resumen o guardar la historia
             }}
             onReset={() => {
               console.log("Chat reiniciado");

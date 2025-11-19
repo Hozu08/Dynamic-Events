@@ -10,6 +10,8 @@ import "../styles/ChristmasLanding.css";
  */
 export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [showThemeModal, setShowThemeModal] = useState(false);
+  const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
 
   // Temas disponibles para las historias
   const themes = [
@@ -19,7 +21,8 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
       icon: "🎁",
       color: "green",
       description: "Un elfo que perdió un regalo importante",
-      image: "/images/theme-gift.png" // Opcional
+      story: "En el taller del Polo Norte, el elfo Timmy había perdido el regalo más importante de la temporada: un osito de peluche mágico que podía hablar y contar historias. Este regalo estaba destinado a una niña llamada Emma, quien había pedido un amigo que nunca la dejara sola. Timmy buscó por todo el taller, entre cajas y papeles de regalo, pero no lo encontró. Con lágrimas en sus ojos, decidió pedirle ayuda a sus amigos elfos. Juntos, buscaron en cada rincón hasta que finalmente lo encontraron en el trineo de Santa, quien lo había guardado porque sabía lo especial que era. Emma recibió su regalo en Navidad y nunca estuvo sola de nuevo.",
+      image: "/images/theme-gift.png"
     },
     {
       id: 2,
@@ -27,7 +30,8 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
       icon: "🎄",
       color: "brown",
       description: "Una estrella mágica que guía a los duendes",
-      image: "/images/theme-tree.png" // Opcional
+      story: "En lo alto del árbol de Navidad del Polo Norte brillaba una estrella especial. Esta estrella no era como las demás; tenía el poder de guiar a los duendes cuando se perdían en la noche nevada. Una noche, tres duendes jóvenes salieron a buscar piñas para decorar, pero una tormenta de nieve los desorientó. La estrella comenzó a brillar más fuerte que nunca, creando un camino de luz dorada que los guió de regreso a casa. Desde entonces, los duendes siempre miraban la estrella antes de salir, sabiendo que ella los protegería. La estrella se convirtió en el símbolo de esperanza del Polo Norte.",
+      image: "/images/theme-tree.png"
     },
     {
       id: 3,
@@ -35,7 +39,8 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
       icon: "⛄",
       color: "red",
       description: "Un pueblo sin nieve en víspera de Navidad",
-      image: "/images/theme-snowman.png" // Opcional
+      story: "El pueblo de Villa Esperanza nunca había pasado una Navidad sin nieve, pero ese año el clima había cambiado. Los niños estaban tristes porque no podrían hacer muñecos de nieve ni tener una blanca Navidad. La pequeña Luna decidió escribirle a Santa pidiéndole, no juguetes, sino nieve para su pueblo. Santa leyó la carta y se conmovió tanto que pidió ayuda a Jack Frost, el espíritu del invierno. Juntos crearon una tormenta mágica que cubrió el pueblo con la nieve más brillante que habían visto. Los niños despertaron en Navidad con un paisaje blanco y mágico, y Luna aprendió que la generosidad es el mejor regalo.",
+      image: "/images/theme-snowman.png"
     }
   ];
 
@@ -62,15 +67,31 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
     }
   };
 
+  // Abrir modal de tema
+  const openThemeModal = (theme) => {
+    setSelectedThemeForModal(theme);
+    setShowThemeModal(true);
+  };
+
+  // Cerrar modal
+  const closeThemeModal = () => {
+    setShowThemeModal(false);
+    setSelectedThemeForModal(null);
+  };
+
   return (
     <div className="christmas-landing">
       {/* HEADER */}
       <header className="christmas-header">
         <div className="christmas-logo">Dynamic Events</div>
         <nav className="christmas-nav">
-          <button className="nav-pill nav-pill--active">Temporadas</button>
-          <button className="nav-pill">Historias IA</button>
-          <button className="nav-pill">Minijuegos</button>
+          <button className="nav-pill">Temporadas</button>
+          <button className="nav-pill" onClick={() => goToChat()}>
+            Historias IA
+          </button>
+          <button className="nav-pill" onClick={goToGame}>
+            Minijuegos
+          </button>
         </nav>
       </header>
 
@@ -91,8 +112,16 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
 
       {/* CAROUSEL DE TEMAS */}
       <section className="carousel-section">
+        <div className="carousel-header">
+          <h2 className="carousel-title">Historias Mágicas de Navidad</h2>
+          <p className="carousel-description">
+            Descubre historias encantadoras llenas de espíritu navideño. 
+            Haz clic en una para leer su cuento mágico.
+          </p>
+        </div>
+
         <div className="carousel-container">
-          <button className="carousel-arrow" onClick={prevSlide}>
+          <button className="carousel-arrow carousel-arrow--simple" onClick={prevSlide}>
             ‹
           </button>
 
@@ -101,7 +130,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
               <div
                 key={theme.id}
                 className={`theme-card theme-card--${theme.color}`}
-                onClick={() => goToChat(theme)}
+                onClick={() => openThemeModal(theme)}
                 style={{
                   transform: `translateX(-${carouselIndex * 110}%)`,
                   transition: "transform 0.5s ease"
@@ -114,7 +143,6 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
                     alt={theme.title}
                     className="theme-card__image"
                     onError={(e) => {
-                      // Fallback al emoji si la imagen falla
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'block';
                     }}
@@ -134,7 +162,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
             ))}
           </div>
 
-          <button className="carousel-arrow" onClick={nextSlide}>
+          <button className="carousel-arrow carousel-arrow--simple" onClick={nextSlide}>
             ›
           </button>
         </div>
@@ -165,9 +193,11 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
                 src="/images/santa.png" 
                 alt="Santa Claus"
                 onError={(e) => {
-                  // Fallback al emoji si la imagen no existe
                   e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<div class="santa-card__image">🎅</div>';
+                  const emojiDiv = document.createElement('div');
+                  emojiDiv.className = 'santa-card__image';
+                  emojiDiv.textContent = '🎅';
+                  e.target.parentElement.appendChild(emojiDiv);
                 }}
               />
             </div>
@@ -234,6 +264,33 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
         <button className="footer-button">Políticas</button>
         <button className="footer-button">Conócenos</button>
       </footer>
+
+      {/* MODAL DE HISTORIA */}
+      {showThemeModal && selectedThemeForModal && (
+        <div className="modal-overlay" onClick={closeThemeModal}>
+          <div className="modal-content modal-content--story" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeThemeModal}>
+              ×
+            </button>
+            <div className="story-modal">
+              <div className="story-modal__header">
+                <span className="story-modal__icon">{selectedThemeForModal.icon}</span>
+                <h2 className="story-modal__title">{selectedThemeForModal.title}</h2>
+              </div>
+              <p className="story-modal__text">{selectedThemeForModal.story}</p>
+              <button 
+                className="story-modal__button"
+                onClick={() => {
+                  closeThemeModal();
+                  goToChat(selectedThemeForModal);
+                }}
+              >
+                Crear mi propia versión de esta historia
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

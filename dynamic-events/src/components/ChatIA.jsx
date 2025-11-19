@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/game.css";
+import "../styles/chat.css";
 
 /**
  * ChatIA - Componente reutilizable de chat con IA
@@ -123,15 +123,18 @@ export function ChatIA({
   return (
     <div className="chat-container chat-container--centered">
       {/* Título */}
-      <h1>{title}</h1>
+      {title && <h1>{title}</h1>}
 
       {/* Descripción */}
       {description && <p>{description}</p>}
 
-      {/* Área de mensajes */}
+      {/* Área de mensajes con scroll automático */}
       <div
         className={`chat-messages chat-messages--${theme}`}
-        style={{ height: maxMessagesHeight }}
+        style={{ 
+          height: maxMessagesHeight,
+          overflowY: "auto" // Asegura que siempre tenga scroll si es necesario
+        }}
       >
         {messages.map((msg, i) => ( 
           <div

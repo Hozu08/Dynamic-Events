@@ -110,17 +110,6 @@
   pointer-events: none;
 }
 
-/* Fallback si no hay imagen */
-/* .hero-illustration:empty::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 500'%3E%3Cpolygon points='80,400 130,280 180,400' fill='%232d5a3d'/%3E%3Cpolygon points='130,300 180,200 230,300' fill='%233a6f4a'/%3E%3Cpolygon points='200,400 250,280 300,400' fill='%232d5a3d'/%3E%3Cpolygon points='250,300 300,200 350,300' fill='%233a6f4a'/%3E%3Cpolygon points='380,300 440,220 500,300 500,400 380,400' fill='%23c41e3a'/%3E%3Cpolygon points='380,300 440,220 500,300' fill='%23a01729'/%3E%3Crect x='420' y='340' width='60' height='60' fill='%238b4513'/%3E%3Crect x='430' y='290' width='20' height='20' fill='%23ffd700'/%3E%3Crect x='465' y='290' width='20' height='20' fill='%23ffd700'/%3E%3Cpolygon points='1740,400 1790,280 1840,400' fill='%232d5a3d'/%3E%3Cpolygon points='1790,300 1840,200 1890,300' fill='%233a6f4a'/%3E%3Cpolygon points='1620,400 1670,280 1720,400' fill='%232d5a3d'/%3E%3Cpolygon points='1670,300 1720,200 1770,300' fill='%233a6f4a'/%3E%3Cpolygon points='1420,300 1480,220 1540,300 1540,400 1420,400' fill='%23c41e3a'/%3E%3Cpolygon points='1420,300 1480,220 1540,300' fill='%23a01729'/%3E%3Crect x='1460' y='340' width='60' height='60' fill='%238b4513'/%3E%3Crect x='1470' y='290' width='20' height='20' fill='%23ffd700'/%3E%3Crect x='1505' y='290' width='20' height='20' fill='%23ffd700'/%3E%3Cpolygon points='860,340 920,280 980,340 980,400 860,400' fill='%23d2691e'/%3E%3Cpolygon points='860,340 920,280 980,340' fill='%238b4513'/%3E%3Crect x='900' y='360' width='40' height='40' fill='%23654321'/%3E%3Crect x='910' y='320' width='20' height='20' fill='%23ffd700'/%3E%3Cellipse cx='960' cy='430' rx='960' ry='70' fill='%23f5f5dc'/%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: bottom;
-} */
-
 .hero-content {
   position: relative;
   z-index: 10;
@@ -145,6 +134,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  color: white;
 }
 
 .hero-button:hover {
@@ -164,6 +154,26 @@
   margin: 0 auto;
 }
 
+.carousel-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.carousel-title {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.carousel-description {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
 .carousel-container {
   position: relative;
   display: flex;
@@ -171,8 +181,9 @@
   gap: 3rem;
 }
 
+/* Flechas simplificadas */
 .carousel-arrow {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.2);
   border: none;
   color: white;
   font-size: 3rem;
@@ -182,11 +193,17 @@
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .carousel-arrow:hover {
-  background: rgba(0,0,0,0.6);
-  transform: scale(1.1);
+  background: rgba(0,0,0,0.4);
+  transform: scale(1.05);
+}
+
+.carousel-arrow--simple {
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
 }
 
 .carousel-track {
@@ -439,7 +456,7 @@
 }
 
 /* ==========================================
-   MODAL (solo para minijuego)
+   MODAL DE HISTORIA
    ========================================== */
 .modal-overlay {
   position: fixed;
@@ -453,6 +470,7 @@
   align-items: center;
   z-index: 2000;
   animation: fadeIn 0.3s ease;
+  padding: 2rem;
 }
 
 .modal-content {
@@ -463,6 +481,11 @@
   overflow-y: auto;
   position: relative;
   animation: slideUp 0.3s ease;
+}
+
+.modal-content--story {
+  max-width: 700px;
+  padding: 3rem;
 }
 
 .modal-close {
@@ -479,11 +502,57 @@
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
+  line-height: 1;
 }
 
 .modal-close:hover {
   background: rgba(0,0,0,0.8);
   transform: rotate(90deg);
+}
+
+/* Story Modal */
+.story-modal__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.story-modal__icon {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.story-modal__title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.story-modal__text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  text-align: justify;
+  margin-bottom: 2rem;
+}
+
+.story-modal__button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.story-modal__button:hover {
+  background: #a01729;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 @keyframes fadeIn {
@@ -542,6 +611,14 @@
     font-size: 2rem;
   }
 
+  .carousel-title {
+    font-size: 2rem;
+  }
+
+  .carousel-description {
+    font-size: 1rem;
+  }
+
   .carousel-track {
     gap: 1rem;
   }
@@ -563,6 +640,14 @@
   .christmas-footer {
     flex-direction: column;
   }
+
+  .modal-content--story {
+    padding: 2rem;
+  }
+
+  .story-modal__text {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -581,5 +666,17 @@
 
   .santa-card__image {
     font-size: 8rem;
+  }
+
+  .carousel-title {
+    font-size: 1.5rem;
+  }
+
+  .story-modal__icon {
+    font-size: 3rem;
+  }
+
+  .story-modal__title {
+    font-size: 1.5rem;
   }
 }

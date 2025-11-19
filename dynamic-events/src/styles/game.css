@@ -58,6 +58,42 @@
   line-height: 1.6;
 }
 
+/* Stats en vivo (fuera del canvas) */
+.game-live-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-live-stat {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-live-stat__label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.game-live-stat__value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
 /* ==========================================
    SKINS (Apariencia/Temas)
@@ -153,6 +189,23 @@
   animation: pulse 2s infinite;
 }
 
+/* Animación para stats */
+@keyframes statPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-live-stat__value {
+  animation: statPop 0.3s ease;
+}
+
 
 /* ==========================================
    MODIFICADORES DE UTILIDAD
@@ -215,6 +268,19 @@
   .game-controls {
     width: 90%;
   }
+
+  .game-live-stats {
+    gap: 1rem;
+  }
+
+  .game-live-stat {
+    padding: 0.8rem 1.5rem;
+    min-width: 100px;
+  }
+
+  .game-live-stat__value {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -225,5 +291,22 @@
   .game-button {
     min-width: 120px;
     font-size: 0.9rem;
+  }
+
+  .game-live-stats {
+    gap: 0.5rem;
+  }
+
+  .game-live-stat {
+    padding: 0.6rem 1rem;
+    min-width: 80px;
+  }
+
+  .game-live-stat__label {
+    font-size: 0.8rem;
+  }
+
+  .game-live-stat__value {
+    font-size: 1.3rem;
   }
 }
