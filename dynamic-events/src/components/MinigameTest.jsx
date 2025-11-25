@@ -12,8 +12,8 @@ export function CanvasGame({
   gameConfig = {
     initialLives: 5,
     itemSpeed: 1,
-    snowflakeCount: 20,
-    itemsToSpawn: 2,
+    snowflakeCount: 5,
+    itemsToSpawn: 3,
   },
   assets = {
     player: "/images/sled.png",
