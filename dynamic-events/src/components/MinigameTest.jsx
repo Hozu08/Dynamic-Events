@@ -102,7 +102,7 @@ export function CanvasGame({
     livesRef.current = gameConfig.initialLives;
     levelRef.current = 1;
     pausedRef.current = false;
-    countdownRef.current = 3;
+    countdownRef.current = null; // Sin cuenta regresiva al iniciar
     showingGameOverRef.current = false;
 
     // Actualizar estados React
@@ -192,11 +192,12 @@ export function CanvasGame({
       }
     };
 
-    // Función para crear item con dificultad PROGRESIVA
+    // Función para crear item con dificultad PROGRESIVA (velocidad aumenta)
     function createItem() {
-      const levelMultiplier = 0.4;
+      // Dificultad basada en velocidad, no en cantidad
+      const levelMultiplier = 0.5; // Incremento de velocidad por nivel
       const baseSpeed = gameConfig.itemSpeed + (levelRef.current * levelMultiplier);
-      const minorVariation = Math.random() * 0.3;
+      const minorVariation = Math.random() * 0.2; // Variación mínima
       
       return {
         x: Math.random() * (width - 40),
@@ -245,8 +246,8 @@ export function CanvasGame({
       });
     }
 
-    // Items iniciales
-    const initialItems = Math.min(gameConfig.itemsToSpawn + Math.floor(levelRef.current / 2), 6);
+    // Items iniciales (cantidad fija, no aumenta por nivel)
+    const initialItems = gameConfig.itemsToSpawn;
     for (let i = 0; i < initialItems; i++) {
       items.push(createItem());
     }
@@ -326,15 +327,15 @@ export function CanvasGame({
       }
     }
 
-    // Spawn de power-ups
+    // Spawn de power-ups más frecuente
     let lastPowerupSpawn = Date.now();
     function trySpawnPowerup() {
       const now = Date.now();
-      const spawnInterval = 12000 - (levelRef.current * 400);
-      const minInterval = 6000;
+      const spawnInterval = 8000 - (levelRef.current * 200); // Más frecuente (antes 12000)
+      const minInterval = 4000; // Mínimo 4 segundos (antes 6000)
       
       if (now - lastPowerupSpawn > Math.max(spawnInterval, minInterval)) {
-        if (Math.random() < 0.7 && powerups.length < 2) {
+        if (Math.random() < 0.8 && powerups.length < 2) { // 80% probabilidad (antes 70%)
           powerups.push(createPowerup());
           lastPowerupSpawn = now;
         }
@@ -562,13 +563,7 @@ export function CanvasGame({
             levelRef.current++;
             setCurrentLevel(levelRef.current);
             
-            const maxItems = Math.min(
-              gameConfig.itemsToSpawn + Math.floor(levelRef.current / 2), 
-              8
-            );
-            if (items.length < maxItems) {
-              items.push(createItem());
-            }
+            // NO aumentar cantidad de items, solo la velocidad aumenta
           }
 
           items[i] = createItem();
@@ -706,22 +701,6 @@ export function CanvasGame({
       {title && <h1 className="game-title">{title}</h1>}
       {description && <p className="game-description">{description}</p>}
 
-      {gameState === "playing" && (
-        <div className="game-live-stats">
-          <div className="game-live-stat">
-            <span className="game-live-stat__label">Puntaje</span>
-            <span className="game-live-stat__value">{currentScore}</span>
-          </div>
-          <div className="game-live-stat">
-            <span className="game-live-stat__label">Vidas</span>
-            <span className="game-live-stat__value">{currentLives}</span>
-          </div>
-          <div className="game-live-stat">
-            <span className="game-live-stat__label">Nivel</span>
-            <span className="game-live-stat__value">{currentLevel}</span>
-          </div>
-        </div>
-      )}
 
       <canvas
         ref={canvasRef}
