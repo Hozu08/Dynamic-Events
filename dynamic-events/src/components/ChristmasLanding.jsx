@@ -188,7 +188,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
                 ¡Estoy listo para vivir esta aventura contigo!
               </div>
               <Button variant="primary" size="lg" className="santa-card__button" onClick={() => goToChat()}>
-                Click aquí
+                Comienza tu historia
               </Button>
             </div>
             

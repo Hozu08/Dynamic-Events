@@ -71,7 +71,12 @@
 }
 
 .hero__subtitle--light {
-  color: rgba(255, 255, 255, 0.9);
+    color: #f5f5dc;
+    background-color: #2d5a3d;
+    padding: 10px;
+    border: 1px solid #f5f5dc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */
