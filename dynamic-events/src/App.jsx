@@ -36,18 +36,23 @@ function App() {
         <ChristmasLanding 
           onNavigateToChat={navigateToChat}
           onNavigateToGame={navigateToGame}
+          onNavigateToLanding={navigateToLanding}
         />
       )}
 
       {currentPage === "chat" && (
         <ChatPage 
-          onBack={navigateToLanding} 
+          onBack={navigateToLanding}
+          onNavigateToGame={navigateToGame}
           selectedTheme={selectedTheme}
         />
       )}
 
       {currentPage === "game" && (
-        <GamePage onBack={navigateToLanding} />
+        <GamePage 
+          onBack={navigateToLanding}
+          onNavigateToChat={navigateToChat}
+        />
       )}
     </>
   );

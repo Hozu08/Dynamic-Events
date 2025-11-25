@@ -1,0 +1,126 @@
+/* ==========================================
+   BUTTON - OOCSS
+   Separación: Estructura | Skin
+   ========================================== */
+
+/* ESTRUCTURA (Layout) */
+.btn {
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Tamaños (Estructura) */
+.btn--sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn--md {
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+}
+
+.btn--lg {
+  padding: 1.2rem 3.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* SKIN (Apariencia) */
+.btn--primary {
+  background: #2d5a3d;
+  color: white;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #234a2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn--secondary {
+  background: #dc3545;
+  color: white;
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+.btn--pill {
+  background: #e8e8e8;
+  color: #2c3e50;
+}
+
+.btn--pill:hover:not(:disabled) {
+  background: #2d5a3d;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn--pill.nav-pill--active,
+.nav-pill--active.btn--pill {
+  background: #2d5a3d !important;
+  color: white !important;
+}
+
+.btn--accent {
+  background: #c41e3a;
+  color: white;
+}
+
+.btn--accent:hover:not(:disabled) {
+  background: #a01729;
+  transform: scale(1.05);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 2px solid #2d5a3d;
+  color: #2d5a3d;
+}
+
+.btn--outline:hover:not(:disabled) {
+  background: #f5f5dc;
+  color: #2d5a3d;
+  border-color: #2d5a3d;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: white;
+  color: #2d5a3d;
+  transform: translateY(-2px);
+}
+
+/* Estados */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn--lg {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}
+

@@ -1,9 +1,9 @@
 /* ==========================================
-   LANDING PAGE - CHRISTMAS ADVENTURE
-   Full Width 1920px + Custom Images
+   CHRISTMAS LANDING - OOCSS
+   Separación: Estructura | Skin
    ========================================== */
 
-/* Variables */
+/* Variables globales */
 :root {
   --color-primary: #2d5a3d;
   --color-secondary: #8b4513;
@@ -15,143 +15,66 @@
   --max-width: 1920px;
 }
 
-/* Reset y base */
+/* Reset base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ==========================================
+   ESTRUCTURA (Layout)
+   ========================================== */
+
 /* Container principal */
 .christmas-landing {
   min-height: 100vh;
-  background: var(--bg-light);
-  font-family: 'Arial', sans-serif;
   width: 100vw;
+  font-family: 'Arial', sans-serif;
 }
 
-/* ==========================================
-   HEADER / NAVBAR
-   ========================================== */
-.christmas-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 4rem;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* Secciones */
+.landing-section {
   max-width: var(--max-width);
   margin: 0 auto;
+}
+
+.landing-section--padding {
+  padding: 4rem 3rem;
+}
+
+/* Header unificado - usa estilos base */
+.christmas-header {
+  max-width: var(--max-width);
 }
 
 .christmas-logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--color-primary);
-  letter-spacing: 0.5px;
+  /* Hereda de header__logo--primary */
 }
 
 .christmas-nav {
-  display: flex;
-  gap: 1.5rem;
+  /* Hereda de header__nav */
 }
 
-.nav-pill {
-  padding: 0.6rem 2rem;
-  border-radius: 25px;
-  border: none;
-  background: #e8e8e8;
-  color: var(--text-dark);
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-pill:hover {
-  background: var(--color-primary);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.nav-pill--active {
-  background: var(--color-primary);
-  color: white;
-}
-
-/* ==========================================
-   HERO SECTION
-   ========================================== */
+/* Hero específico */
 .christmas-hero {
-  position: relative;
-  height: 500px;
-  background: linear-gradient(180deg, #87ceeb 0%, #e8f4f8 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
-/* Fondo con imagen personalizada */
 .hero-illustration {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url('/images/hero-background.png');
   background-size: cover;
   background-position: bottom center;
   background-repeat: no-repeat;
   pointer-events: none;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  color: var(--bg-light);
-  margin-bottom: 1.5rem;
-  text-shadow: 3px 3px 5px var(--color-primary);
-  font-weight: 700;
-}
-
-.hero-button {
-  padding: 1.2rem 3.5rem;
-  background: var(--color-primary);
-  border: 2px solid var(--text-dark);
-  border-radius: 30px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  color: white;
-}
-
-.hero-button:hover {
-  background: var(--bg-light);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-}
-
-/* ==========================================
-   CAROUSEL SECTION
-   ========================================== */
+/* Carrusel */
 .carousel-section {
-  padding: 4rem 3rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  /* Usa landing-section--padding */
 }
 
 .carousel-header {
@@ -161,104 +84,37 @@
 
 .carousel-title {
   font-size: 2.5rem;
-  color: var(--color-primary);
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .carousel-description {
   font-size: 1.2rem;
-  color: var(--text-dark);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
 .carousel-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 3rem;
+  /* Usa carousel base */
 }
 
 .carousel-track {
-  display: flex;
-  gap: 3rem;
-  overflow: hidden;
-  flex: 1;
+  /* Usa carousel__track base */
 }
 
-.theme-card {
-  min-width: 350px;
-  height: 400px;
-  border-radius: var(--border-radius);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.theme-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.theme-card--green {
-  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
-}
-
-.theme-card--brown {
-  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
-}
-
-.theme-card--red {
-  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
-}
-
-/* Imagen del tema (si existe) */
-.theme-card__image {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-
-.theme-card__icon {
-  font-size: 10rem;
-  margin-bottom: 1rem;
-}
-
-.theme-card__title {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* ==========================================
-   SANTA SECTION
-   ========================================== */
+/* Santa Section */
 .santa-section {
-  padding: 4rem 3rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .santa-card {
-  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
   border-radius: var(--border-radius);
   padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .santa-card__inner {
-  background: white;
   border-radius: 15px;
   padding: 3rem;
   display: flex;
@@ -271,34 +127,13 @@
 }
 
 .santa-card__message {
-  background: #f5deb3;
   padding: 2rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
-  font-style: italic;
-  color: var(--text-dark);
   line-height: 1.8;
   font-size: 1.1rem;
 }
 
-.santa-card__button {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: 1rem 2.5rem;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.santa-card__button:hover {
-  background: #234a2f;
-  transform: scale(1.05);
-}
-
-/* Imagen de Santa */
 .santa-card__image-wrapper {
   width: 250px;
   height: 250px;
@@ -317,18 +152,13 @@
   font-size: 12rem;
 }
 
-/* ==========================================
-   MINIGAMES SECTION
-   ========================================== */
+/* Minigames */
 .minigames-section {
-  padding: 4rem 3rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  /* Usa landing-section--padding */
 }
 
 .minigames-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
 }
 
@@ -340,31 +170,10 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
   position: relative;
   overflow: hidden;
 }
 
-.minigame-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.minigame-card--green {
-  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
-}
-
-.minigame-card--brown {
-  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
-}
-
-.minigame-card--red {
-  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
-}
-
-/* Preview del minijuego con imagen */
 .minigame-card__preview {
   position: absolute;
   top: 1.5rem;
@@ -372,7 +181,6 @@
   transform: translateX(-50%);
   width: 80%;
   height: 65%;
-  background: rgba(0,0,0,0.3);
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -392,19 +200,15 @@
   color: white;
   font-size: 1.3rem;
   font-weight: bold;
-  background: rgba(0,0,0,0.4);
   padding: 0.7rem 2rem;
   border-radius: 25px;
   position: relative;
   z-index: 10;
 }
 
-/* ==========================================
-   FOOTER
-   ========================================== */
+/* Footer */
 .christmas-footer {
   padding: 2.5rem;
-  background: var(--color-primary);
   display: flex;
   justify-content: center;
   gap: 2.5rem;
@@ -414,9 +218,6 @@
 
 .footer-button {
   padding: 1rem 2.5rem;
-  background: rgba(255,255,255,0.2);
-  border: 2px solid white;
-  color: white;
   border-radius: 30px;
   font-weight: 600;
   font-size: 1.1rem;
@@ -424,64 +225,25 @@
   transition: all 0.3s ease;
 }
 
-.footer-button:hover {
-  background: white;
-  color: var(--color-primary);
-  transform: translateY(-2px);
+/* Theme Card específico */
+.theme-card {
+  /* Usa card--lg base */
+  justify-content: space-between;
 }
 
-/* ==========================================
-   MODAL DE HISTORIA
-   ========================================== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  animation: fadeIn 0.3s ease;
-  padding: 2rem;
+.theme-card__image {
+  /* Usa card__image base */
 }
 
-.modal-content {
-  background: white;
-  border-radius: var(--border-radius);
-  max-width: 95vw;
-  max-height: 95vh;
-  overflow-y: auto;
-  position: relative;
-  animation: slideUp 0.3s ease;
+.theme-card__icon {
+  /* Usa card__icon base */
 }
 
-.modal-content--story {
-  max-width: 700px;
-  padding: 3rem;
+.theme-card__title {
+  /* Usa card__title base */
 }
 
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease;
-  line-height: 1;
-}
-
-.modal-close:hover {
-  background: rgba(255, 56, 56, 0.8);
-}
-
-/* Story Modal */
+/* Story Modal específico */
 .story-modal__header {
   text-align: center;
   margin-bottom: 2rem;
@@ -495,14 +257,12 @@
 
 .story-modal__title {
   font-size: 2rem;
-  color: var(--color-primary);
   margin-bottom: 0.5rem;
 }
 
 .story-modal__text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: var(--text-dark);
   text-align: justify;
   margin-bottom: 2rem;
 }
@@ -510,9 +270,6 @@
 .story-modal__button {
   width: 100%;
   padding: 1rem 2rem;
-  background: var(--color-accent);
-  color: white;
-  border: none;
   border-radius: 30px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -520,31 +277,91 @@
   transition: all 0.3s ease;
 }
 
+/* ==========================================
+   SKIN (Apariencia)
+   ========================================== */
+
+/* Backgrounds */
+.christmas-landing {
+  background: var(--bg-light);
+}
+
+/* Hero */
+.christmas-hero {
+  background: linear-gradient(180deg, #87ceeb 0%, #e8f4f8 100%);
+}
+
+.hero-title {
+  color: var(--bg-light);
+  text-shadow: 3px 3px 5px var(--color-primary);
+}
+
+/* Cards */
+.santa-card {
+  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.santa-card__inner {
+  background: white;
+}
+
+.santa-card__message {
+  background: #f5deb3;
+  font-style: italic;
+  color: var(--text-dark);
+}
+
+.minigame-card__preview {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.minigame-card__title {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Footer */
+.christmas-footer {
+  background: var(--color-primary);
+}
+
+.footer-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+}
+
+.footer-button:hover {
+  background: white;
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Story Modal */
+.story-modal__title {
+  color: var(--color-primary);
+}
+
+.story-modal__text {
+  color: var(--text-dark);
+}
+
+.story-modal__button {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+}
+
 .story-modal__button:hover {
   background: #a01729;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* ==========================================
    RESPONSIVE
    ========================================== */
+
 @media (max-width: 1600px) {
   :root {
     --max-width: 1400px;
@@ -555,11 +372,11 @@
   :root {
     --max-width: 100%;
   }
-  
+
   .minigames-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .theme-card {
     min-width: 300px;
     height: 350px;
@@ -567,12 +384,8 @@
 }
 
 @media (max-width: 768px) {
-  .christmas-header {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
+  /* Responsive del header manejado por estilos base */
+  
   .christmas-nav {
     flex-wrap: wrap;
     justify-content: center;

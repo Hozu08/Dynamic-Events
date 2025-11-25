@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { MinigameTest } from "./MinigameTest";
+import { Header } from "./base/Header";
+import { Button } from "./base/Button";
+import "../styles/ChristmasLanding.css";
 import "../styles/GamePage.css";
+import "../styles/base/utilities.css";
 
 /**
  * GamePage - Página completa para el minijuego
  * 
  * @param {Object} props
  * @param {Function} props.onBack - Callback para volver a la landing
+ * @param {Function} props.onNavigateToChat - Callback para navegar al chat
  */
-export function GamePage({ onBack }) {
+export function GamePage({ onBack, onNavigateToChat }) {
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem('christmasGameHighScore')) || 0
   );
@@ -30,35 +35,42 @@ export function GamePage({ onBack }) {
 
   // Manejar cambios de score
   const handleScoreChange = (score) => {
-    // Actualizar high score en tiempo real si es necesario
     if (score > highScore) {
       setHighScore(score);
     }
   };
 
   return (
-    <div className="game-page">
+    <div className="christmas-landing">
       {/* HEADER */}
-      <header className="game-page__header">
-        <div className="game-page__logo">Dynamic Events</div>
-        <button className="game-page__back-button" onClick={onBack}>
-          ← Volver al inicio
-        </button>
-      </header>
+      <Header
+        logo="Dynamic Events"
+        className="christmas-header"
+        sticky
+        variant="light"
+        onLogoClick={onBack}
+      >
+        <Button variant="pill" size="md" onClick={onBack}>Temporadas</Button>
+        <Button variant="pill" size="md" onClick={onNavigateToChat}>Historias IA</Button>
+        <Button variant="pill" size="md" className="nav-pill--active">Minijuegos</Button>
+      </Header>
 
       {/* HERO */}
-      <section className="game-page__hero">
-        <h1 className="game-page__hero-title">
-          🎄 Atrapa los Regalos Navideños 🎁
-        </h1>
-        <p className="game-page__hero-description">
-          ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
-          Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
-        </p>
+      <section className="christmas-hero hero hero--gradient-sky">
+        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
+        <div className="hero__content">
+          <h1 className="hero__title hero__title--light">
+            🎄 Atrapa los Regalos Navideños 🎁
+          </h1>
+          <p className="hero__subtitle hero__subtitle--light" style={{ fontSize: "1.3rem", maxWidth: "800px", margin: "0 auto" }}>
+            ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
+            Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
+          </p>
+        </div>
       </section>
 
       {/* ÁREA DEL JUEGO */}
-      <section className="game-page__content">
+      <section className="landing-section landing-section--padding">
         <div className="game-page__game-wrapper">
           <MinigameTest 
             onGameOver={handleGameOver}
@@ -91,6 +103,13 @@ export function GamePage({ onBack }) {
           </ul>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
+        <Button variant="ghost" size="md" className="footer-button">Instrucciones</Button>
+        <Button variant="ghost" size="md" className="footer-button">Políticas</Button>
+        <Button variant="ghost" size="md" className="footer-button">Conócenos</Button>
+      </footer>
     </div>
   );
 }

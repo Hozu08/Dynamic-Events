@@ -1,0 +1,112 @@
+/* ==========================================
+   CARD - OOCSS
+   Separación: Estructura | Skin
+   ========================================== */
+
+/* ESTRUCTURA (Layout) */
+.card {
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card--interactive {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card--interactive:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Tamaños */
+.card--sm {
+  min-width: 250px;
+  height: 300px;
+  padding: 1.5rem;
+}
+
+.card--md {
+  min-width: 300px;
+  height: 350px;
+  padding: 2rem;
+}
+
+.card--lg {
+  min-width: 350px;
+  height: 400px;
+  padding: 2.5rem;
+}
+
+/* SKIN (Apariencia - Variantes de color) */
+.card--green {
+  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
+}
+
+.card--brown {
+  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+}
+
+.card--red {
+  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
+}
+
+.card--white {
+  background: white;
+}
+
+.card--dark {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Elementos internos */
+.card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.card__icon {
+  font-size: 10rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card__title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card__title--dark {
+  color: #2c3e50;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .card--lg {
+    min-width: 300px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card--lg {
+    min-width: 250px;
+    height: 300px;
+  }
+
+  .card__icon {
+    font-size: 6rem;
+  }
+}
+

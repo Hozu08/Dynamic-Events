@@ -1,64 +1,50 @@
 import { ChatIA } from "./ChatIA";
-import "../styles/ChatPage.css";  
+import { Header } from "./base/Header";
+import { Button } from "./base/Button";
+import "../styles/ChristmasLanding.css";
+import "../styles/ChatPage.css";
+import "../styles/base/utilities.css";
 
 /**
  * ChatPage - Página completa para el chat con Santa
  * 
  * @param {Object} props
  * @param {Function} props.onBack - Callback para volver a la landing
+ * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional)
  */
-export function ChatPage({ onBack, selectedTheme = null }) {
+export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
   return (
-    <div className="chat-page">
+    <div className="christmas-landing">
       {/* HEADER */}
-      <header className="chat-page__header">
-        <div className="chat-page__logo">Dynamic Events</div>
-        <button className="chat-page__back-button" onClick={onBack}>
-          ← Volver al inicio
-        </button>
-      </header>
+      <Header
+        logo="Dynamic Events"
+        className="christmas-header"
+        sticky
+        variant="light"
+        onLogoClick={onBack}
+      >
+        <Button variant="pill" size="md" onClick={onBack}>Temporadas</Button>
+        <Button variant="pill" size="md" className="nav-pill--active">Historias IA</Button>
+        <Button variant="pill" size="md" onClick={onNavigateToGame}>Minijuegos</Button>
+      </Header>
 
-      {/* HERO CON SANTA */}
-      <section className="chat-page__hero">
-        <div className="chat-page__hero-content">
-          <div className="chat-page__hero-text">
-            <h1 className="chat-page__hero-title">
-              {selectedTheme 
-                ? `🎄 ${selectedTheme.title}`
-                : "Bienvenido a la historia navideña"}
-            </h1>
-            <p className="chat-page__hero-message">
-              {selectedTheme
-                ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
-                   Vamos a escribir juntos una historia sobre: ${selectedTheme.title}. 
-                   Escribe tu primera frase para comenzar la aventura.`
-                : "¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! Aquí tú y yo escribiremos juntos una historia mágica de Navidad. Escribe tu primera frase para comenzar la aventura."}
-            </p>
-          </div>
-          
-          {/* Imagen de Santa */}
-          <div className="chat-page__hero-santa-wrapper">
-            <img 
-              src="/images/santa.png" 
-              alt="Santa Claus"
-              className="chat-page__hero-santa-img"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                const emojiDiv = document.createElement('div');
-                emojiDiv.className = 'chat-page__hero-santa';
-                emojiDiv.textContent = '🎅';
-                e.target.parentElement.appendChild(emojiDiv);
-              }}
-            />
-          </div>
+      {/* HERO SECTION */}
+      <section className="christmas-hero hero hero--gradient-sky">
+        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
+        <div className="hero__content">
+          <h1 className="hero__title hero__title--light">
+            Entra a la Aventura de la
+            <br />
+            Navidad
+          </h1>
         </div>
       </section>
 
       {/* ÁREA DE CHAT */}
-      <section className="chat-page__content">
+      <section className="landing-section landing-section--padding">
         <div className="chat-page__chat-wrapper">
-          {selectedTheme && (
+          {selectedTheme && selectedTheme.title && selectedTheme.icon && (
             <div style={{ padding: "1rem 2rem 0" }}>
               <span className="chat-page__theme-badge">
                 <span style={{ fontSize: "1.5rem" }}>{selectedTheme.icon}</span>
@@ -71,12 +57,47 @@ export function ChatPage({ onBack, selectedTheme = null }) {
             userName="Aventurero"
             assistantName="Santa Claus"
             apiEndpoint="/api/chat"
-            title="" // Sin título porque ya está en el hero
-            description="" // Sin descripción porque ya está en el hero
+            title=""
+            description=""
             finishMarker="<<FIN_DE_LA_HISTORIA>>"
             placeholder="Escribe tu frase aquí..."
             theme="dark"
             maxMessagesHeight="400px"
+            welcomeContent={
+              <div className="santa-card">
+                <div className="santa-card__inner santa-card__inner--chat">
+                  <div className="santa-card__text">
+                    <h1 className="santa-card__title santa-card__title--chat">
+                      {selectedTheme && selectedTheme.title
+                        ? `🎄 ${selectedTheme.title}`
+                        : "Bienvenido a la historia navideña"}
+                    </h1>
+                    <div className="santa-card__message santa-card__message--chat">
+                      {selectedTheme && selectedTheme.title
+                        ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
+                           Vamos a escribir juntos una historia sobre: ${selectedTheme.title}. 
+                           Escribe tu primera frase para comenzar la aventura.`
+                        : "¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! Aquí tú y yo escribiremos juntos una historia mágica de Navidad. Escribe tu primera frase para comenzar la aventura."}
+                    </div>
+                  </div>
+                  
+                  {/* Imagen de Santa */}
+                  <div className="santa-card__image-wrapper santa-card__image-wrapper--chat">
+                    <img 
+                      src="/images/santa.png" 
+                      alt="Santa Claus"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        const emojiDiv = document.createElement('div');
+                        emojiDiv.className = 'santa-card__image';
+                        emojiDiv.textContent = '🎅';
+                        e.target.parentElement.appendChild(emojiDiv);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
             onFinish={(messages) => {
               console.log("Historia completa:", messages);
             }}
@@ -86,6 +107,13 @@ export function ChatPage({ onBack, selectedTheme = null }) {
           />
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
+        <Button variant="ghost" size="md" className="footer-button">Instrucciones</Button>
+        <Button variant="ghost" size="md" className="footer-button">Políticas</Button>
+        <Button variant="ghost" size="md" className="footer-button">Conócenos</Button>
+      </footer>
     </div>
   );
 }

@@ -1,129 +1,31 @@
 /* ==========================================
-   CHAT PAGE - Página completa del Chat
+   CHAT PAGE - OOCSS
+   Usa el diseño base de ChristmasLanding
    ========================================== */
 
-.chat-page {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #e8f4f8 0%, #f5f5dc 100%);
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-}
-
-/* Header igual que la landing */
-.chat-page__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 3rem;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.chat-page__logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2d5a3d;
-}
-
-.chat-page__back-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.5rem;
-  background: #2d5a3d;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.chat-page__back-button:hover {
-  background: #234a2f;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-/* Hero Section con Santa */
-.chat-page__hero {
-  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.chat-page__hero-content {
-  background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 1000px;
-  width: 100%;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.chat-page__hero-text {
-  flex: 1;
-}
-
-.chat-page__hero-title {
-  font-size: 2rem;
-  color: #2d5a3d;
-  margin-bottom: 1rem;
-}
-
-.chat-page__hero-message {
-  background: #f5deb3;
-  padding: 1.5rem;
-  border-radius: 10px;
-  font-style: italic;
-  color: #2c3e50;
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-/* Imagen de Santa en hero */
-.chat-page__hero-santa-wrapper {
-  width: 200px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chat-page__hero-santa-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.chat-page__hero-santa {
-  font-size: 8rem;
-}
-
-/* Área del chat */
-.chat-page__content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-}
+/* ==========================================
+   ESTRUCTURA (Layout)
+   ========================================== */
 
 .chat-page__chat-wrapper {
   width: 100%;
   max-width: 1200px;
+  margin: 0 auto;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+.chat-page__theme-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
 /* Ajustes al componente ChatIA cuando está en página */
@@ -140,7 +42,7 @@
   border: 2px solid #e8e8e8;
   border-radius: 10px;
   padding: 2rem;
-  overflow-y: auto; /* Asegura el scroll */
+  overflow-y: auto;
 }
 
 .chat-page__chat-wrapper .chat-input {
@@ -156,52 +58,63 @@
   width: 100%;
 }
 
-/* Badge del tema seleccionado */
+/* ==========================================
+   SKIN (Apariencia)
+   ========================================== */
+
 .chat-page__theme-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
   color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+}
+
+/* Estilos para Santa dentro del chat */
+.chat-welcome-content {
   margin-bottom: 1rem;
-  font-size: 1.1rem;
+}
+
+.chat-welcome-content .santa-card {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.chat-welcome-content .santa-card__inner--chat {
+  background: transparent;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.chat-welcome-content .santa-card__text {
+  width: 100%;
+  text-align: center;
+}
+
+.chat-welcome-content .santa-card__title--chat {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.chat-welcome-content .santa-card__message--chat {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.chat-welcome-content .santa-card__image-wrapper--chat {
+  width: 150px;
+  height: 150px;
 }
 
 /* ==========================================
    RESPONSIVE
    ========================================== */
+
 @media (max-width: 768px) {
-  .chat-page__header {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .chat-page__hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .chat-page__hero-title {
-    font-size: 1.5rem;
-  }
-
-  .chat-page__hero-santa-wrapper {
-    width: 150px;
-    height: 150px;
-  }
-
-  .chat-page__hero-santa {
-    font-size: 5rem;
-  }
-
-  .chat-page__content {
-    padding: 1rem;
-  }
-
   .chat-page__chat-wrapper .chat-container {
     padding: 1rem;
   }
@@ -212,10 +125,6 @@
 }
 
 @media (max-width: 480px) {
-  .chat-page__hero-title {
-    font-size: 1.2rem;
-  }
-
   .chat-page__theme-badge {
     font-size: 0.9rem;
     padding: 0.4rem 1rem;

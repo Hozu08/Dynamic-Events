@@ -32,6 +32,7 @@ export function ChatIA({
   initialMessages = [],
   maxMessagesHeight = "300px",
   enableKeyboardShortcuts = true,
+  welcomeContent = null,
 }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState(initialMessages);
@@ -136,6 +137,13 @@ export function ChatIA({
           overflowY: "auto" // Asegura que siempre tenga scroll si es necesario
         }}
       >
+        {/* Contenido de bienvenida personalizado */}
+        {welcomeContent && (
+          <div className="chat-welcome-content">
+            {welcomeContent}
+          </div>
+        )}
+
         {messages.map((msg, i) => ( 
           <div
             key={i}

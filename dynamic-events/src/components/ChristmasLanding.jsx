@@ -1,5 +1,12 @@
 import { useState } from "react";
+import { Header } from "./base/Header";
+import { Button } from "./base/Button";
+import { Card } from "./base/Card";
+import { Modal } from "./base/Modal";
+import { Hero } from "./base/Hero";
+import { Carousel } from "./base/Carousel";
 import "../styles/ChristmasLanding.css";
+import "../styles/base/utilities.css";
 
 /**
  * ChristmasLanding - Landing page con navegación a Chat y Juego
@@ -7,9 +14,9 @@ import "../styles/ChristmasLanding.css";
  * @param {Object} props
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
+ * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing (para el logo)
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
-  const [carouselIndex, setCarouselIndex] = useState(0);
+export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigateToLanding }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
 
@@ -44,15 +51,6 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
     }
   ];
 
-  // Navegación del carrusel
-  const nextSlide = () => {
-    setCarouselIndex((prev) => (prev + 1) % themes.length);
-  };
-
-  const prevSlide = () => {
-    setCarouselIndex((prev) => (prev - 1 + themes.length) % themes.length);
-  };
-
   // Navegar al chat con o sin tema
   const goToChat = (theme = null) => {
     if (onNavigateToChat) {
@@ -79,101 +77,97 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
     setSelectedThemeForModal(null);
   };
 
+  // Renderizar item del carrusel
+  const renderThemeCard = (theme) => (
+    <Card
+      key={theme.id}
+      variant={theme.color}
+      className="theme-card"
+      interactive
+      onClick={() => openThemeModal(theme)}
+    >
+      {theme.image ? (
+        <img
+          src={theme.image}
+          alt={theme.title}
+          className="card__image theme-card__image"
+          onError={(e) => {
+            e.target.style.display = 'none';
+            if (e.target.nextSibling) {
+              e.target.nextSibling.style.display = 'block';
+            }
+          }}
+        />
+      ) : null}
+      <div
+        className="card__icon theme-card__icon"
+        style={{ display: theme.image ? 'none' : 'block' }}
+      >
+        {theme.icon}
+      </div>
+      <h3 className="card__title theme-card__title">{theme.title}</h3>
+    </Card>
+  );
+
   return (
     <div className="christmas-landing">
       {/* HEADER */}
-      <header className="christmas-header">
-        <div className="christmas-logo">Dynamic Events</div>
-        <nav className="christmas-nav">
-          <button className="nav-pill">Temporadas</button>
-          <button className="nav-pill" onClick={() => goToChat()}>
-            Historias IA
-          </button>
-          <button className="nav-pill" onClick={goToGame}>
-            Minijuegos
-          </button>
-        </nav>
-      </header>
+      <Header
+        logo="Dynamic Events"
+        className="christmas-header"
+        sticky
+        variant="light"
+        onLogoClick={onNavigateToLanding}
+      >
+        <Button variant="pill" size="md">Temporadas</Button>
+        <Button variant="pill" size="md" onClick={() => goToChat()}>
+          Historias IA
+        </Button>
+        <Button variant="pill" size="md" onClick={goToGame}>
+          Minijuegos
+        </Button>
+      </Header>
 
       {/* HERO SECTION */}
-      <section className="christmas-hero">
-        <div className="hero-illustration"></div>
-        <div className="hero-content">
-          <h1 className="hero-title">
+      <section className="christmas-hero hero hero--gradient-sky">
+        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
+        <div className="hero__content">
+          <h1 className="hero__title hero__title--light">
             Entra a la Aventura de la
             <br />
             Navidad
           </h1>
-          <button className="hero-button" onClick={() => goToChat()}>
+          <Button variant="outline" size="lg" className="hero-button" onClick={() => goToChat()}>
             Crea tu historia
-          </button>
+          </Button>
         </div>
       </section>
 
       {/* CAROUSEL DE TEMAS */}
-      <section className="carousel-section">
-        <div className="carousel-header">
-          <h2 className="carousel-title">Historias Mágicas de Navidad</h2>
-          <p className="carousel-description">
+      <section className="landing-section landing-section--padding carousel-section">
+        <div className="carousel-header u-text-center">
+          <h2 className="carousel-title u-text-primary">Historias Mágicas de Navidad</h2>
+          <p className="carousel-description u-text-dark">
             Descubre historias encantadoras llenas de espíritu navideño. 
             Haz clic en una para leer su cuento mágico.
           </p>
         </div>
 
         <div className="carousel-container">
-          <button onClick={prevSlide}>
-            ‹
-          </button>
-
-          <div className="carousel-track">
-            {themes.map((theme) => (
-              <div
-                key={theme.id}
-                className={`theme-card theme-card--${theme.color}`}
-                onClick={() => openThemeModal(theme)}
-                style={{
-                  transform: `translateX(-${carouselIndex * 110}%)`,
-                  transition: "transform 0.5s ease"
-                }}
-              >
-                {/* Imagen del tema si existe */}
-                {theme.image ? (
-                  <img 
-                    src={theme.image} 
-                    alt={theme.title}
-                    className="theme-card__image"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'block';
-                    }}
-                  />
-                ) : null}
-                
-                {/* Emoji como fallback */}
-                <div 
-                  className="theme-card__icon"
-                  style={{ display: theme.image ? 'none' : 'block' }}
-                >
-                  {theme.icon}
-                </div>
-                
-                <h3 className="theme-card__title">{theme.title}</h3>
-              </div>
-            ))}
-          </div>
-
-          <button onClick={nextSlide}>
-            ›
-          </button>
+          <Carousel
+            items={themes}
+            renderItem={renderThemeCard}
+            showControls
+          />
         </div>
       </section>
 
       {/* SECCIÓN SANTA CLAUS */}
-      <section className="santa-section">
+      <section className="landing-section landing-section--padding santa-section">
         <div className="santa-card">
-          <div className="santa-card__inner">
+          <div className="santa-card__inner u-flex u-flex-between">
             <div className="santa-card__text">
-              <div className="santa-card__message">
+              <div className="santa-card__message u-text-italic">
                 Ho, ho, ho... ¡Hola aventurero!
                 <br />
                 He preparado algo muy especial para ti.
@@ -182,9 +176,9 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
                 <br />
                 ¡Estoy listo para vivir esta aventura contigo!
               </div>
-              <button className="santa-card__button" onClick={() => goToChat()}>
+              <Button variant="primary" size="lg" className="santa-card__button" onClick={() => goToChat()}>
                 Click aquí
-              </button>
+              </Button>
             </div>
             
             {/* Imagen de Santa */}
@@ -206,10 +200,10 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
       </section>
 
       {/* SECCIÓN MINIJUEGOS */}
-      <section className="minigames-section">
-        <div className="minigames-grid">
+      <section className="landing-section landing-section--padding minigames-section">
+        <div className="minigames-grid u-grid u-grid-3 u-gap-lg">
           {/* Minijuego 1 */}
-          <div className="minigame-card minigame-card--green">
+          <Card variant="green" className="minigame-card" interactive>
             <div className="minigame-card__preview">
               <img 
                 src="/images/game-preview-1.png" 
@@ -221,11 +215,13 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
               />
             </div>
             <h3 className="minigame-card__title">minijuego</h3>
-          </div>
+          </Card>
 
           {/* Minijuego 2 - Atrapa regalos (principal) */}
-          <div
-            className="minigame-card minigame-card--brown"
+          <Card
+            variant="brown"
+            className="minigame-card"
+            interactive
             onClick={goToGame}
           >
             <div className="minigame-card__preview">
@@ -239,10 +235,10 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
               />
             </div>
             <h3 className="minigame-card__title">minijuego</h3>
-          </div>
+          </Card>
 
           {/* Minijuego 3 */}
-          <div className="minigame-card minigame-card--red">
+          <Card variant="red" className="minigame-card" interactive>
             <div className="minigame-card__preview">
               <img 
                 src="/images/game-preview-3.png" 
@@ -254,43 +250,45 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame }) {
               />
             </div>
             <h3 className="minigame-card__title">minijuego</h3>
-          </div>
+          </Card>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="christmas-footer">
-        <button className="footer-button">Instrucciones</button>
-        <button className="footer-button">Políticas</button>
-        <button className="footer-button">Conócenos</button>
+      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
+        <Button variant="ghost" size="md" className="footer-button">Instrucciones</Button>
+        <Button variant="ghost" size="md" className="footer-button">Políticas</Button>
+        <Button variant="ghost" size="md" className="footer-button">Conócenos</Button>
       </footer>
 
       {/* MODAL DE HISTORIA */}
-      {showThemeModal && selectedThemeForModal && (
-        <div className="modal-overlay" onClick={closeThemeModal}>
-          <div className="modal-content modal-content--story" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeThemeModal}>
-              ×
-            </button>
-            <div className="story-modal">
-              <div className="story-modal__header">
-                <span className="story-modal__icon">{selectedThemeForModal.icon}</span>
-                <h2 className="story-modal__title">{selectedThemeForModal.title}</h2>
-              </div>
-              <p className="story-modal__text">{selectedThemeForModal.story}</p>
-              <button 
-                className="story-modal__button"
-                onClick={() => {
-                  closeThemeModal();
-                  goToChat(selectedThemeForModal);
-                }}
-              >
-                Crear mi propia versión de esta historia
-              </button>
+      <Modal
+        isOpen={showThemeModal}
+        onClose={closeThemeModal}
+        size="md"
+        className="modal--white"
+      >
+        {selectedThemeForModal && (
+          <div className="story-modal">
+            <div className="story-modal__header u-text-center">
+              <span className="story-modal__icon">{selectedThemeForModal.icon}</span>
+              <h2 className="story-modal__title u-text-primary">{selectedThemeForModal.title}</h2>
             </div>
+            <p className="story-modal__text u-text-dark">{selectedThemeForModal.story}</p>
+            <Button
+              variant="accent"
+              size="lg"
+              className="story-modal__button u-width-full"
+              onClick={() => {
+                closeThemeModal();
+                goToChat(selectedThemeForModal);
+              }}
+            >
+              Crear mi propia versión de esta historia
+            </Button>
           </div>
-        </div>
-      )}
+        )}
+      </Modal>
     </div>
   );
 }
