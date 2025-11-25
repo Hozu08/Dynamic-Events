@@ -19,6 +19,7 @@ import "../styles/base/utilities.css";
 export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigateToLanding }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
+  const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
 
   // Temas disponibles para las historias
   const themes = [
@@ -75,6 +76,16 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
   const closeThemeModal = () => {
     setShowThemeModal(false);
     setSelectedThemeForModal(null);
+  };
+
+  // Abrir modal del footer
+  const openFooterModal = (modalType) => {
+    setShowFooterModal(modalType);
+  };
+
+  // Cerrar modal del footer
+  const closeFooterModal = () => {
+    setShowFooterModal(null);
   };
 
   // Renderizar item del carrusel
@@ -256,9 +267,30 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
 
       {/* FOOTER */}
       <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
-        <Button variant="ghost" size="md" className="footer-button">Instrucciones</Button>
-        <Button variant="ghost" size="md" className="footer-button">Políticas</Button>
-        <Button variant="ghost" size="md" className="footer-button">Conócenos</Button>
+        <Button 
+          variant="ghost" 
+          size="md" 
+          className="footer-button"
+          onClick={() => openFooterModal('instructions')}
+        >
+          Instrucciones
+        </Button>
+        <Button 
+          variant="ghost" 
+          size="md" 
+          className="footer-button"
+          onClick={() => openFooterModal('policies')}
+        >
+          Políticas
+        </Button>
+        <Button 
+          variant="ghost" 
+          size="md" 
+          className="footer-button"
+          onClick={() => openFooterModal('about')}
+        >
+          Conócenos
+        </Button>
       </footer>
 
       {/* MODAL DE HISTORIA */}
@@ -288,6 +320,103 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
             </Button>
           </div>
         )}
+      </Modal>
+
+      {/* MODALES DEL FOOTER */}
+      {/* Modal de Instrucciones */}
+      <Modal
+        isOpen={showFooterModal === 'instructions'}
+        onClose={closeFooterModal}
+        size="md"
+        className="modal--white"
+      >
+        <div className="footer-modal">
+          <div className="footer-modal__header u-text-center">
+            <h2 className="footer-modal__title u-text-primary">📖 Instrucciones</h2>
+          </div>
+          <div className="footer-modal__content u-text-dark">
+            <h3>¿Cómo usar Dynamic Events?</h3>
+            <p>
+              <strong>1. Historias con IA:</strong> Navega a la sección "Historias IA" y crea tu propia historia navideña 
+              interactuando con Santa Claus. Puedes elegir un tema predefinido o crear uno completamente original.
+            </p>
+            <p>
+              <strong>2. Minijuegos:</strong> Accede a la sección "Minijuegos" para disfrutar de juegos temáticos navideños. 
+              ¡Intenta superar tu récord personal!
+            </p>
+            <p>
+              <strong>3. Navegación:</strong> Usa los botones del header para moverte entre las diferentes secciones. 
+              El logo "Dynamic Events" siempre te llevará de vuelta a la página principal.
+            </p>
+            <p>
+              <strong>4. Temas:</strong> Explora los diferentes temas de historias disponibles en el carrusel de la página principal.
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Modal de Políticas */}
+      <Modal
+        isOpen={showFooterModal === 'policies'}
+        onClose={closeFooterModal}
+        size="md"
+        className="modal--white"
+      >
+        <div className="footer-modal">
+          <div className="footer-modal__header u-text-center">
+            <h2 className="footer-modal__title u-text-primary">📋 Políticas</h2>
+          </div>
+          <div className="footer-modal__content u-text-dark">
+            <h3>Política de Privacidad</h3>
+            <p>
+              Dynamic Events respeta tu privacidad. Los datos de las historias y puntuaciones de juegos se almacenan 
+              localmente en tu navegador y no se comparten con terceros.
+            </p>
+            <h3>Términos de Uso</h3>
+            <p>
+              Al usar Dynamic Events, aceptas utilizar la plataforma de manera responsable. El contenido generado por IA 
+              es para entretenimiento y uso personal.
+            </p>
+            <h3>Uso de IA</h3>
+            <p>
+              Las historias son generadas mediante inteligencia artificial. Dynamic Events no se hace responsable del 
+              contenido generado, aunque se esfuerza por mantener un ambiente familiar y seguro.
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Modal de Conócenos */}
+      <Modal
+        isOpen={showFooterModal === 'about'}
+        onClose={closeFooterModal}
+        size="md"
+        className="modal--white"
+      >
+        <div className="footer-modal">
+          <div className="footer-modal__header u-text-center">
+            <h2 className="footer-modal__title u-text-primary">🎄 Conócenos</h2>
+          </div>
+          <div className="footer-modal__content u-text-dark">
+            <h3>Acerca de Dynamic Events</h3>
+            <p>
+              Dynamic Events es una plataforma interactiva que evoluciona con las épocas del año, ofreciendo experiencias 
+              únicas y personalizadas. Nuestro objetivo es crear un entorno adaptable, interactivo y entretenido.
+            </p>
+            <h3>Nuestra Misión</h3>
+            <p>
+              Ofrecer historias personalizadas guiadas por IA y minijuegos temáticos que se adaptan a cada temporada del año, 
+              creando momentos mágicos e inolvidables para nuestros usuarios.
+            </p>
+            <h3>Características</h3>
+            <ul style={{ paddingLeft: "1.5rem", lineHeight: "1.8" }}>
+              <li>Historias interactivas con inteligencia artificial</li>
+              <li>Minijuegos temáticos y entretenidos</li>
+              <li>Diseño adaptable según la época del año</li>
+              <li>Experiencia completamente personalizada</li>
+            </ul>
+          </div>
+        </div>
       </Modal>
     </div>
   );
