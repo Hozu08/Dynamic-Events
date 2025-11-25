@@ -84,9 +84,9 @@
 }
 
 .btn--outline {
-  background: transparent;
-  border: 2px solid #2d5a3d;
-  color: #2d5a3d;
+  background: #2d5a3d;
+  border: 1px solid #f5f5dc;
+  color: #f5f5dc;
 }
 
 .btn--outline:hover:not(:disabled) {
