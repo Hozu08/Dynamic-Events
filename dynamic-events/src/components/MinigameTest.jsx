@@ -44,6 +44,7 @@ export function CanvasGame({
   const [currentLevel, setCurrentLevel] = useState(1);
   const [finalScore, setFinalScore] = useState(0);
   const [gameKey, setGameKey] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Referencias para evitar re-renders
   const scoreRef = useRef(0);
@@ -52,6 +53,18 @@ export function CanvasGame({
   const pausedRef = useRef(false);
   const countdownRef = useRef(null);
   const showingGameOverRef = useRef(false);
+  const touchMoveRef = useRef(null);
+  const playerRef = useRef(null);
+
+  // Detectar si es móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Precarga de imágenes
   const preloadedAssets = useMemo(() => {
@@ -128,6 +141,9 @@ export function CanvasGame({
       maxSpeed: 38,
       baseMaxSpeed: 38,
     };
+    
+    // Guardar referencia del player para los botones
+    playerRef.current = player;
 
     // Sonidos
     const sounds = {
@@ -254,10 +270,33 @@ export function CanvasGame({
 
     // Movimiento del mouse
     const handleMouseMove = (e) => {
-      if (pausedRef.current || countdownRef.current !== null) return;
+      if (pausedRef.current || countdownRef.current !== null || isMobile) return;
       const rect = canvas.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       player.targetX = Math.max(0, Math.min(mouseX - player.width / 2, width - player.width));
+    };
+
+    // Movimiento táctil (arrastre)
+    const handleTouchStart = (e) => {
+      if (pausedRef.current || countdownRef.current !== null) return;
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      if (touch) {
+        const touchX = touch.clientX - rect.left;
+        player.targetX = Math.max(0, Math.min(touchX - player.width / 2, width - player.width));
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (pausedRef.current || countdownRef.current !== null) return;
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      if (touch) {
+        const touchX = touch.clientX - rect.left;
+        player.targetX = Math.max(0, Math.min(touchX - player.width / 2, width - player.width));
+      }
     };
 
     // Manejo de pausa con ESC y reinicio con R
@@ -289,6 +328,13 @@ export function CanvasGame({
 
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("keydown", handleKeyDown);
+    
+    // Eventos táctiles para arrastre
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+    
+    // Guardar referencias para limpiar
+    touchMoveRef.current = { start: handleTouchStart, move: handleTouchMove };
 
     // Fin del juego
     function endGame() {
@@ -681,9 +727,13 @@ export function CanvasGame({
       }
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("keydown", handleKeyDown);
+      if (touchMoveRef.current) {
+        canvas.removeEventListener("touchstart", touchMoveRef.current.start);
+        canvas.removeEventListener("touchmove", touchMoveRef.current.move);
+      }
       sounds.music.pause();
     };
-  }, [gameState, gameKey]);
+  }, [gameState, gameKey, isMobile]);
 
   const handleStart = () => {
     setGameState("playing");
@@ -701,13 +751,14 @@ export function CanvasGame({
       {title && <h1 className="game-title">{title}</h1>}
       {description && <p className="game-description">{description}</p>}
 
-
-      <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        className={`game-canvas game-canvas--${theme}`}
-      />
+      <div className="game-canvas-wrapper">
+        <canvas
+          ref={canvasRef}
+          width={width}
+          height={height}
+          className={`game-canvas game-canvas--${theme}`}
+        />
+      </div>
 
       <div className="game-controls">
         {gameState === "idle" && (
@@ -736,7 +787,7 @@ export function CanvasGame({
 
       {gameState === "playing" && (
         <p style={{ marginTop: "10px", fontSize: "14px", color: "#888" }}>
-          Presiona ESC para pausar
+          {isMobile ? "Arrastra el trineo con el dedo" : "Presiona ESC para pausar"}
         </p>
       )}
     </div>

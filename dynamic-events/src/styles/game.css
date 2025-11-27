@@ -11,6 +11,12 @@
   padding: 1rem;
 }
 
+/* Wrapper del canvas */
+.game-canvas-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 /* Canvas del juego */
 .game-canvas {
   border-radius: 10px;

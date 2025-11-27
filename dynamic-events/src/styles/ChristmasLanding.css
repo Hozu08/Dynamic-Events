@@ -423,10 +423,10 @@
   }
 
   .theme-card {
-    width: 300px;
-    min-width: 300px;
-    max-width: 300px;
-    height: 350px;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+    height: 280px;
   }
 }
 
@@ -455,15 +455,36 @@
   }
 
   .theme-card {
-    width: 250px;
-    min-width: 250px;
-    max-width: 250px;
-    height: 300px;
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+    height: 240px;
+  }
+
+  .santa-card {
+    padding: 1.5rem;
   }
 
   .santa-card__inner {
     flex-direction: column;
     text-align: center;
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .santa-card__text {
+    width: 100%;
+  }
+
+  .santa-card__message {
+    padding: 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .santa-card__image-wrapper {
+    width: 180px;
+    height: 180px;
   }
 
   .minigames-grid {
@@ -499,6 +520,26 @@
 
   .santa-card__image {
     font-size: 8rem;
+  }
+
+  .santa-card {
+    padding: 1rem;
+  }
+
+  .santa-card__inner {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .santa-card__message {
+    padding: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .santa-card__image-wrapper {
+    width: 150px;
+    height: 150px;
   }
 
   .carousel-title {

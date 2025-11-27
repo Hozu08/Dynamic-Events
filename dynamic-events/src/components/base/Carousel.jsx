@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/base/carousel.css";
 
 /**
@@ -17,10 +17,32 @@ export function Carousel({
   showControls = true,
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemWidth, setItemWidth] = useState(350);
+  const [gap, setGap] = useState(48);
   
   // Calcular el máximo índice para evitar sobreposición
   // Mostramos 3 items a la vez, así que el máximo es items.length - 3
   const maxIndex = Math.max(0, items.length - 3);
+
+  // Detectar tamaño de pantalla y ajustar valores
+  useEffect(() => {
+    const updateSizes = () => {
+      if (window.innerWidth <= 480) {
+        setItemWidth(180);
+        setGap(12.8); // 0.8rem = 12.8px aproximadamente
+      } else if (window.innerWidth <= 768) {
+        setItemWidth(220);
+        setGap(16); // 1rem = 16px
+      } else {
+        setItemWidth(350);
+        setGap(48); // 3rem = 48px
+      }
+    };
+
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    return () => window.removeEventListener("resize", updateSizes);
+  }, []);
 
   const next = () => {
     setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
@@ -43,7 +65,7 @@ export function Carousel({
         <div 
           className="carousel__items-wrapper"
           style={{
-            transform: `translateX(-${currentIndex * (350 + 48)}px)`,
+            transform: `translateX(-${currentIndex * (itemWidth + gap)}px)`,
             transition: "transform 0.5s ease",
           }}
         >

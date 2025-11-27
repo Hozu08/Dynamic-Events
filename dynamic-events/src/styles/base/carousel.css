@@ -76,7 +76,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .carousel {
-    gap: 1rem;
+    gap: 0.8rem;
   }
 
   .carousel__button {
@@ -84,6 +84,43 @@
     height: 2rem;
     font-size: 1rem;
     border-width: 1.5px;
+  }
+
+  .carousel__track {
+    padding: 15px 0;
+  }
+
+  .carousel__item {
+    width: 220px;
+  }
+
+  .carousel__items-wrapper {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    gap: 0.5rem;
+  }
+
+  .carousel__button {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.9rem;
+    border-width: 1px;
+  }
+
+  .carousel__track {
+    padding: 10px 0;
+  }
+
+  .carousel__item {
+    width: 180px;
+  }
+
+  .carousel__items-wrapper {
+    gap: 0.8rem;
   }
 }
 
