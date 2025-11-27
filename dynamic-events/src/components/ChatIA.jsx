@@ -54,11 +54,18 @@ export function ChatIA({
 
   // Iniciar automáticamente con el tema seleccionado
   useEffect(() => {
-    if (autoStartWithTheme && !hasAutoStartedRef.current && messages.length === 0 && !loading) {
+    // Solo iniciar si hay un tema válido con título
+    const hasValidTheme = autoStartWithTheme && 
+                          autoStartWithTheme.title && 
+                          typeof autoStartWithTheme.title === 'string' &&
+                          autoStartWithTheme.title.trim() !== '';
+    
+    if (hasValidTheme && !hasAutoStartedRef.current && messages.length === 0 && !loading) {
       hasAutoStartedRef.current = true;
       
       // Crear mensaje inicial basado en el tema
-      const initialMessage = `Quiero crear una historia sobre: ${autoStartWithTheme.title}. ${autoStartWithTheme.description || ''}`;
+      const themeDescription = autoStartWithTheme.description || '';
+      const initialMessage = `Quiero crear una historia sobre: ${autoStartWithTheme.title}.${themeDescription ? ' ' + themeDescription : ''}`;
       
       const newUserMessage = {
         role: "user",
