@@ -106,6 +106,7 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
             placeholder="Escribe tu frase aquí..."
             theme="dark"
             maxMessagesHeight="400px"
+            autoStartWithTheme={selectedTheme}
             welcomeContent={
               <div className="santa-card">
                 <div className="santa-card__inner santa-card__inner--chat">

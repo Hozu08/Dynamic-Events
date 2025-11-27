@@ -33,12 +33,14 @@ export function ChatIA({
   maxMessagesHeight = "300px",
   enableKeyboardShortcuts = true,
   welcomeContent = null,
+  autoStartWithTheme = null, // Tema para iniciar automáticamente
 }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState(initialMessages);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
+  const hasAutoStartedRef = useRef(false);
 
   // Detecta si la conversación ha finalizado
   const isFinished = messages.some((msg) =>
@@ -49,6 +51,61 @@ export function ChatIA({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Iniciar automáticamente con el tema seleccionado
+  useEffect(() => {
+    if (autoStartWithTheme && !hasAutoStartedRef.current && messages.length === 0 && !loading) {
+      hasAutoStartedRef.current = true;
+      
+      // Crear mensaje inicial basado en el tema
+      const initialMessage = `Quiero crear una historia sobre: ${autoStartWithTheme.title}. ${autoStartWithTheme.description || ''}`;
+      
+      const newUserMessage = {
+        role: "user",
+        content: `${userName} dice: ${initialMessage}`,
+      };
+      const newMessages = [newUserMessage];
+      
+      setMessages(newMessages);
+      setLoading(true);
+      setError(null);
+      
+      // Callback onSend
+      onSend(initialMessage);
+      
+      // Enviar mensaje automáticamente
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Error ${res.status}: ${res.statusText}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          const aiMessage = { role: "assistant", content: data.reply };
+          const updatedMessages = [...newMessages, aiMessage];
+          setMessages(updatedMessages);
+          
+          if (aiMessage.content.includes(finishMarker)) {
+            onFinish(updatedMessages);
+          }
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          setError(
+            `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
+          );
+          hasAutoStartedRef.current = false; // Permitir reintentar en caso de error
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [autoStartWithTheme, messages.length, loading, userName, apiEndpoint, finishMarker, onFinish, onSend]);
 
   // Función para enviar mensajes
   const handleSend = async () => {
@@ -104,6 +161,7 @@ export function ChatIA({
     setMessages(initialMessages);
     setInput("");
     setError(null);
+    hasAutoStartedRef.current = false; // Resetear para permitir auto-start de nuevo
     onReset();
   };
 
