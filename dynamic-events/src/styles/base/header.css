@@ -5,17 +5,23 @@
 
 /* ESTRUCTURA (Layout) */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 4rem;
+  width: 100%;
+  padding: 0.85rem 0;
   font-family: 'Arial', sans-serif;
 }
 
+.header__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .header__logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
+  font-size: 1.45rem;
+  font-weight: 800;
   font-family: 'Arial', sans-serif;
 }
 
@@ -24,17 +30,43 @@
   gap: 1.5rem;
 }
 
+.header__nav--right {
+  align-items: center;
+}
+
+/* Nav links - estilo del proyecto Navidad */
+.header__nav .nav-link {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header__nav .nav-link:hover {
+  color: #000;
+}
+
+.header__nav .nav-link--active {
+  color: #a00000;
+}
+
 /* SKIN (Apariencia) */
 .header--sticky {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  z-index: 50;
+}
+
+.header--navidad {
+  width: 100%;
 }
 
 /* Variantes de color */
 .header--light {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
 }
 
 .header--dark {
@@ -45,7 +77,7 @@
 
 /* Logo variants */
 .header__logo--primary {
-  color: #2d5a3d;
+  color: #222;
 }
 
 .header__logo--white {
@@ -58,6 +90,10 @@
   user-select: none;
 }
 
+.header__logo--clickable:hover {
+  color: #000;
+}
+
 .header__logo--clickable:focus {
   outline: 2px solid currentColor;
   outline-offset: 2px;
@@ -66,8 +102,8 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .header {
-    padding: 1rem;
+  .header__container {
+    padding: 0 1rem;
     flex-direction: column;
     gap: 1rem;
   }

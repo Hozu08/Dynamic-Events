@@ -22,22 +22,24 @@ export function Header({
   const logoColorClass = variant === "dark" ? "white" : "primary";
   
   return (
-    <header className={`header ${sticky ? "header--sticky" : ""} header--${variant} ${className}`}>
-      <div 
-        className={`header__logo header__logo--${logoColorClass} ${onLogoClick ? "header__logo--clickable" : ""}`}
-        onClick={onLogoClick}
-        role={onLogoClick ? "button" : undefined}
-        tabIndex={onLogoClick ? 0 : undefined}
-        onKeyDown={onLogoClick ? (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onLogoClick();
-          }
-        } : undefined}
-      >
-        {logo}
+    <header className={`header header--navidad ${sticky ? "header--sticky" : ""} header--${variant} ${className}`}>
+      <div className="header__container">
+        <span 
+          className={`header__logo header__logo--${logoColorClass} ${onLogoClick ? "header__logo--clickable" : ""}`}
+          onClick={onLogoClick}
+          role={onLogoClick ? "button" : undefined}
+          tabIndex={onLogoClick ? 0 : undefined}
+          onKeyDown={onLogoClick ? (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onLogoClick();
+            }
+          } : undefined}
+        >
+          {logo}
+        </span>
+        <nav className="header__nav header__nav--right">{children}</nav>
       </div>
-      <nav className="header__nav">{children}</nav>
     </header>
   );
 }

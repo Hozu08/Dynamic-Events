@@ -95,8 +95,12 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
             },
           ]}
         />
-        <Button variant="pill" size="md" className="nav-pill--active">Historias IA</Button>
-        <Button variant="pill" size="md" onClick={onNavigateToGame}>Minijuegos</Button>
+        <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
+          Crear historia IA
+        </a>
+        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigateToGame(); }}>
+          Minijuegos
+        </a>
       </Header>
 
       {/* HERO SECTION */}

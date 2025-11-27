@@ -31,16 +31,29 @@
   min-height: 100vh;
   width: 100vw;
   font-family: 'Arial', sans-serif;
+  overflow-x: hidden; /* Solo ocultar scroll horizontal */
+  overflow-y: visible; /* Permitir overflow vertical para animaciones */
+}
+
+/* Compensar header fijo */
+.christmas-landing .christmas-hero {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Secciones */
 .landing-section {
   max-width: var(--max-width);
   margin: 0 auto;
+  overflow: visible; /* Permitir animaciones hover */
 }
 
 .landing-section--padding {
   padding: 4rem 3rem;
+}
+
+.carousel-section {
+  overflow: visible; /* Permitir animaciones hover del carrusel */
 }
 
 /* Header unificado - usa estilos base */
@@ -102,6 +115,182 @@
 .carousel-track {
   /* Usa carousel__track base */
 }
+
+/* ==========================================
+   CARRUSEL NAVIDAD - OOCSS
+   Separación: Estructura | Skin
+   ========================================== */
+
+/* ESTRUCTURA (Layout) - Carrusel Navidad */
+#historia-actual {
+  position: relative;
+  padding-bottom: 4rem;
+  padding-top: 2rem;
+  overflow: visible !important; /* Permitir que las animaciones hover no se recorten */
+}
+
+.carousel-container-navidad {
+  position: relative;
+  overflow: visible !important; /* Permitir que las animaciones no se recorten */
+  padding: 40px 0 40px; /* Espacio vertical suficiente para animaciones hover */
+  max-width: 100%;
+  margin: 0;
+}
+
+.stories-row {
+  display: flex;
+  gap: 2rem;
+  padding: 20px 0.5rem 20px; /* Padding vertical para espacio de animación */
+  scroll-behavior: smooth;
+  justify-content: flex-start;
+  max-width: calc(100% - 8rem); /* Limitar ancho para que botones no se superpongan */
+  margin: 0 auto;
+  position: relative;
+  /* Contenedor scrollable - solo horizontal */
+  overflow-x: auto;
+  overflow-y: visible;
+  /* Permitir que las cards se eleven sin recortarse */
+  min-height: fit-content;
+}
+
+.stories-row::-webkit-scrollbar {
+  display: none;
+}
+
+.story-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  min-width: 340px;
+  max-width: 360px;
+  overflow: hidden; /* Solo el contenido interno debe tener overflow hidden */
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  /* Espacio alrededor para permitir animación hover sin recortar */
+  margin: 20px 0;
+}
+
+.story-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  z-index: 10; /* Asegurar que la card hover esté por encima */
+  position: relative;
+}
+
+.story-card--theme {
+  cursor: pointer;
+}
+
+.story-image-wrapper {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-image-wrapper--theme {
+  background: linear-gradient(135deg, rgba(45, 90, 61, 0.05) 0%, rgba(139, 69, 19, 0.05) 100%);
+}
+
+.story-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 4rem;
+}
+
+.story-body {
+  padding: 1.3rem 1.5rem 1.5rem;
+}
+
+.story-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.45rem;
+}
+
+.story-info {
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.story-link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  color: #c00000;
+  font-weight: 700;
+}
+
+/* Flechas del carrusel - Solo iconos sin background */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  padding: 0;
+  font-size: 2rem;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
+  color: #000;
+  z-index: 10;
+  transition: all 0.2s ease;
+  width: auto;
+  height: auto;
+}
+
+.arrow:hover {
+  color: #333;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-left {
+  left: 0.5rem;
+}
+
+.arrow-right {
+  right: 0.5rem;
+}
+
+/* SKIN (Apariencia) - Carrusel Navidad */
+.section-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin: 2.2rem 0 1.2rem 4rem;
+  color: #a00000;
+}
+
+/* Colores de texto del proyecto Navidad para las cards */
+.story-title {
+  color: #222;
+}
+
+.story-info {
+  color: #333;
+}
+
+.story-link {
+  color: #c00000;
+}
+
+.story-link:hover {
+  color: #a00000;
+}
+
 
 /* Santa Section */
 .santa-section {
@@ -577,5 +766,186 @@
 
   .story-modal__title {
     font-size: 1.5rem;
+  }
+
+  /* Carrusel Navidad responsive */
+  .section-title {
+    margin: 2.2rem 0 1.2rem 2rem;
+    font-size: 1.8rem;
+  }
+
+  #historia-actual {
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+  }
+
+  .carousel-container-navidad {
+    padding: 35px 0;
+  }
+
+  .stories-row {
+    padding: 20px 2.5rem 20px;
+    max-width: calc(100% - 5rem);
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+  }
+
+  .arrow-left {
+    left: 0.25rem;
+  }
+
+  .arrow-right {
+    right: 0.25rem;
+  }
+
+  .story-card {
+    min-width: 220px;
+    max-width: 240px;
+  }
+
+  .story-image-wrapper {
+    height: 140px;
+  }
+
+  .story-icon-fallback {
+    font-size: 2.5rem;
+  }
+
+  .story-body {
+    padding: 1rem 1rem 1.2rem;
+  }
+
+  .story-title {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .story-info {
+    font-size: 0.75rem;
+    margin-bottom: 0.15rem;
+  }
+}
+
+/* Media query adicional para el carrusel Navidad - Tablets */
+@media (max-width: 768px) {
+  .section-title {
+    margin: 2.2rem 0 1.2rem 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  #historia-actual {
+    padding-bottom: 3.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .carousel-container-navidad {
+    padding: 30px 0;
+  }
+
+  .stories-row {
+    padding: 18px 2rem 18px;
+    max-width: calc(100% - 4.5rem);
+  }
+
+  .arrow {
+    font-size: 1.2rem;
+  }
+
+  .arrow-left {
+    left: 0.25rem;
+  }
+
+  .arrow-right {
+    right: 0.25rem;
+  }
+
+  .story-card {
+    min-width: 220px;
+    max-width: 240px;
+  }
+
+  .story-image-wrapper {
+    height: 140px;
+  }
+
+  .story-icon-fallback {
+    font-size: 2.5rem;
+  }
+
+  .story-body {
+    padding: 0.9rem 1rem 1.1rem;
+  }
+
+  .story-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .story-info {
+    font-size: 0.75rem;
+    margin-bottom: 0.15rem;
+  }
+}
+
+/* Media query para móviles pequeños */
+@media (max-width: 360px) {
+  .section-title {
+    margin: 1.5rem 0 1rem 1rem;
+    font-size: 1.3rem;
+  }
+
+  #historia-actual {
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+  }
+
+  .carousel-container-navidad {
+    padding: 20px 0;
+  }
+
+  .stories-row {
+    padding: 15px 1.5rem 15px;
+    max-width: calc(100% - 3.5rem);
+  }
+
+  .arrow {
+    font-size: 1rem;
+  }
+
+  .arrow-left {
+    left: 0.2rem;
+  }
+
+  .arrow-right {
+    right: 0.2rem;
+  }
+
+  .story-card {
+    min-width: 180px;
+    max-width: 200px;
+  }
+
+  .story-image-wrapper {
+    height: 110px;
+  }
+
+  .story-icon-fallback {
+    font-size: 1.8rem;
+  }
+
+  .story-body {
+    padding: 0.7rem 0.8rem 0.9rem;
+  }
+
+  .story-title {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .story-info {
+    font-size: 0.65rem;
+    margin-bottom: 0.1rem;
   }
 }

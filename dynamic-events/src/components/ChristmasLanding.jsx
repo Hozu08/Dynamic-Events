@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Card } from "./base/Card";
@@ -22,6 +22,29 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
+
+  // Historias para las cards originales
+  const originalStories = [
+    {
+      id: 'carta-tarde',
+      title: "La carta que llegó tarde",
+      icon: "📮",
+      story: "En una pequeña ciudad nevada, una niña llamada Sofía escribió una carta especial a Papá Noel pidiendo un regalo para su abuela enferma. Sin embargo, la carta se perdió en una tormenta de nieve y llegó al Polo Norte demasiado tarde, justo cuando Santa ya había partido. Un elfo mensajero llamado Pip descubrió la carta y, conmovido por el pedido de Sofía, decidió ayudar. Con la ayuda de los renos más veloces y un poco de magia navideña, logró alcanzar a Santa en pleno vuelo. Santa, emocionado por la bondad de Sofía, preparó un regalo especial: una manta tejida con hilos de esperanza que ayudaría a la abuela a sentirse mejor. La carta que llegó tarde se convirtió en el regalo más importante de esa Navidad, recordando a todos que nunca es tarde para la bondad y el amor."
+    },
+    {
+      id: 'arbol-luces',
+      title: "El árbol sin luces",
+      icon: "🎄",
+      story: "En el centro del pueblo había un árbol de Navidad gigante que cada año se iluminaba con miles de luces de colores. Pero ese año, una tormenta eléctrica había dañado todas las luces y no había tiempo para reemplazarlas antes de la víspera de Navidad. Los niños del pueblo estaban tristes, especialmente Mateo, quien amaba ver el árbol brillante. Decidió pedirle ayuda a sus amigos y juntos crearon luces caseras con frascos, velas y papel de colores. Cada familia del pueblo contribuyó con su propia creación. Cuando llegó la noche de Navidad, el árbol brillaba con una luz cálida y especial que nunca antes habían visto. El árbol sin luces se convirtió en el más hermoso de todos, iluminado por la creatividad y el trabajo en equipo de toda la comunidad."
+    },
+    {
+      id: 'reno-timido',
+      title: "El reno tímido",
+      icon: "🦌",
+      story: "Blitzen era un reno joven y muy tímido que soñaba con volar junto al trineo de Santa, pero tenía miedo de hablar con los otros renos. Cada Navidad, observaba desde lejos cómo los renos principales despegaban mientras él se quedaba en el establo. Una noche, una estrella fugaz cayó cerca y Blitzen la siguió hasta un claro mágico donde conoció a un sabio reno anciano. El anciano le enseñó que el coraje no es la ausencia de miedo, sino actuar a pesar de él. Con esta lección, Blitzen regresó y le pidió a Santa una oportunidad. En la víspera de Navidad, cuando uno de los renos principales se resfrió, Blitzen se ofreció a tomar su lugar. Guió al trineo con valentía y determinación, superando su timidez y convirtiéndose en uno de los renos más confiables del equipo de Santa."
+    }
+  ];
+  const storiesRowRef = useRef(null);
 
   // Temas disponibles para las historias
   const themes = [
@@ -113,9 +136,15 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
     }
   };
 
-  // Abrir modal de tema
+  // Abrir modal de tema o historia original
   const openThemeModal = (theme) => {
     setSelectedThemeForModal(theme);
+    setShowThemeModal(true);
+  };
+
+  // Abrir modal de historia original
+  const openStoryModal = (story) => {
+    setSelectedThemeForModal(story);
     setShowThemeModal(true);
   };
 
@@ -134,6 +163,61 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
   const closeFooterModal = () => {
     setShowFooterModal(null);
   };
+
+  // Funcionalidad del carrusel
+  useEffect(() => {
+    const storiesRow = storiesRowRef.current;
+    const leftBtn = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+
+    if (!storiesRow || !leftBtn || !rightBtn) return;
+
+    const getCardWidth = () => {
+      // Obtener la primera card para calcular su ancho
+      const firstCard = storiesRow.querySelector('.story-card');
+      if (!firstCard) return 360 + 32; // Fallback a valor por defecto
+
+      const cardRect = firstCard.getBoundingClientRect();
+      const cardWidth = cardRect.width;
+      
+      // Obtener el gap del contenedor (2rem = 32px por defecto)
+      const gap = parseInt(window.getComputedStyle(storiesRow).gap) || 32;
+      
+      return cardWidth + gap;
+    };
+
+    const scrollLeft = () => {
+      const cardWidth = getCardWidth();
+      // Calcular la posición actual del scroll
+      const currentScroll = storiesRow.scrollLeft;
+      // Calcular cuántas cards completas se han desplazado
+      const cardsScrolled = Math.round(currentScroll / cardWidth);
+      // Calcular la nueva posición para retroceder exactamente una card
+      const newScrollPosition = Math.max(0, (cardsScrolled - 1) * cardWidth);
+      
+      storiesRow.scrollTo({ left: newScrollPosition, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+      const cardWidth = getCardWidth();
+      // Calcular la posición actual del scroll
+      const currentScroll = storiesRow.scrollLeft;
+      // Calcular cuántas cards completas se han desplazado
+      const cardsScrolled = Math.round(currentScroll / cardWidth);
+      // Calcular la nueva posición para avanzar exactamente una card
+      const newScrollPosition = (cardsScrolled + 1) * cardWidth;
+      
+      storiesRow.scrollTo({ left: newScrollPosition, behavior: 'smooth' });
+    };
+
+    leftBtn.addEventListener('click', scrollLeft);
+    rightBtn.addEventListener('click', scrollRight);
+
+    return () => {
+      leftBtn.removeEventListener('click', scrollLeft);
+      rightBtn.removeEventListener('click', scrollRight);
+    };
+  }, []);
 
   // Renderizar item del carrusel
   const renderThemeCard = (theme) => (
@@ -208,12 +292,12 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
             },
           ]}
         />
-        <Button variant="pill" size="md" onClick={() => goToChat()}>
-          Historias IA
-        </Button>
-        <Button variant="pill" size="md" onClick={goToGame}>
+        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); goToChat(); }}>
+          Crear historia IA
+        </a>
+        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
           Minijuegos
-        </Button>
+        </a>
       </Header>
 
       {/* HERO SECTION */}
@@ -231,22 +315,111 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         </div>
       </section>
 
-      {/* CAROUSEL DE TEMAS */}
-      <section className="landing-section landing-section--padding carousel-section">
-        <div className="carousel-header u-text-center">
-          <h2 className="carousel-title u-text-primary">Historias Mágicas de Navidad</h2>
-          <p className="carousel-description u-text-dark">
-            Descubre historias encantadoras llenas de espíritu navideño. 
-            Haz clic en una para leer su cuento mágico.
-          </p>
-        </div>
+      {/* CAROUSEL DE HISTORIAS Y TEMAS */}
+      <section id="historia-actual" className="landing-section landing-section--padding carousel-section">
+        <h2 className="section-title">Historias destacadas de Navidad</h2>
+        
+        <div className="carousel-container-navidad">
+          <button className="arrow arrow-left" id="leftBtn">&#10094;</button>
+          <button className="arrow arrow-right" id="rightBtn">&#10095;</button>
+          
+          <div className="stories-row" id="storiesRow" ref={storiesRowRef}>
+            {/* Cards de Temas - Mantienen funcionalidad de modal */}
+            {themes.map((theme) => {
+              // Datos inventados para cada tema
+              const themeData = {
+                1: { genre: "Fantasía navideña", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                2: { genre: "Aventura mágica", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                3: { genre: "Cuento navideño", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                4: { genre: "Aventura de superación", year: "2023", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                5: { genre: "Drama navideño", year: "2023", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                6: { genre: "Cuento infantil", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                7: { genre: "Aventura familiar", year: "2023", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+                8: { genre: "Fantasía espiritual", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+              };
+              const data = themeData[theme.id] || { genre: "Fantasía navideña", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
 
-        <div className="carousel-container">
-          <Carousel
-            items={themes}
-            renderItem={renderThemeCard}
-            showControls
-          />
+              return (
+                <article key={theme.id} className="story-card story-card--theme" onClick={() => openThemeModal(theme)}>
+                  <div className="story-image-wrapper story-image-wrapper--theme">
+                    <img
+                      src={data.pexelsImage}
+                      alt={theme.title}
+                      className="story-image"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        const iconDiv = e.target.parentElement.querySelector('.story-icon-fallback');
+                        if (iconDiv) iconDiv.style.display = 'flex';
+                      }}
+                    />
+                    <div 
+                      className="story-icon-fallback"
+                      style={{ display: 'none' }}
+                    >
+                      <span style={{ fontSize: '4rem' }}>{theme.icon}</span>
+                    </div>
+                  </div>
+                  <div className="story-body">
+                    <h3 className="story-title">{theme.title}</h3>
+                    <p className="story-info">Género: {data.genre}</p>
+                    <p className="story-info">Año: {data.year}</p>
+                    <p className="story-info">Autor: {data.author}</p>
+                  </div>
+                </article>
+              );
+            })}
+
+            {/* CARD - La carta que llegó tarde */}
+            <article className="story-card" onClick={() => openStoryModal(originalStories[0])}>
+              <div className="story-image-wrapper">
+                <img
+                  src="https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  className="story-image"
+                  alt="La carta que llegó tarde"
+                />
+              </div>
+              <div className="story-body">
+                <h3 className="story-title">La carta que llegó tarde</h3>
+                <p className="story-info">Género: Fantasía navideña</p>
+                <p className="story-info">Año: 2024</p>
+                <p className="story-info">Autora: Desing Events</p>
+              </div>
+            </article>
+
+            {/* CARD - El árbol sin luces */}
+            <article className="story-card" onClick={() => openStoryModal(originalStories[1])}>
+              <div className="story-image-wrapper">
+                <img
+                  src="https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  className="story-image"
+                  alt="El árbol sin luces"
+                />
+              </div>
+              <div className="story-body">
+                <h3 className="story-title">El árbol sin luces</h3>
+                <p className="story-info">Género: Aventura familiar</p>
+                <p className="story-info">Año: 2023</p>
+                <p className="story-info">Autor: Taller de Historias</p>
+              </div>
+            </article>
+
+            {/* CARD - El reno tímido */}
+            <article className="story-card" onClick={() => openStoryModal(originalStories[2])}>
+              <div className="story-image-wrapper">
+                <img
+                  src="https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  className="story-image"
+                  alt="El reno tímido"
+                />
+              </div>
+              <div className="story-body">
+                <h3 className="story-title">El reno tímido</h3>
+                <p className="story-info">Género: Cuento infantil</p>
+                <p className="story-info">Año: 2022</p>
+                <p className="story-info">Autora: Desing Events</p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -380,21 +553,34 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         {selectedThemeForModal && (
           <div className="story-modal">
             <div className="story-modal__header u-text-center">
-              <span className="story-modal__icon">{selectedThemeForModal.icon}</span>
+              <span className="story-modal__icon">{selectedThemeForModal.icon || "📖"}</span>
               <h2 className="story-modal__title u-text-primary">{selectedThemeForModal.title}</h2>
             </div>
             <p className="story-modal__text u-text-dark">{selectedThemeForModal.story}</p>
-            <Button
-              variant="accent"
-              size="lg"
-              className="story-modal__button u-width-full"
-              onClick={() => {
-                closeThemeModal();
-                goToChat(selectedThemeForModal);
-              }}
-            >
-              Crear mi propia versión de esta historia
-            </Button>
+            {selectedThemeForModal.color || selectedThemeForModal.description ? (
+              // Es un tema, mostrar botón para crear historia
+              <Button
+                variant="accent"
+                size="lg"
+                className="story-modal__button u-width-full"
+                onClick={() => {
+                  closeThemeModal();
+                  goToChat(selectedThemeForModal);
+                }}
+              >
+                Crear mi propia versión de esta historia
+              </Button>
+            ) : (
+              // Es una historia original, solo mostrar botón de cerrar
+              <Button
+                variant="accent"
+                size="lg"
+                className="story-modal__button u-width-full"
+                onClick={closeThemeModal}
+              >
+                Cerrar
+              </Button>
+            )}
           </div>
         )}
       </Modal>
