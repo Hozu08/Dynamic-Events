@@ -6,6 +6,27 @@
  */
 
 /**
+ * Normaliza una URL asegurando que tenga protocolo
+ * @param {string} url - URL a normalizar
+ * @returns {string} URL normalizada con protocolo
+ */
+const normalizeUrl = (url) => {
+  if (!url) return '';
+  
+  // Remover espacios
+  url = url.trim();
+  
+  // Si ya tiene protocolo, retornar tal cual (después de limpiar)
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url.endsWith('/') ? url.slice(0, -1) : url;
+  }
+  
+  // Si no tiene protocolo, agregar https://
+  const urlWithProtocol = `https://${url}`;
+  return urlWithProtocol.endsWith('/') ? urlWithProtocol.slice(0, -1) : urlWithProtocol;
+};
+
+/**
  * Obtiene la URL base de la API
  * @returns {string} URL base de la API
  */
@@ -15,9 +36,19 @@ export const getApiBaseUrl = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   
   if (apiUrl) {
-    // Si VITE_API_URL está definida, usarla (debe incluir el protocolo y dominio)
-    // Ejemplo: https://tu-backend.onrender.com
-    return apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+    // Normalizar la URL (agregar https:// si falta, remover trailing slash)
+    const normalizedUrl = normalizeUrl(apiUrl);
+    
+    // Log en desarrollo para debugging
+    if (import.meta.env.DEV) {
+      if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
+        console.warn('⚠️ VITE_API_URL no tiene protocolo. Se agregó automáticamente https://');
+        console.warn('   Original:', apiUrl);
+        console.warn('   Normalizada:', normalizedUrl);
+      }
+    }
+    
+    return normalizedUrl;
   }
   
   // Si no hay VITE_API_URL, usar endpoint relativo (funciona con serverless de Vercel)

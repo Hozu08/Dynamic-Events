@@ -14,11 +14,33 @@ try {
 
 const app = express();
 
-// Middleware global
-app.use(cors({
-  origin: config.corsOrigin,
+// Middleware global de CORS
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = Array.isArray(config.corsOrigin) 
+      ? config.corsOrigin 
+      : [config.corsOrigin];
+    
+    // En desarrollo, permitir requests sin origin (Postman, curl, etc.)
+    if (config.nodeEnv === 'development' && !origin) {
+      return callback(null, true);
+    }
+    
+    // Verificar si el origin está permitido
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`⚠️ CORS bloqueado para origin: ${origin}`);
+      console.warn(`   Orígenes permitidos: ${allowedOrigins.join(', ')}`);
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -55,5 +77,14 @@ app.use((err, req, res, next) => {
 app.listen(config.port, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${config.port}`);
   console.log(`📝 Entorno: ${config.nodeEnv}`);
-  console.log(`🌐 CORS habilitado para: ${config.corsOrigin}`);
+  const corsDisplay = Array.isArray(config.corsOrigin) 
+    ? config.corsOrigin.join(', ') 
+    : config.corsOrigin;
+  console.log(`🌐 CORS habilitado para: ${corsDisplay}`);
+  
+  // Advertencia si CORS_ORIGIN no está configurado en producción
+  if (config.nodeEnv === 'production' && !process.env.CORS_ORIGIN) {
+    console.warn('⚠️ ADVERTENCIA: CORS_ORIGIN no está configurado. Usando valor por defecto (localhost).');
+    console.warn('   Configura CORS_ORIGIN en Render con la URL de tu frontend en Vercel.');
+  }
 });

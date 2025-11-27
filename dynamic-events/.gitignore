@@ -27,3 +27,4 @@ dist-ssr
 .env
 
 README-DEPLOY.md
+DEPLOY-TROUBLESHOOTING.md

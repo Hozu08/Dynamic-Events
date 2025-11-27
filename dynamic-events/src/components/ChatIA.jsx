@@ -108,20 +108,35 @@ export function ChatIA({
           }
         })
         .catch((err) => {
-          console.error("Error:", err);
+          console.error("Error en auto-start fetch:", err);
+          console.error("API Endpoint usado:", apiEndpoint);
           
-          // Manejar errores específicos
-          if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
+          // Detectar errores de red (Failed to fetch, CORS, etc.)
+          const isNetworkError = 
+            err.message === "Failed to fetch" ||
+            err.message.includes("NetworkError") ||
+            err.message.includes("Network request failed") ||
+            err.name === "TypeError" ||
+            !err.status; // Si no hay status, probablemente es un error de red
+          
+          if (isNetworkError) {
+            const errorMessage = "No se pudo conectar con el servidor. Por favor, verifica tu conexión e intenta de nuevo.";
+            setError(errorMessage);
+            onError("network_error");
+            console.error("Error de red detectado. Verifica:", {
+              endpoint: apiEndpoint,
+              message: err.message,
+              name: err.name
+            });
+          } else if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
             setError("rate_limit_exceeded");
-            // Llamar callback de error para mostrar alerta en ChatPage
             onError("rate_limit_exceeded");
           } else if (err.status === 500 || err.errorCode === "api_error") {
             setError("api_error");
-            // Llamar callback de error para mostrar alerta en ChatPage
             onError("api_error");
           } else {
             setError(
-              `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
+              `⚠️ Ocurrió un error: ${err.message || "Error desconocido"}. Por favor, intenta de nuevo.`
             );
           }
           hasAutoStartedRef.current = false; // Permitir reintentar en caso de error
@@ -176,20 +191,35 @@ export function ChatIA({
         onFinish(updatedMessages);
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error("Error en fetch:", err);
+      console.error("API Endpoint usado:", apiEndpoint);
       
-      // Manejar errores específicos
-      if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
+      // Detectar errores de red (Failed to fetch, CORS, etc.)
+      const isNetworkError = 
+        err.message === "Failed to fetch" ||
+        err.message.includes("NetworkError") ||
+        err.message.includes("Network request failed") ||
+        err.name === "TypeError" ||
+        !err.status; // Si no hay status, probablemente es un error de red
+      
+      if (isNetworkError) {
+        const errorMessage = "No se pudo conectar con el servidor. Por favor, verifica tu conexión e intenta de nuevo.";
+        setError(errorMessage);
+        onError("network_error");
+        console.error("Error de red detectado. Verifica:", {
+          endpoint: apiEndpoint,
+          message: err.message,
+          name: err.name
+        });
+      } else if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
         setError("rate_limit_exceeded");
-        // Llamar callback de error para mostrar alerta en ChatPage
         onError("rate_limit_exceeded");
       } else if (err.status === 500 || err.errorCode === "api_error") {
         setError("api_error");
-        // Llamar callback de error para mostrar alerta en ChatPage
         onError("api_error");
       } else {
         setError(
-          `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
+          `⚠️ Ocurrió un error: ${err.message || "Error desconocido"}. Por favor, intenta de nuevo.`
         );
       }
     } finally {

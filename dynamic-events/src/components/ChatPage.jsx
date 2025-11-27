@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChatIA } from "./ChatIA";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
@@ -6,6 +6,7 @@ import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
 import { getChatApiEndpoint } from "../utils/apiConfig";
+import { logApiConfig } from "../utils/debugApi";
 import "../styles/ChristmasLanding.css";
 import "../styles/ChatPage.css";
 import "../styles/base/utilities.css";
@@ -21,6 +22,20 @@ import "../styles/base/utilities.css";
 export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
   const [showFooterModal, setShowFooterModal] = useState(null);
 
+  // Log de configuración de API (desarrollo y producción)
+  useEffect(() => {
+    logApiConfig();
+    const endpoint = getChatApiEndpoint();
+    console.log('📍 Endpoint de chat configurado:', endpoint);
+    
+    // Verificar que la URL tenga protocolo
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (apiUrl && !apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
+      console.warn('⚠️ VITE_API_URL no tiene protocolo. El sistema agregará https:// automáticamente.');
+      console.warn('   Para evitar esto, configura VITE_API_URL con https:// en Vercel');
+    }
+  }, []);
+
   const openFooterModal = (modalType) => {
     setShowFooterModal(modalType);
   };
@@ -35,6 +50,8 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
       alert("⚠️ El modelo AI ha llegado al límite de solicitudes. Por favor, intenta más tarde.");
     } else if (errorType === "api_error") {
       alert("⚠️ No hay conexión con la API. Por favor, verifica tu conexión e intenta de nuevo.");
+    } else if (errorType === "network_error") {
+      alert("⚠️ No se pudo conectar con el servidor. Verifica:\n\n1. Que el backend esté funcionando en Render\n2. Que la variable VITE_API_URL esté configurada correctamente en Vercel\n3. Que CORS esté configurado en el backend para aceptar tu dominio de Vercel");
     }
   };
   return (
