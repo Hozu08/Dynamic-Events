@@ -5,6 +5,7 @@ import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
+import { getChatApiEndpoint } from "../utils/apiConfig";
 import "../styles/ChristmasLanding.css";
 import "../styles/ChatPage.css";
 import "../styles/base/utilities.css";
@@ -108,7 +109,7 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
           <ChatIA
             userName="Aventurero"
             assistantName="Santa Claus"
-            apiEndpoint="/api/chat"
+            apiEndpoint={getChatApiEndpoint()}
             title=""
             description=""
             finishMarker="<<FIN_DE_LA_HISTORIA>>"
