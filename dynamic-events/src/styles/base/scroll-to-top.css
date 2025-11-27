@@ -1,0 +1,191 @@
+/* ==========================================
+   SCROLL TO TOP - OOCSS
+   Separación: Estructura | Skin
+   ========================================== */
+
+/* ESTRUCTURA (Layout) */
+.scroll-to-top {
+  position: fixed;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Posiciones (Estructura) */
+.scroll-to-top--bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.scroll-to-top--bottom-left {
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.scroll-to-top--bottom-center {
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scroll-to-top--bottom-center.scroll-to-top--visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tamaños (Estructura) */
+.scroll-to-top--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+}
+
+.scroll-to-top--md {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+
+.scroll-to-top--lg {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.8rem;
+}
+
+/* SKIN (Apariencia) */
+.scroll-to-top--primary {
+  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
+  color: white;
+  border: 2px solid #f5f5dc;
+}
+
+.scroll-to-top--primary:hover {
+  background: linear-gradient(135deg, #234a2f 0%, #3d6b4d 100%);
+  box-shadow: 0 6px 16px rgba(45, 90, 61, 0.3);
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--primary.scroll-to-top--visible:hover {
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--primary.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
+
+.scroll-to-top--secondary {
+  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+  color: white;
+}
+
+.scroll-to-top--secondary:hover {
+  background: linear-gradient(135deg, #6b3410 0%, #b85a1a 100%);
+  box-shadow: 0 6px 16px rgba(139, 69, 19, 0.3);
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--secondary.scroll-to-top--visible:hover {
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--secondary.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
+
+.scroll-to-top--accent {
+  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
+  color: white;
+}
+
+.scroll-to-top--accent:hover {
+  background: linear-gradient(135deg, #a01729 0%, #d44a62 100%);
+  box-shadow: 0 6px 16px rgba(196, 30, 58, 0.3);
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--accent.scroll-to-top--visible:hover {
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--accent.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
+
+.scroll-to-top--light {
+  background: white;
+  color: #2d5a3d;
+  border: 2px solid #2d5a3d;
+}
+
+.scroll-to-top--light:hover {
+  background: #2d5a3d;
+  color: white;
+  box-shadow: 0 6px 16px rgba(45, 90, 61, 0.2);
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--light.scroll-to-top--visible:hover {
+  transform: translateY(-3px);
+}
+
+.scroll-to-top--light.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+
+  .scroll-to-top--bottom-right,
+  .scroll-to-top--bottom-left {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .scroll-to-top--bottom-center {
+    bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1rem;
+  }
+
+  .scroll-to-top--bottom-right,
+  .scroll-to-top--bottom-left {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .scroll-to-top--bottom-center {
+    bottom: 1rem;
+  }
+}
+

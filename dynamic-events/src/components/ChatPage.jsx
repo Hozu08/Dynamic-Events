@@ -3,6 +3,7 @@ import { ChatIA } from "./ChatIA";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
+import { ScrollToTop } from "./base/ScrollToTop";
 import "../styles/ChristmasLanding.css";
 import "../styles/ChatPage.css";
 import "../styles/base/utilities.css";
@@ -240,6 +241,9 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
           </div>
         </div>
       </Modal>
+
+      {/* SCROLL TO TOP */}
+      <ScrollToTop variant="primary" position="bottom-right" />
     </div>
   );
 }

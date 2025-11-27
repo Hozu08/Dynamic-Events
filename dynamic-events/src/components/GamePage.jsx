@@ -3,6 +3,7 @@ import { MinigameTest } from "./MinigameTest";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
+import { ScrollToTop } from "./base/ScrollToTop";
 import "../styles/ChristmasLanding.css";
 import "../styles/GamePage.css";
 import "../styles/base/utilities.css";
@@ -235,6 +236,9 @@ export function GamePage({ onBack, onNavigateToChat }) {
           </div>
         </div>
       </Modal>
+
+      {/* SCROLL TO TOP */}
+      <ScrollToTop variant="primary" position="bottom-right" />
     </div>
   );
 }

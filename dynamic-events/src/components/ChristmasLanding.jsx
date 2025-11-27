@@ -5,6 +5,7 @@ import { Card } from "./base/Card";
 import { Modal } from "./base/Modal";
 import { Hero } from "./base/Hero";
 import { Carousel } from "./base/Carousel";
+import { ScrollToTop } from "./base/ScrollToTop";
 import "../styles/ChristmasLanding.css";
 import "../styles/base/utilities.css";
 
@@ -463,6 +464,9 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
           </div>
         </div>
       </Modal>
+
+      {/* SCROLL TO TOP */}
+      <ScrollToTop variant="primary" position="bottom-right" />
     </div>
   );
 }
