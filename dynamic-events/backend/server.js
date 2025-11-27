@@ -36,9 +36,16 @@ if (!process.env.OPENAI_API_KEY) {
   process.exit(1); //Finaliza el proceso de ejecución si no encuentra la Api_Key.
 }
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Función para crear cliente OpenAI con una API key específica
+const createOpenAIClient = (apiKey) => {
+  return new OpenAI({
+    apiKey: apiKey,
+  });
+};
+
+// Cliente inicial con la primera API key
+let currentClient = createOpenAIClient(process.env.OPENAI_API_KEY);
+let currentApiKeyIndex = 1; // 1 = OPENAI_API_KEY, 2 = OPENAI_API_KEY2
 
 //Endpoint de prueba.
 app.get("/test", (req, res) => {
@@ -50,7 +57,7 @@ app.post("/api/chat", async (req, res) => {
   const { messages } = req.body;
 
   try {
-    const completion = await client.chat.completions.create({
+    const completion = await currentClient.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: dataContextIA },
@@ -63,7 +70,64 @@ app.post("/api/chat", async (req, res) => {
     res.json({ reply: completion.choices[0].message.content }); //Devuelve la respuesta al frontend.
   } catch (error) {
     console.error("Error en OpenAI:", error);
-    res.status(500).json({ error: "Error al generar respuesta" });
+    
+    // Verificar si es un error de rate limit
+    const errorCode = error?.code || error?.error?.code || error?.response?.status || error?.status;
+    const isRateLimit = errorCode === "rate_limit_exceeded" || 
+                        errorCode === "insufficient_quota" ||
+                        error?.message?.includes("rate_limit") ||
+                        error?.error?.message?.includes("rate_limit");
+
+    // Si es rate limit y tenemos una segunda API key, intentar con ella
+    if (isRateLimit && currentApiKeyIndex === 1 && process.env.OPENAI_API_KEY2) {
+      console.log("Rate limit alcanzado con API_KEY1, cambiando a API_KEY2...");
+      currentApiKeyIndex = 2;
+      currentClient = createOpenAIClient(process.env.OPENAI_API_KEY2);
+      
+      try {
+        // Reintentar con la segunda API key
+        const retryCompletion = await currentClient.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+            { role: "system", content: dataContextIA },
+            ...messages,
+          ]
+        });
+
+        console.log("Éxito con API_KEY2:", retryCompletion.usage);
+        res.json({ reply: retryCompletion.choices[0].message.content });
+        return;
+      } catch (retryError) {
+        // Si también falla la segunda API key con rate limit
+        const retryErrorCode = retryError?.code || retryError?.error?.code;
+        const isRetryRateLimit = retryErrorCode === "rate_limit_exceeded" || 
+                                 retryErrorCode === "insufficient_quota" ||
+                                 retryError?.message?.includes("rate_limit") ||
+                                 retryError?.error?.message?.includes("rate_limit");
+        
+        if (isRetryRateLimit) {
+          console.error("Ambas API keys han alcanzado el límite de rate limit");
+          res.status(429).json({ 
+            error: "rate_limit_exceeded",
+            message: "El modelo AI ha llegado al límite de solicitudes. Por favor, intenta más tarde." 
+          });
+          return;
+        }
+      }
+    } else if (isRateLimit) {
+      // Si ya estamos usando la segunda API key y también tiene rate limit
+      res.status(429).json({ 
+        error: "rate_limit_exceeded",
+        message: "El modelo AI ha llegado al límite de solicitudes. Por favor, intenta más tarde." 
+      });
+      return;
+    }
+
+    // Para otros errores, devolver error 500
+    res.status(500).json({ 
+      error: "api_error",
+      message: "No hay conexión con la API. Por favor, verifica tu conexión e intenta de nuevo." 
+    });
   }
 });
 

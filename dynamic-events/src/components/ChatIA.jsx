@@ -16,6 +16,7 @@ import "../styles/chat.css";
  * @param {Function} props.onReset - Callback al reiniciar
  * @param {Function} props.onSend - Callback al enviar mensaje
  * @param {Function} props.onFinish - Callback al finalizar conversación
+ * @param {Function} props.onError - Callback cuando ocurre un error específico (rate_limit_exceeded, api_error)
  */
 export function ChatIA({
   userName = "Usuario",
@@ -29,6 +30,7 @@ export function ChatIA({
   onReset = () => {},
   onSend = () => {},
   onFinish = () => {},
+  onError = () => {},
   initialMessages = [],
   maxMessagesHeight = "300px",
   enableKeyboardShortcuts = true,
@@ -86,9 +88,13 @@ export function ChatIA({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
       })
-        .then((res) => {
+        .then(async (res) => {
           if (!res.ok) {
-            throw new Error(`Error ${res.status}: ${res.statusText}`);
+            const errorData = await res.json().catch(() => ({}));
+            const error = new Error(errorData.message || `Error ${res.status}: ${res.statusText}`);
+            error.status = res.status;
+            error.errorCode = errorData.error;
+            throw error;
           }
           return res.json();
         })
@@ -103,9 +109,21 @@ export function ChatIA({
         })
         .catch((err) => {
           console.error("Error:", err);
-          setError(
-            `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
-          );
+          
+          // Manejar errores específicos
+          if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
+            setError("rate_limit_exceeded");
+            // Llamar callback de error para mostrar alerta en ChatPage
+            onError("rate_limit_exceeded");
+          } else if (err.status === 500 || err.errorCode === "api_error") {
+            setError("api_error");
+            // Llamar callback de error para mostrar alerta en ChatPage
+            onError("api_error");
+          } else {
+            setError(
+              `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
+            );
+          }
           hasAutoStartedRef.current = false; // Permitir reintentar en caso de error
         })
         .finally(() => {
@@ -140,7 +158,11 @@ export function ChatIA({
       });
 
       if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
+        const errorData = await res.json().catch(() => ({}));
+        const error = new Error(errorData.message || `Error ${res.status}: ${res.statusText}`);
+        error.status = res.status;
+        error.errorCode = errorData.error;
+        throw error;
       }
 
       const data = await res.json();
@@ -155,9 +177,21 @@ export function ChatIA({
       }
     } catch (err) {
       console.error("Error:", err);
-      setError(
-        `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
-      );
+      
+      // Manejar errores específicos
+      if (err.status === 429 || err.errorCode === "rate_limit_exceeded") {
+        setError("rate_limit_exceeded");
+        // Llamar callback de error para mostrar alerta en ChatPage
+        onError("rate_limit_exceeded");
+      } else if (err.status === 500 || err.errorCode === "api_error") {
+        setError("api_error");
+        // Llamar callback de error para mostrar alerta en ChatPage
+        onError("api_error");
+      } else {
+        setError(
+          `⚠️ Ocurrió un error: ${err.message}. Por favor, intenta de nuevo.`
+        );
+      }
     } finally {
       setLoading(false);
     }

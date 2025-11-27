@@ -27,6 +27,15 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
   const closeFooterModal = () => {
     setShowFooterModal(null);
   };
+
+  // Manejar errores de la API
+  const handleApiError = (errorType) => {
+    if (errorType === "rate_limit_exceeded") {
+      alert("⚠️ El modelo AI ha llegado al límite de solicitudes. Por favor, intenta más tarde.");
+    } else if (errorType === "api_error") {
+      alert("⚠️ No hay conexión con la API. Por favor, verifica tu conexión e intenta de nuevo.");
+    }
+  };
   return (
     <div className="christmas-landing">
       {/* HEADER */}
@@ -107,6 +116,7 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
             theme="dark"
             maxMessagesHeight="400px"
             autoStartWithTheme={selectedTheme}
+            onError={handleApiError}
             welcomeContent={
               <div className="santa-card">
                 <div className="santa-card__inner santa-card__inner--chat">
