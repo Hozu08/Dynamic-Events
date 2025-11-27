@@ -6,6 +6,7 @@ import { Modal } from "./base/Modal";
 import { Hero } from "./base/Hero";
 import { Carousel } from "./base/Carousel";
 import { ScrollToTop } from "./base/ScrollToTop";
+import { Dropdown } from "./base/Dropdown";
 import "../styles/ChristmasLanding.css";
 import "../styles/base/utilities.css";
 
@@ -176,7 +177,37 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         variant="light"
         onLogoClick={onNavigateToLanding}
       >
-        <Button variant="pill" size="md">Temporadas</Button>
+        <Dropdown
+          label="Temporadas"
+          variant="pill"
+          size="md"
+          position="bottom-left"
+          items={[
+            {
+              label: "Halloween",
+              icon: "🎃",
+              onClick: () => {
+                // TODO: Implementar navegación a Halloween
+                console.log("Navegar a Halloween");
+              },
+            },
+            {
+              label: "Navidad",
+              icon: "🎄",
+              onClick: () => {
+                onNavigateToLanding();
+              },
+            },
+            {
+              label: "Vacaciones",
+              icon: "🏖️",
+              onClick: () => {
+                // TODO: Implementar navegación a Vacaciones
+                console.log("Navegar a Vacaciones");
+              },
+            },
+          ]}
+        />
         <Button variant="pill" size="md" onClick={() => goToChat()}>
           Historias IA
         </Button>

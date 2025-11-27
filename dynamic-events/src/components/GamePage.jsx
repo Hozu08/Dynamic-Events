@@ -4,6 +4,7 @@ import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
+import { Dropdown } from "./base/Dropdown";
 import "../styles/ChristmasLanding.css";
 import "../styles/GamePage.css";
 import "../styles/base/utilities.css";
@@ -61,7 +62,37 @@ export function GamePage({ onBack, onNavigateToChat }) {
         variant="light"
         onLogoClick={onBack}
       >
-        <Button variant="pill" size="md" onClick={onBack}>Temporadas</Button>
+        <Dropdown
+          label="Temporadas"
+          variant="pill"
+          size="md"
+          position="bottom-left"
+          items={[
+            {
+              label: "Halloween",
+              icon: "🎃",
+              onClick: () => {
+                // TODO: Implementar navegación a Halloween
+                console.log("Navegar a Halloween");
+              },
+            },
+            {
+              label: "Navidad",
+              icon: "🎄",
+              onClick: () => {
+                onBack();
+              },
+            },
+            {
+              label: "Vacaciones",
+              icon: "🏖️",
+              onClick: () => {
+                // TODO: Implementar navegación a Vacaciones
+                console.log("Navegar a Vacaciones");
+              },
+            },
+          ]}
+        />
         <Button variant="pill" size="md" onClick={onNavigateToChat}>Historias IA</Button>
         <Button variant="pill" size="md" className="nav-pill--active">Minijuegos</Button>
       </Header>
