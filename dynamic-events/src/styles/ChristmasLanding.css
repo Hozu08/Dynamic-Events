@@ -228,6 +228,10 @@
 /* Theme Card específico */
 .theme-card {
   /* Usa card--lg base */
+  width: 350px;
+  height: 400px;
+  min-width: 350px;
+  max-width: 350px;
   justify-content: space-between;
 }
 
@@ -419,7 +423,9 @@
   }
 
   .theme-card {
+    width: 300px;
     min-width: 300px;
+    max-width: 300px;
     height: 350px;
   }
 }
@@ -449,7 +455,9 @@
   }
 
   .theme-card {
+    width: 250px;
     min-width: 250px;
+    max-width: 250px;
     height: 300px;
   }
 

@@ -12,36 +12,47 @@
 }
 
 .carousel__track {
-  display: flex;
-  gap: 3rem;
   overflow: hidden;
   flex: 1;
+  position: relative;
+  padding: 20px 0; /* Espacio vertical para las animaciones hover (translateY) */
+}
+
+.carousel__items-wrapper {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
 }
 
 .carousel__item {
-  min-width: 350px;
+  width: 350px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel__button {
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  width: 3rem;
-  height: 3rem;
+  background: transparent;
+  border: 2px solid rgba(45, 90, 61, 0.5);
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  color: rgba(45, 90, 61, 0.8);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   z-index: 10;
+  padding: 0;
 }
 
 .carousel__button:hover {
-  background: rgba(255, 255, 255, 1);
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: #2d5a3d;
+  color: #2d5a3d;
+  background: rgba(45, 90, 61, 0.1);
 }
 
 .carousel__button--prev {
@@ -69,9 +80,10 @@
   }
 
   .carousel__button {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    border-width: 1.5px;
   }
 }
 

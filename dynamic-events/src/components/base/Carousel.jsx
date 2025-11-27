@@ -17,13 +17,17 @@ export function Carousel({
   showControls = true,
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Calcular el máximo índice para evitar sobreposición
+  // Mostramos 3 items a la vez, así que el máximo es items.length - 3
+  const maxIndex = Math.max(0, items.length - 3);
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % items.length);
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   if (items.length === 0) return null;
@@ -31,27 +35,31 @@ export function Carousel({
   return (
     <div className={`carousel ${className}`}>
       {showControls && (
-        <button className="carousel__button carousel__button--prev" onClick={prev}>
-          ‹
+        <button className="carousel__button carousel__button--prev" onClick={prev} aria-label="Anterior">
+          ←
         </button>
       )}
       <div className="carousel__track">
-        {items.map((item, index) => (
-          <div
-            key={index}
-            className="carousel__item"
-            style={{
-              transform: `translateX(-${currentIndex * 110}%)`,
-              transition: "transform 0.5s ease",
-            }}
-          >
-            {renderItem ? renderItem(item, index) : item}
-          </div>
-        ))}
+        <div 
+          className="carousel__items-wrapper"
+          style={{
+            transform: `translateX(-${currentIndex * (350 + 48)}px)`,
+            transition: "transform 0.5s ease",
+          }}
+        >
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="carousel__item"
+            >
+              {renderItem ? renderItem(item, index) : item}
+            </div>
+          ))}
+        </div>
       </div>
       {showControls && (
-        <button className="carousel__button carousel__button--next" onClick={next}>
-          ›
+        <button className="carousel__button carousel__button--next" onClick={next} aria-label="Siguiente">
+          →
         </button>
       )}
     </div>
