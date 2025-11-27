@@ -427,6 +427,16 @@
     min-width: 220px;
     max-width: 220px;
     height: 280px;
+    padding: 1.5rem;
+  }
+
+  .theme-card__icon {
+    font-size: 4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .theme-card__title {
+    font-size: 1rem;
   }
 }
 
@@ -459,6 +469,17 @@
     min-width: 180px;
     max-width: 180px;
     height: 240px;
+    padding: 1rem;
+  }
+
+  .theme-card__icon {
+    font-size: 3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .theme-card__title {
+    font-size: 0.85rem;
+    line-height: 1.3;
   }
 
   .santa-card {
@@ -516,6 +537,10 @@
 
   .theme-card__icon {
     font-size: 6rem;
+  }
+
+  .theme-card__title {
+    font-size: 1.1rem;
   }
 
   .santa-card__image {
