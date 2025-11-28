@@ -15,10 +15,11 @@ import "../styles/base/utilities.css";
  * 
  * @param {Object} props
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
+ * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing (para el logo)
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigateToLanding }) {
+export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
@@ -272,7 +273,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
           Minijuegos
         </a>
-        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); goToChat(); }}>
+        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
         <Dropdown

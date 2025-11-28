@@ -1,0 +1,586 @@
+/* ==========================================
+   CREATE HISTORY - OOCSS
+   Separación: Estructura | Skin
+   ========================================== */
+
+/* Variables globales */
+:root {
+  --color-primary: #0b6a45;
+  --color-accent: #c0002f;
+  --color-accent-light: rgba(192, 0, 47, 0.12);
+  --bg-light: #fdfdfd;
+  --bg-paper: #fff6dd;
+  --bg-paper-pattern: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
+  --text-dark: #3b2d21;
+  --text-medium: #4a3a27;
+  --text-light: #7a6750;
+  --border-color: #e0cfa6;
+  --border-radius: 26px;
+  --max-width: 1920px;
+}
+
+/* ==========================================
+   ESTRUCTURA (Layout)
+   ========================================== */
+
+/* Container principal - Usa christmas-landing de ChristmasLanding.css */
+/* Los estilos base se heredan de christmas-landing */
+
+/* SECCIÓN DE INSTRUCCIONES */
+.instrucciones-santa {
+  padding: 6rem 1.5rem 1.5rem; /* espacio para nav fija */
+  background: transparent;
+  width: 100%;
+}
+
+.instrucciones-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fffdf5;
+  border-radius: 20px;
+  padding: 1.8rem 2.2rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0e0c0;
+}
+
+/* TALLER DE SANTA */
+.taller-santa {
+  padding: 3rem 1.5rem 4rem;
+  min-height: 100vh;
+  background: transparent;
+  width: 100%;
+}
+
+.taller-inner {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--bg-paper) var(--bg-paper-pattern);
+  border-radius: var(--border-radius);
+  padding: 1.1rem 2.2rem 2rem;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+  position: relative;
+}
+
+.taller-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* FORMULARIO POR PASOS */
+.taller-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.paso-form {
+  display: none;
+}
+
+.paso-form.activo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* PROGRESO */
+.pasos-header {
+  margin-bottom: 1.3rem;
+}
+
+.pasos-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.pasos-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pasos-barra {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: #f0e0c0;
+  overflow: hidden;
+}
+
+/* CONTROLES */
+.pasos-controles {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* CHIPS */
+.chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* RESULTADO */
+.resultado-historia {
+  display: block;
+  margin-top: 2.5rem;
+  padding: 0 1.5rem 4rem;
+  width: 100%;
+}
+
+.resultado-carta {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--bg-paper) var(--bg-paper-pattern);
+  border-radius: var(--border-radius);
+  padding: 2.3rem 2.6rem;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+  position: relative;
+}
+
+.resultado-controles {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* ==========================================
+   SKIN (Apariencia)
+   ========================================== */
+
+/* INSTRUCCIONES */
+.instr-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0.6rem;
+  text-align: left;
+}
+
+.instr-text {
+  font-size: 0.96rem;
+  color: var(--text-medium);
+  margin-bottom: 0.8rem;
+}
+
+.instr-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0.9rem;
+}
+
+.instr-list li {
+  font-size: 0.96rem;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.instr-footer {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* TALLER */
+.taller-pill {
+  display: inline-block;
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.taller-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+}
+
+.taller-subtitle {
+  font-size: 0.98rem;
+  color: var(--text-medium);
+  max-width: 520px;
+  margin-bottom: 1.3rem;
+}
+
+/* BORDE DECORATIVO */
+.taller-inner::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 32px;
+  background: repeating-linear-gradient(
+    45deg,
+    #d22 0 18px,
+    #d22 18px 36px,
+    var(--color-primary) 36px 54px,
+    var(--color-primary) 54px 72px
+  );
+  z-index: -1;
+}
+
+.resultado-carta::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 32px;
+  background: repeating-linear-gradient(
+    45deg,
+    #d22 0 18px,
+    #d22 18px 36px,
+    var(--color-primary) 36px 54px,
+    var(--color-primary) 54px 72px
+  );
+  z-index: -1;
+}
+
+/* PROGRESO */
+.paso-indicador {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.paso-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #d4bfa1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a58a66;
+  background: #fffaf1;
+}
+
+.paso-badge.activo,
+.paso-badge.completado {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.paso-badge.completado {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pasos-barra-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.25s ease-out;
+}
+
+/* FORMULARIO */
+.field-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #3c2a1c;
+}
+
+.field-input {
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: #fffaf1;
+  font-family: inherit;
+}
+
+.field-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px rgba(192, 0, 47, 0.6);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* CHIPS */
+.chip-option {
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  background: #fffaf1;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.chip-option:hover {
+  border-color: var(--color-accent);
+}
+
+.chip-selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* BOTONES */
+.taller-btn-primary {
+  align-self: flex-start;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  padding: 0.75rem 1.9rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(192, 0, 47, 0.4);
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.taller-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.taller-btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.taller-btn-primary:hover::after {
+  left: 120%;
+}
+
+.btn-secundario {
+  background: transparent;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-secundario:hover {
+  background: rgba(192, 0, 47, 0.06);
+}
+
+/* RESULTADO */
+.resultado-etiqueta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  margin-bottom: 0.4rem;
+}
+
+.resultado-titulo {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0.6rem;
+}
+
+.resultado-meta {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.3rem;
+}
+
+.resultado-texto {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  white-space: pre-line;
+}
+
+/* LUCES NAVIDEÑAS */
+.luces-navidad {
+  width: 100%;
+  height: 120px;
+  background: url("https://i.imgur.com/aiInPjw.png") center repeat-x;
+  background-size: contain;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+  animation: lucesParpadeo 2s infinite ease-in-out;
+}
+
+@keyframes lucesParpadeo {
+  0% { opacity: 0.9; }
+  50% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+/* DUENDE ANIMADO */
+.duende-animado {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  width: 90px;
+  animation: caminarDuende 6s infinite linear;
+  opacity: 0.95;
+  z-index: 10;
+}
+
+@keyframes caminarDuende {
+  0%   { transform: translateX(20px); }
+  50%  { transform: translateX(-20px); }
+  100% { transform: translateX(20px); }
+}
+
+/* FOOTER */
+.footer {
+  background: var(--color-accent);
+  padding: 5rem 2rem;
+  color: #fff;
+  margin-top: 5rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  text-align: left;
+}
+
+.footer-column {
+  position: relative;
+  padding-left: 1.2rem; /* espacio para la barra */
+}
+
+/* barra vertical */
+.footer-column::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  width: 4px;
+  height: 85%;
+  background: #8b0000;
+  border-radius: 4px;
+}
+
+.footer-column h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+
+.footer-column a {
+  display: block;
+  color: #f5f5f5;
+  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+  transition: 0.2s ease;
+  text-align: left;
+}
+
+.footer-column a:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+/* Media queries para pantallas grandes - adaptación 4K */
+@media (max-width: 1600px) {
+  :root {
+    --max-width: 1400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .taller-inner {
+    padding: 1.4rem 1.6rem 2rem;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .duende-animado {
+    display: none;
+  }
+
+  .resultado-carta {
+    padding: 2rem 1.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .taller-santa {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .taller-inner {
+    padding: 1.3rem 1.3rem 1.8rem;
+  }
+
+  .taller-title {
+    font-size: 1.9rem;
+  }
+
+  .instrucciones-container {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .instr-title {
+    font-size: 1.3rem;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}

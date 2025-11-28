@@ -2,18 +2,25 @@ import { useState } from "react";
 import { ChristmasLanding } from "./components/ChristmasLanding";
 import { ChatPage } from "./components/ChatPage";
 import { GamePage } from "./components/GamePage";
+import { CreateHistory } from "./components/CreateHistory";
 
 /**
- * App - Router simple para navegar entre Landing, Chat y Juego
+ * App - Router simple para navegar entre Landing, Chat, CreateHistory y Juego
  */
 function App() {
-  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'game'
+  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game'
   const [selectedTheme, setSelectedTheme] = useState(null);
 
   // Navegar al chat
   const navigateToChat = (theme = null) => {
     setSelectedTheme(theme);
     setCurrentPage("chat");
+    window.scrollTo(0, 0);
+  };
+
+  // Navegar a crear historia
+  const navigateToCreateHistory = () => {
+    setCurrentPage("create-history");
     window.scrollTo(0, 0);
   };
 
@@ -35,8 +42,16 @@ function App() {
       {currentPage === "landing" && (
         <ChristmasLanding 
           onNavigateToChat={navigateToChat}
+          onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToGame={navigateToGame}
           onNavigateToLanding={navigateToLanding}
+        />
+      )}
+
+      {currentPage === "create-history" && (
+        <CreateHistory 
+          onNavigateToLanding={navigateToLanding}
+          onNavigateToGame={navigateToGame}
         />
       )}
 
