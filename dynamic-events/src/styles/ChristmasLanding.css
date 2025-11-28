@@ -22,6 +22,16 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* ==========================================
    ESTRUCTURA (Layout)
    ========================================== */
@@ -30,6 +40,7 @@
 .christmas-landing {
   min-height: 100vh;
   width: 100vw;
+  max-width: 100%;
   font-family: 'Arial', sans-serif;
   overflow-x: hidden; /* Solo ocultar scroll horizontal */
   overflow-y: visible; /* Permitir overflow vertical para animaciones */
@@ -58,7 +69,8 @@
 
 /* Header unificado - usa estilos base */
 .christmas-header {
-  max-width: var(--max-width);
+  width: 100%;
+  max-width: 100%;
 }
 
 .christmas-logo {
