@@ -560,30 +560,17 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
               <h2 className="story-modal__title u-text-primary">{selectedThemeForModal.title}</h2>
             </div>
             <p className="story-modal__text u-text-dark">{selectedThemeForModal.story}</p>
-            {selectedThemeForModal.color || selectedThemeForModal.description ? (
-              // Es un tema, mostrar botón para crear historia
-              <Button
-                variant="accent"
-                size="lg"
-                className="story-modal__button u-width-full"
-                onClick={() => {
-                  closeThemeModal();
-                  goToChat(selectedThemeForModal);
-                }}
-              >
-                Crear mi propia versión de esta historia
-              </Button>
-            ) : (
-              // Es una historia original, solo mostrar botón de cerrar
-              <Button
-                variant="accent"
-                size="lg"
-                className="story-modal__button u-width-full"
-                onClick={closeThemeModal}
-              >
-                Cerrar
-              </Button>
-            )}
+            <Button
+              variant="accent"
+              size="lg"
+              className="story-modal__button u-width-full"
+              onClick={() => {
+                closeThemeModal();
+                goToChat(selectedThemeForModal);
+              }}
+            >
+              Crear mi propia versión de esta historia
+            </Button>
           </div>
         )}
       </Modal>
