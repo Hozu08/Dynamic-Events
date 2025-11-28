@@ -22,6 +22,14 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
+  
+  // Historia destacada del hero
+  const featuredStory = {
+    id: 'carta-perdida',
+    title: "La Carta Perdida de Navidad",
+    icon: "📮",
+    story: "En una pequeña ciudad nevada, una joven llamada Elena encontró una carta que nunca llegó a Papá Noel. Era una carta antigua, amarillenta por el tiempo, con una dirección borrosa que apenas podía leerse. Elena, con un corazón lleno de curiosidad y bondad, decidió emprender un viaje mágico antes de que terminara la noche de Navidad. Siguió las pistas que la carta guardaba entre sus pliegues: un copo de nieve especial, un fragmento de campanilla y un pequeño trozo de papel con coordenadas misteriosas. Con la ayuda de sus amigos y un poco de magia navideña, Elena logró encontrar al destinatario original de la carta: un anciano que había perdido la esperanza años atrás. Cuando leyó la carta, sus ojos brillaron con lágrimas de alegría. La carta perdida trajo de vuelta la magia a su corazón y a toda la comunidad. Elena aprendió que nunca es tarde para hacer llegar un mensaje de amor, y que la Navidad tiene el poder de conectar almas perdidas a través del tiempo."
+  };
 
   // Historias para las cards originales
   const originalStories = [
@@ -261,8 +269,14 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         variant="light"
         onLogoClick={onNavigateToLanding}
       >
+        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
+          Minijuegos
+        </a>
+        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); goToChat(); }}>
+          Crear historia IA
+        </a>
         <Dropdown
-          label="Temporadas"
+          label="Escoger época"
           variant="pill"
           size="md"
           position="bottom-left"
@@ -292,26 +306,27 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
             },
           ]}
         />
-        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); goToChat(); }}>
-          Crear historia IA
-        </a>
-        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
-          Minijuegos
-        </a>
       </Header>
 
       {/* HERO SECTION */}
-      <section className="christmas-hero hero hero--gradient-sky">
-        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
-        <div className="hero__content">
-          <h1 className="hero__title hero__title--light">
-            Entra a la Aventura de la
-            <br />
-            Navidad
-          </h1>
-          <Button variant="outline" size="lg" className="hero-button" onClick={() => goToChat()}>
-            Crea tu historia
-          </Button>
+      <section className="hero hero--index-navidad">
+        <div className="hero-overlay"></div>
+        <div className="hero-inner">
+          <div className="hero-content">
+            <span className="hero-tag">HISTORIA DESTACADA</span>
+            <h1 className="hero-title">La Carta Perdida de Navidad</h1>
+            <p className="hero-meta">Historia corta · Fantasía navideña</p>
+            <p className="hero-synopsis">
+              Una joven encuentra una carta que nunca llegó a Papá Noel y decide emprender
+              un viaje mágico antes de que termine la noche de Navidad.
+            </p>
+            <a href="#historia-actual" className="hero-btn" onClick={(e) => { 
+              e.preventDefault(); 
+              openStoryModal(featuredStory);
+            }}>
+              Leer más
+            </a>
+          </div>
         </div>
       </section>
 
@@ -423,34 +438,35 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
         </div>
       </section>
 
-      {/* SECCIÓN SANTA CLAUS */}
-      <section className="landing-section landing-section--padding santa-section">
-        <div className="santa-card">
-          <div className="santa-card__inner u-flex u-flex-between">
-            <div className="santa-card__text">
-              <div className="santa-card__message u-text-italic">
-                Ho, ho, ho... ¡Hola aventurero!
-                <br />
-                He preparado algo muy especial para ti.
-                <br />
-                Si presionas el botón, podrás crear tu propia historia navideña conmigo.
-                <br />
-                ¡Estoy listo para vivir esta aventura contigo!
-              </div>
-              <Button variant="primary" size="lg" className="santa-card__button" onClick={() => goToChat()}>
-                Comienza tu historia
-              </Button>
+      {/* SECCIÓN CARTA NAVIDAD */}
+      <section className="carta-navidad">
+        <div className="carta-container">
+          <div className="carta-inner">
+            <div className="carta-left">
+              <h2 className="carta-title">Historias personalizadas con IA</h2>
+              <p className="carta-text">
+                ¡Ho, ho, ho! <br /><br />
+                ¡Hola, amiguito! Te habla Papá Noel.<br /><br />
+                Quiero invitarte a mi taller mágico para que crees tu propia historia
+                personalizada con IA. Solo debes seguir unas simples instrucciones,
+                elegir los elementos que más te gusten y, con un toque de magia
+                navideña, la inteligencia artificial transformará tus ideas en un
+                relato único y especial.<br /><br />
+                Tu historia te está esperando.
+              </p>
+              <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); goToChat(); }}>
+                Crear ahora
+              </a>
             </div>
-            
-            {/* Imagen de Santa */}
-            <div className="santa-card__image-wrapper">
-              <img 
-                src="/images/santa.png" 
-                alt="Santa Claus"
+            <div className="carta-right">
+              <img
+                src="/images/santa.png"
+                alt="Papá Noel"
+                className="santa-img"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   const emojiDiv = document.createElement('div');
-                  emojiDiv.className = 'santa-card__image';
+                  emojiDiv.style.fontSize = '8rem';
                   emojiDiv.textContent = '🎅';
                   e.target.parentElement.appendChild(emojiDiv);
                 }}
@@ -461,86 +477,73 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToGame, onNavigat
       </section>
 
       {/* SECCIÓN MINIJUEGOS */}
-      <section className="landing-section landing-section--padding minigames-section">
-        <div className="minigames-grid u-grid u-grid-3 u-gap-lg">
-          {/* Minijuego 1 */}
-          <Card variant="green" className="minigame-card" interactive>
-            <div className="minigame-card__preview">
-              <img 
-                src="/images/game-preview-1.png" 
-                alt="Minijuego 1"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span style="font-size: 4rem;">🎮</span>';
-                }}
-              />
-            </div>
-            <h3 className="minigame-card__title">minijuego</h3>
-          </Card>
-
-          {/* Minijuego 2 - Atrapa regalos (principal) */}
-          <Card
-            variant="brown"
-            className="minigame-card"
-            interactive
-            onClick={goToGame}
-          >
-            <div className="minigame-card__preview">
-              <img 
-                src="/images/game-preview-2.png" 
-                alt="Atrapa los regalos"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<div style="font-size: 3rem;">🎁❄️🎄</div>';
-                }}
-              />
-            </div>
-            <h3 className="minigame-card__title">minijuego</h3>
-          </Card>
-
-          {/* Minijuego 3 */}
-          <Card variant="red" className="minigame-card" interactive>
-            <div className="minigame-card__preview">
-              <img 
-                src="/images/game-preview-3.png" 
-                alt="Minijuego 3"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span style="font-size: 4rem;">🎮</span>';
-                }}
-              />
-            </div>
-            <h3 className="minigame-card__title">minijuego</h3>
-          </Card>
+      <section className="minijuegos-section">
+        <div className="minijuegos-inner">
+          <h2 className="minijuegos-title">Minijuegos navideños</h2>
+          <p className="minijuegos-desc">
+            Explora pequeños desafíos interactivos para seguir jugando con la magia
+            de la Navidad: memoria, decisiones rápidas y mucha imaginación.
+          </p>
+          <div className="minijuegos-grid">
+            <article className="mini-card">
+              <h3 className="mini-name">Trineo veloz</h3>
+              <p className="mini-text">
+                Ayuda a Papá Noel a esquivar obstáculos mientras reparte regalos por
+                la ciudad.
+              </p>
+              <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); }}>
+                Jugar ahora
+              </a>
+            </article>
+            <article className="mini-card">
+              <h3 className="mini-name">Memoria de regalos</h3>
+              <p className="mini-text">
+                Encuentra las parejas de regalos antes de que se acabe el tiempo.
+              </p>
+              <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                Jugar ahora
+              </a>
+            </article>
+            <article className="mini-card">
+              <h3 className="mini-name">Crea tu villancico</h3>
+              <p className="mini-text">
+                Combina versos y melodías para inventar tu propio villancico
+                navideño.
+              </p>
+              <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); }}>
+                Jugar ahora
+              </a>
+            </article>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('instructions')}
-        >
-          Instrucciones
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('policies')}
-        >
-          Políticas
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('about')}
-        >
-          Conócenos
-        </Button>
+      <footer className="footer">
+        <div className="footer-container">
+          {/* Navegación */}
+          <div className="footer-column">
+            <h3>Navegación</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Inicio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Cambiar época</a>
+            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); document.getElementById('historia-actual')?.scrollIntoView({ behavior: 'smooth' }); }}>Minijuegos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); goToChat(); }}>Crear historias con IA</a>
+          </div>
+          {/* Información */}
+          <div className="footer-column">
+            <h3>Información</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+          </div>
+          {/* Empresa */}
+          <div className="footer-column">
+            <h3>Sobre la empresa</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
+          </div>
+        </div>
       </footer>
 
       {/* MODAL DE HISTORIA */}
