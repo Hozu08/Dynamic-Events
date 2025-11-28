@@ -66,8 +66,18 @@ export function ChatIA({
       hasAutoStartedRef.current = true;
       
       // Crear mensaje inicial basado en el tema
+      // Si viene con formData, usar la description directamente (ya es un prompt completo)
+      // Si no, crear el mensaje basado en title y description
       const themeDescription = autoStartWithTheme.description || '';
-      const initialMessage = `Quiero crear una historia sobre: ${autoStartWithTheme.title}.${themeDescription ? ' ' + themeDescription : ''}`;
+      let initialMessage;
+      
+      if (autoStartWithTheme.formData) {
+        // Viene del formulario, usar la description directamente como prompt
+        initialMessage = themeDescription;
+      } else {
+        // Viene de un tema seleccionado, crear mensaje simple
+        initialMessage = `Quiero crear una historia sobre: ${autoStartWithTheme.title}.${themeDescription ? ' ' + themeDescription : ''}`;
+      }
       
       const newUserMessage = {
         role: "user",

@@ -52,6 +52,7 @@ function App() {
         <CreateHistory 
           onNavigateToLanding={navigateToLanding}
           onNavigateToGame={navigateToGame}
+          onNavigateToChat={navigateToChat}
         />
       )}
 

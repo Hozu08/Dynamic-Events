@@ -12,9 +12,10 @@ import "../styles/base/utilities.css";
  * @param {Object} props
  * @param {Function} props.onNavigateToLanding - Callback para volver a la landing
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
+ * @param {Function} props.onNavigateToChat - Callback para navegar al chat con los datos del formulario
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional) para precargar datos
  */
-export function CreateHistory({ onNavigateToLanding, onNavigateToGame, selectedTheme = null }) {
+export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, selectedTheme = null }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -24,13 +25,10 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, selectedT
     escenario: "",
     personajes: "",
     nivelMagia: "Mágico",
-    duracion: "Corta",
     mensaje: "",
     extra: ""
   });
 
-  const [showResult, setShowResult] = useState(false);
-  const [generatedStory, setGeneratedStory] = useState({ title: "", meta: "", text: "" });
 
   const totalSteps = 3;
   const stepLabels = [
@@ -48,8 +46,6 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, selectedT
   const selectChip = (group, value) => {
     if (group === "nivelMagia") {
       updateFormData("nivelMagia", value);
-    } else if (group === "duracion") {
-      updateFormData("duracion", value);
     }
   };
 
@@ -89,51 +85,41 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, selectedT
     }
   };
 
-  // Construir historia
-  const buildStory = () => {
-    const { nombre, edad, relacion, tipo, escenario, personajes, nivelMagia, duracion, mensaje, extra } = formData;
+  // Construir prompt inicial para la IA con los datos del formulario
+  const buildInitialPrompt = () => {
+    const { nombre, edad, relacion, tipo, escenario, personajes, nivelMagia, mensaje, extra } = formData;
     
-    const storyText = `En una noche especial de Navidad, ${nombre} (${edad}) se encontraba en ${escenario}. 
-Mientras el mundo se preparaba para las fiestas, ${nombre} vivía una historia de tipo "${tipo}" junto a ${personajes}.
-
-Gracias a un nivel de magia ${nivelMagia.toLowerCase()}, cada detalle parecía brillar: las luces, la nieve y hasta los susurros del viento que llegaban desde el taller de Santa.
-
-A lo largo de esta aventura, ${nombre} descubrirá que ${mensaje.trim()}.
-
-${extra ? "Además, algo muy especial sucede: " + extra.trim() + "\n\n" : ""}Cuando la noche termine, esta experiencia quedará guardada en el corazón de ${nombre} como uno de los recuerdos más mágicos de toda su vida navideña.`;
-
-    return {
-      title: `La aventura navideña de ${nombre}`,
-      meta: `${tipo} · ${duracion} · Nivel de magia: ${nivelMagia}`,
-      text: storyText
-    };
+    let prompt = `Quiero crear una historia navideña con los siguientes detalles:\n\n`;
+    prompt += `- Protagonista: ${nombre} (${edad})\n`;
+    prompt += `- Relación con Santa: ${relacion}\n`;
+    prompt += `- Tipo de historia: ${tipo}\n`;
+    prompt += `- Escenario: ${escenario}\n`;
+    prompt += `- Personajes secundarios: ${personajes}\n`;
+    prompt += `- Nivel de magia: ${nivelMagia}\n`;
+    prompt += `- Mensaje o moraleja: ${mensaje.trim()}\n`;
+    if (extra && extra.trim()) {
+      prompt += `- Detalle especial: ${extra.trim()}\n`;
+    }
+    prompt += `\nPor favor, crea una historia navideña única y mágica usando todos estos elementos.`;
+    
+    return prompt;
   };
 
-  // Generar historia
+  // Generar historia - Redirigir a ChatPage con los datos del formulario
   const handleGenerate = () => {
     if (!validateStep(currentStep)) return;
-    const story = buildStory();
-    setGeneratedStory(story);
-    setShowResult(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // Volver a editar
-  const handleBackToEdit = () => {
-    setShowResult(false);
-    setCurrentStep(0);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // Copiar historia
-  const handleCopy = async () => {
-    const fullText = `${generatedStory.title}\n\n${generatedStory.meta}\n\n${generatedStory.text}`;
-    try {
-      await navigator.clipboard.writeText(fullText);
-      alert("¡Historia copiada al portapapeles!");
-    } catch (err) {
-      console.error("Error al copiar:", err);
-      alert("Error al copiar. Por favor, selecciona y copia manualmente.");
+    
+    // Crear objeto con los datos del formulario para pasarlo al chat
+    const formThemeData = {
+      title: `La aventura navideña de ${formData.nombre}`,
+      icon: "🎄",
+      description: buildInitialPrompt(),
+      formData: formData // Incluir todos los datos del formulario
+    };
+    
+    // Redirigir al chat con los datos del formulario
+    if (onNavigateToChat) {
+      onNavigateToChat(formThemeData);
     }
   };
 
@@ -211,21 +197,11 @@ ${extra ? "Además, algo muy especial sucede: " + extra.trim() + "\n\n" : ""}Cua
       </section>
 
       {/* TALLER - FORMULARIO */}
-      {!showResult && (
-        <section className="landing-section">
+      <section className="landing-section">
           <div className="taller-santa">
-          <div className="taller-inner" id="tallerFormulario">
-            <div className="luces-navidad"></div>
-            <img 
-              src="https://i.imgur.com/ym8e7uO.png" 
-              className="duende-animado" 
-              alt="Duende del taller de Santa" 
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
-
-            <div className="taller-left">
+            <div className="taller-inner" id="tallerFormulario">
+              <div className="taller-inner-content">
+                <div className="taller-left">
               <p className="taller-pill">Taller mágico de Santa 🎄</p>
               <h1 className="taller-title">Crea tu historia navideña con IA</h1>
               <p className="taller-subtitle">
@@ -376,32 +352,6 @@ ${extra ? "Además, algo muy especial sucede: " + extra.trim() + "\n\n" : ""}Cua
                         </div>
                       </div>
 
-                      <div className="field-group">
-                        <label className="field-label">Duración de la historia *</label>
-                        <div className="chips-group">
-                          <button
-                            type="button"
-                            className={`chip-option chip-duracion ${formData.duracion === "Corta" ? "chip-selected" : ""}`}
-                            onClick={() => selectChip("duracion", "Corta")}
-                          >
-                            Corta
-                          </button>
-                          <button
-                            type="button"
-                            className={`chip-option chip-duracion ${formData.duracion === "Mediana" ? "chip-selected" : ""}`}
-                            onClick={() => selectChip("duracion", "Mediana")}
-                          >
-                            Mediana
-                          </button>
-                          <button
-                            type="button"
-                            className={`chip-option chip-duracion ${formData.duracion === "Larga" ? "chip-selected" : ""}`}
-                            onClick={() => selectChip("duracion", "Larga")}
-                          >
-                            Larga
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 )}
@@ -466,42 +416,11 @@ ${extra ? "Además, algo muy especial sucede: " + extra.trim() + "\n\n" : ""}Cua
                   )}
                 </div>
               </form>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
       </section>
-      )}
-
-      {/* RESULTADO */}
-      {showResult && (
-        <section className="landing-section" id="resultadoHistoria">
-          <div className="resultado-historia">
-          <div className="resultado-carta">
-            <p className="resultado-etiqueta">Historia generada con IA 🎄</p>
-            <h2 className="resultado-titulo">{generatedStory.title}</h2>
-            <p className="resultado-meta">{generatedStory.meta}</p>
-            <div className="resultado-texto">{generatedStory.text}</div>
-
-            <div className="resultado-controles">
-              <button
-                type="button"
-                className="btn-secundario"
-                onClick={handleBackToEdit}
-              >
-                Volver a editar
-              </button>
-              <button
-                type="button"
-                className="taller-btn-primary"
-                onClick={handleCopy}
-              >
-                Descargar / copiar
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-      )}
 
       {/* FOOTER */}
       <footer className="footer">

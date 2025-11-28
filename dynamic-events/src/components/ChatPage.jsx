@@ -149,7 +149,10 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
                         : "Bienvenido a la historia navideña"}
                     </h1>
                     <div className="santa-card__message santa-card__message--chat">
-                      {selectedTheme && selectedTheme.title
+                      {selectedTheme && selectedTheme.formData
+                        ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
+                           He recibido todos los detalles de tu historia. Ahora voy a crear una historia mágica y única basada en lo que me has contado. ¡Vamos a comenzar esta aventura navideña juntos!`
+                        : selectedTheme && selectedTheme.title
                         ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
                            Vamos a escribir juntos una historia sobre: ${selectedTheme.title}. 
                            Escribe tu primera frase para comenzar la aventura.`
