@@ -10,6 +10,7 @@ import "../../styles/base/scroll-to-top.css";
  * @param {string} props.position - Posición del botón (bottom-right, bottom-left, etc.)
  * @param {string} props.className - Clases adicionales
  * @param {React.ReactNode} props.children - Contenido personalizado del botón
+ * @param {boolean} props.hideAtFooter - Si es true, oculta el botón cuando el scroll llega al footer (default: false)
  */
 export function ScrollToTop({
   showAfter = 300,
@@ -17,11 +18,29 @@ export function ScrollToTop({
   position = "bottom-right",
   className = "",
   children,
+  hideAtFooter = false,
 }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
+      // Verificar si estamos en el footer
+      if (hideAtFooter) {
+        const footer = document.querySelector('footer.footer');
+        if (footer) {
+          const footerTop = footer.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          // Si el footer está visible o comenzando a aparecer en la pantalla, ocultar el botón
+          // Cuando footerTop es menor que windowHeight, significa que el footer está visible
+          if (footerTop < windowHeight) {
+            setIsVisible(false);
+            return;
+          }
+        }
+      }
+
+      // Mostrar el botón si hemos scrolleado más de showAfter píxeles
       if (window.pageYOffset > showAfter) {
         setIsVisible(true);
       } else {
@@ -34,7 +53,7 @@ export function ScrollToTop({
     return () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
-  }, [showAfter]);
+  }, [showAfter, hideAtFooter]);
 
   const scrollToTop = () => {
     window.scrollTo({

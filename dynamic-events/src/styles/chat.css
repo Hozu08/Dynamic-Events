@@ -68,15 +68,19 @@
   opacity: 0.6;
 }
 
-/* Botón base */
+/* Botón base - Usa el estilo del botón base reutilizable */
 .chat-button {
-  padding: 0.5rem 1.2rem;
-  border-radius: 8px;
   border: none;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 999px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
 }
 
 

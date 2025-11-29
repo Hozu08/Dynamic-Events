@@ -555,8 +555,8 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
             </div>
             <p className="story-modal__text u-text-dark">{selectedThemeForModal.story}</p>
             <Button
-              variant="accent"
-              size="lg"
+              variant="primary"
+              size="md"
               className="story-modal__button u-width-full"
               onClick={() => {
                 closeThemeModal();
@@ -667,7 +667,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
       </Modal>
 
       {/* SCROLL TO TOP */}
-      <ScrollToTop variant="primary" position="bottom-right" />
+      <ScrollToTop variant="primary" position="bottom-right" hideAtFooter={true} />
     </div>
   );
 }

@@ -70,25 +70,24 @@
   font-size: 1.8rem;
 }
 
-/* SKIN (Apariencia) */
+/* SKIN (Apariencia) - Estilo del formulario */
 .scroll-to-top--primary {
-  background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
+  background: var(--btn-primary-bg, #c0002f);
   color: white;
-  border: 2px solid #f5f5dc;
+  border: 2px solid white;
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
 }
 
 .scroll-to-top--primary:hover {
-  background: linear-gradient(135deg, #234a2f 0%, #3d6b4d 100%);
-  box-shadow: 0 6px 16px rgba(45, 90, 61, 0.3);
-  transform: translateY(-3px);
+  filter: brightness(1.05);
 }
 
 .scroll-to-top--primary.scroll-to-top--visible:hover {
-  transform: translateY(-3px);
+  transform: translateY(0);
 }
 
 .scroll-to-top--primary.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
-  transform: translateX(-50%) translateY(-3px);
+  transform: translateX(-50%) translateY(0);
 }
 
 .scroll-to-top--secondary {
@@ -111,22 +110,22 @@
 }
 
 .scroll-to-top--accent {
-  background: linear-gradient(135deg, #c41e3a 0%, #e85d75 100%);
+  background: var(--btn-primary-bg, #c0002f);
   color: white;
+  border: none;
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
 }
 
 .scroll-to-top--accent:hover {
-  background: linear-gradient(135deg, #a01729 0%, #d44a62 100%);
-  box-shadow: 0 6px 16px rgba(196, 30, 58, 0.3);
-  transform: translateY(-3px);
+  filter: brightness(1.05);
 }
 
 .scroll-to-top--accent.scroll-to-top--visible:hover {
-  transform: translateY(-3px);
+  transform: translateY(0);
 }
 
 .scroll-to-top--accent.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
-  transform: translateX(-50%) translateY(-3px);
+  transform: translateX(-50%) translateY(0);
 }
 
 .scroll-to-top--light {
