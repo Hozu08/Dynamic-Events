@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useImperativeHandle, forwardRef } from "react";
 import "../styles/game.css";
 
 /**
@@ -55,6 +55,8 @@ export function CanvasGame({
   const showingGameOverRef = useRef(false);
   const touchMoveRef = useRef(null);
   const playerRef = useRef(null);
+  const [hoveredButton, setHoveredButton] = useState(null); // null, 'resume', 'restart'
+  const buttonBoundsRef = useRef({ resume: null, restart: null });
 
   // Detectar si es móvil
   useEffect(() => {
@@ -326,12 +328,14 @@ export function CanvasGame({
           pausedRef.current = true;
           sounds.music.pause();
         } else {
+          // Reanudar desde pausa
           countdownRef.current = 3;
           lastCountdownUpdate = Date.now();
           pausedRef.current = false;
           sounds.music.play().catch(() => {});
         }
       } else if ((e.key === "r" || e.key === "R") && pausedRef.current) {
+        // Reiniciar desde pausa
         running = false;
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
@@ -344,8 +348,105 @@ export function CanvasGame({
       }
     };
 
+    // Detectar hover y clicks en los botones de pausa
+    const getButtonBounds = (currentHeight) => {
+      const resumeButtonY = currentHeight / 2 - 20;
+      const resumeButtonX = width / 2 - 120;
+      const resumeButtonWidth = 240;
+      const resumeButtonHeight = 50;
+      
+      const restartButtonY = currentHeight / 2 + 50;
+      const restartButtonX = width / 2 - 120;
+      const restartButtonWidth = 240;
+      const restartButtonHeight = 50;
+      
+      return {
+        resume: {
+          x: resumeButtonX,
+          y: resumeButtonY,
+          width: resumeButtonWidth,
+          height: resumeButtonHeight,
+        },
+        restart: {
+          x: restartButtonX,
+          y: restartButtonY,
+          width: restartButtonWidth,
+          height: restartButtonHeight,
+        }
+      };
+    };
+
+    // Handler para detectar hover y clicks en botones
+    const handleCanvasInteraction = (e) => {
+      if (!pausedRef.current || countdownRef.current !== null) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = width / rect.width;
+      const scaleY = currentHeight / rect.height;
+      
+      const clickX = (e.clientX || (e.touches && e.touches[0].clientX) || 0) - rect.left;
+      const clickY = (e.clientY || (e.touches && e.touches[0].clientY) || 0) - rect.top;
+      
+      const canvasX = clickX * scaleX;
+      const canvasY = clickY * scaleY;
+      
+      const bounds = getButtonBounds(currentHeight);
+      
+      // Detectar hover
+      const isOverResume = canvasX >= bounds.resume.x && 
+                          canvasX <= bounds.resume.x + bounds.resume.width &&
+                          canvasY >= bounds.resume.y && 
+                          canvasY <= bounds.resume.y + bounds.resume.height;
+      
+      const isOverRestart = canvasX >= bounds.restart.x && 
+                           canvasX <= bounds.restart.x + bounds.restart.width &&
+                           canvasY >= bounds.restart.y && 
+                           canvasY <= bounds.restart.y + bounds.restart.height;
+      
+      if (isOverResume) {
+        setHoveredButton('resume');
+        canvas.style.cursor = 'pointer';
+      } else if (isOverRestart) {
+        setHoveredButton('restart');
+        canvas.style.cursor = 'pointer';
+      } else {
+        setHoveredButton(null);
+        canvas.style.cursor = 'default';
+      }
+      
+      // Detectar click
+      if (e.type === 'click' || e.type === 'touchend') {
+        if (isOverResume) {
+          // Reanudar
+          countdownRef.current = 3;
+          lastCountdownUpdate = Date.now();
+          pausedRef.current = false;
+          sounds.music.play().catch(() => {});
+          setHoveredButton(null);
+        } else if (isOverRestart) {
+          // Reiniciar
+          running = false;
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+          }
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("keydown", handleKeyDown);
+          canvas.removeEventListener("click", handleCanvasInteraction);
+          canvas.removeEventListener("mousemove", handleCanvasInteraction);
+          sounds.music.pause();
+          setGameKey((k) => k + 1);
+        }
+      }
+    };
+
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("keydown", handleKeyDown);
+    
+    // Eventos para los botones de pausa
+    canvas.addEventListener("click", handleCanvasInteraction);
+    canvas.addEventListener("mousemove", handleCanvasInteraction);
+    canvas.addEventListener("touchmove", handleCanvasInteraction);
+    canvas.addEventListener("touchend", handleCanvasInteraction);
     
     // Eventos táctiles para arrastre
     canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
@@ -510,29 +611,84 @@ export function CanvasGame({
           ctx.strokeText("PAUSA", width / 2, currentHeight / 2 - 80);
           ctx.fillText("PAUSA", width / 2, currentHeight / 2 - 80);
           
-          // Botón Reanudar
+          // Función helper para dibujar botón con estilo global
+          const drawButton = (buttonX, buttonY, buttonWidth, buttonHeight, buttonRadius, isHovered, buttonText) => {
+            // Crear degradado rojo para el botón (igual para ambos)
+            const buttonGradient = ctx.createLinearGradient(buttonX, buttonY, buttonX + buttonWidth, buttonY);
+            buttonGradient.addColorStop(0, "#AB0000");
+            buttonGradient.addColorStop(1, "#8B0000");
+            
+            // Sombra del botón
+            ctx.save();
+            ctx.shadowColor = "rgba(139, 0, 0, 0.4)";
+            ctx.shadowBlur = 15;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 4;
+            
+            // Aplicar brightness al hover
+            if (isHovered) {
+              ctx.filter = "brightness(1.05)";
+            }
+            
+            ctx.fillStyle = buttonGradient;
+            
+            // Dibujar botón con bordes redondeados
+            ctx.beginPath();
+            ctx.moveTo(buttonX + buttonRadius, buttonY);
+            ctx.lineTo(buttonX + buttonWidth - buttonRadius, buttonY);
+            ctx.quadraticCurveTo(buttonX + buttonWidth, buttonY, buttonX + buttonWidth, buttonY + buttonRadius);
+            ctx.lineTo(buttonX + buttonWidth, buttonY + buttonHeight - buttonRadius);
+            ctx.quadraticCurveTo(buttonX + buttonWidth, buttonY + buttonHeight, buttonX + buttonWidth - buttonRadius, buttonY + buttonHeight);
+            ctx.lineTo(buttonX + buttonRadius, buttonY + buttonHeight);
+            ctx.quadraticCurveTo(buttonX, buttonY + buttonHeight, buttonX, buttonY + buttonHeight - buttonRadius);
+            ctx.lineTo(buttonX, buttonY + buttonRadius);
+            ctx.quadraticCurveTo(buttonX, buttonY, buttonX + buttonRadius, buttonY);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Resetear filter y restaurar contexto
+            ctx.filter = "none";
+            ctx.restore();
+            
+            // Texto del botón
+            ctx.fillStyle = "white";
+            ctx.font = "bold 24px Arial";
+            ctx.fillText(buttonText, buttonX + buttonWidth / 2, buttonY + 33);
+          };
+          
+          // Botón Reanudar - Estilo global (degradado rojo)
           const resumeButtonY = currentHeight / 2 - 20;
-          ctx.fillStyle = "rgba(0, 200, 0, 0.8)";
-          ctx.fillRect(width / 2 - 120, resumeButtonY, 240, 50);
-          ctx.strokeStyle = "white";
-          ctx.lineWidth = 2;
-          ctx.strokeRect(width / 2 - 120, resumeButtonY, 240, 50);
+          const resumeButtonX = width / 2 - 120;
+          const resumeButtonWidth = 240;
+          const resumeButtonHeight = 50;
+          const resumeButtonRadius = 25;
           
-          ctx.fillStyle = "white";
-          ctx.font = "bold 24px Arial";
-          ctx.fillText("▶️ Presiona ESC", width / 2, resumeButtonY + 33);
+          drawButton(
+            resumeButtonX,
+            resumeButtonY,
+            resumeButtonWidth,
+            resumeButtonHeight,
+            resumeButtonRadius,
+            hoveredButton === 'resume',
+            "Reanudar"
+          );
           
-          // Botón Reiniciar
+          // Botón Reiniciar - Estilo global (degradado rojo)
           const restartButtonY = currentHeight / 2 + 50;
-          ctx.fillStyle = "rgba(200, 0, 0, 0.8)";
-          ctx.fillRect(width / 2 - 120, restartButtonY, 240, 50);
-          ctx.strokeStyle = "white";
-          ctx.lineWidth = 2;
-          ctx.strokeRect(width / 2 - 120, restartButtonY, 240, 50);
+          const restartButtonX = width / 2 - 120;
+          const restartButtonWidth = 240;
+          const restartButtonHeight = 50;
+          const restartButtonRadius = 25;
           
-          ctx.fillStyle = "white";
-          ctx.font = "bold 24px Arial";
-          ctx.fillText("🔄 Presiona R", width / 2, restartButtonY + 33);
+          drawButton(
+            restartButtonX,
+            restartButtonY,
+            restartButtonWidth,
+            restartButtonHeight,
+            restartButtonRadius,
+            hoveredButton === 'restart',
+            "Reiniciar"
+          );
           
           ctx.textAlign = "left";
         }
@@ -745,11 +901,16 @@ export function CanvasGame({
       }
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("keydown", handleKeyDown);
+      canvas.removeEventListener("click", handleCanvasInteraction);
+      canvas.removeEventListener("mousemove", handleCanvasInteraction);
+      canvas.removeEventListener("touchmove", handleCanvasInteraction);
+      canvas.removeEventListener("touchend", handleCanvasInteraction);
       if (touchMoveRef.current) {
         canvas.removeEventListener("touchstart", touchMoveRef.current.start);
         canvas.removeEventListener("touchmove", touchMoveRef.current.move);
       }
       sounds.music.pause();
+      canvas.style.cursor = 'default';
     };
   }, [gameState, gameKey, isMobile]);
 
@@ -797,7 +958,7 @@ export function CanvasGame({
               onClick={handleRestart}
               className="game-button game-button--restart game-button--animated"
             >
-              🔁 Jugar de nuevo
+              Jugar de nuevo
             </button>
           </>
         )}

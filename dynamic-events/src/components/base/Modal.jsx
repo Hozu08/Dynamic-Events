@@ -37,10 +37,12 @@ export function Modal({ isOpen, onClose, children, size = "md", className = "" }
         className={`modal modal--${size} modal--white ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="modal__close" onClick={onClose} aria-label="Cerrar">
-          ×
-        </button>
-        {children}
+        <div className="modal__inner">
+          <button className="modal__close" onClick={onClose} aria-label="Cerrar">
+            ×
+          </button>
+          {children}
+        </div>
       </div>
     </div>
   );

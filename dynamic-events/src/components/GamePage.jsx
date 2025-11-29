@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MinigameTest } from "./MinigameTest";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
@@ -142,7 +142,28 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           <div className="game-page__game-section">
             <div className="game-page__game-wrapper">
               <div className="game-page__game-wrapper-inner">
-                <h2 className="game-page__game-title">Trineo veloz</h2>
+                <div className="game-page__title-wrapper">
+                  <button 
+                    className="game-page__pause-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Disparar evento ESC para pausar el juego (igual que presionar ESC)
+                      const escapeEvent = new KeyboardEvent('keydown', {
+                        key: 'Escape',
+                        code: 'Escape',
+                        keyCode: 27,
+                        which: 27,
+                        bubbles: true,
+                        cancelable: true
+                      });
+                      document.dispatchEvent(escapeEvent);
+                    }}
+                    aria-label="Pausar juego"
+                  >
+                    ⏸
+                  </button>
+                  <h2 className="game-page__game-title">Trineo veloz</h2>
+                </div>
                 <MinigameTest 
                   onGameOver={handleGameOver}
                   onScoreChange={handleScoreChange}

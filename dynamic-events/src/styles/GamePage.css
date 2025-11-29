@@ -220,13 +220,86 @@
   align-items: center;
 }
 
+.game-page__title-wrapper {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 1rem;
+  min-height: 48px; /* Altura mínima para el botón */
+}
+
+.game-page__title-wrapper::before {
+  content: "";
+  /* Primera columna - espacio para el botón en responsive */
+}
+
 .game-page__game-title {
   font-size: 2.5rem;
   font-weight: 800;
   color: #0b6a45;
   text-align: center;
-  margin: 0 0 1rem 0;
+  margin: 0;
+  grid-column: 2;
   width: 100%;
+}
+
+.game-page__title-wrapper::after {
+  content: "";
+  /* Tercera columna - espacio balanceado */
+}
+
+/* Botón de pausa - Solo visible en responsive */
+.game-page__pause-button {
+  display: none; /* Oculto por defecto, solo visible en responsive */
+  grid-column: 1;
+  justify-self: start;
+  background: linear-gradient(to right, #AB0000, #8B0000);
+  border: none;
+  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  line-height: 1;
+}
+
+.game-page__pause-button:hover {
+  filter: brightness(1.05);
+}
+
+/* Efecto de brillo al pasar el mouse */
+.game-page__pause-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.game-page__pause-button:hover::after {
+  left: 120%;
+}
+
+.game-page__pause-button:active {
+  transform: scale(0.95);
 }
 
 /* Estadísticas */
@@ -347,6 +420,14 @@
     padding: 1rem 0.5rem 0.5rem;
   }
 
+  .game-page__title-wrapper {
+    grid-template-columns: 60px 1fr 60px; /* Botón, título, espacio balanceado */
+  }
+
+  .game-page__pause-button {
+    display: flex !important; /* Mostrar solo en responsive */
+  }
+
   .game-page__game-title {
     font-size: 2.3rem;
   }
@@ -380,6 +461,14 @@
 
   .game-page__game-wrapper-inner {
     padding: 1rem 0.5rem 0.5rem;
+  }
+
+  .game-page__title-wrapper {
+    grid-template-columns: 60px 1fr 60px; /* Botón, título, espacio balanceado */
+  }
+
+  .game-page__pause-button {
+    display: flex !important; /* Mostrar solo en responsive */
   }
 
   .game-page__game-title {
@@ -440,6 +529,16 @@
 
   .game-page__game-wrapper-inner {
     padding: 0.75rem 0.25rem 0.25rem;
+  }
+
+  .game-page__title-wrapper {
+    grid-template-columns: 56px 1fr 56px; /* Botón, título, espacio balanceado en móviles pequeños */
+  }
+
+  .game-page__pause-button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
   }
 
   .game-page__game-title {
