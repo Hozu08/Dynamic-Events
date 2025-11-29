@@ -423,7 +423,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 <p className="story-info">Género: Aventura familiar</p>
                 <p className="story-info">Año: 2023</p>
                 <p className="story-info">Autor: Taller de Historias</p>
-              </div>
+        </div>
             </article>
 
             {/* CARD - El reno tímido */}
@@ -465,10 +465,10 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
               <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
                 Crear ahora
               </a>
-            </div>
+              </div>
             <div className="carta-right">
-              <img
-                src="/images/santa.png"
+              <img 
+                src="/images/santa.png" 
                 alt="Papá Noel"
                 className="santa-img"
                 onError={(e) => {
@@ -508,7 +508,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 Nuevos juegos se estan cocinando
               </p>
             </article>
-          </div>
+            </div>
         </div>
       </section>
 

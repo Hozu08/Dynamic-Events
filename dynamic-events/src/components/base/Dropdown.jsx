@@ -76,7 +76,7 @@ export function Dropdown({
         aria-haspopup="true"
         type="button"
       >
-        {label}
+        <span className="dropdown__label">{label}</span>
         <span className={`dropdown__arrow ${isOpen ? "dropdown__arrow--open" : ""}`}>
           ▼
         </span>

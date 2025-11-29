@@ -22,6 +22,10 @@
   white-space: nowrap;
 }
 
+.dropdown__label {
+  display: inline;
+}
+
 .dropdown__arrow {
   font-size: 0.7em;
   transition: transform 0.3s ease;

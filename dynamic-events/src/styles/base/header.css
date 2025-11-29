@@ -72,14 +72,21 @@
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #222;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  border-radius: 0;
-  transform: none;
-  gap: 0.25rem;
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: #222 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  gap: 0.25rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  line-height: 1.5 !important;
 }
 
 .header__nav .dropdown__trigger:hover {
@@ -91,6 +98,10 @@
 .header__nav .dropdown__arrow {
   font-size: 0.7em;
   transition: transform 0.3s ease;
+  display: inline-block;
+  vertical-align: baseline;
+  line-height: 1;
+  margin-left: 0.25rem;
 }
 
 /* SKIN (Apariencia) */
@@ -280,17 +291,32 @@
 /* Conservar estilos normales del dropdown en el menú hamburguesa */
 .header__menu-nav .dropdown__trigger {
   width: 100%;
+  display: flex !important;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  align-items: center;
+  padding: 1rem 1.5rem !important;
   border-radius: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   background: transparent;
   color: #222;
   border: none;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 600;
+  text-decoration: none;
+  gap: 0;
+}
+
+/* El label del dropdown debe estar alineado a la izquierda igual que los nav-link */
+.header__menu-nav .dropdown__label {
+  flex: 1 1 auto;
   text-align: left;
+}
+
+/* Posicionar la flecha a la derecha */
+.header__menu-nav .dropdown__arrow {
+  flex: 0 0 auto;
+  margin-left: 0.5rem;
 }
 
 .header__menu-nav .dropdown__trigger:hover {

@@ -113,11 +113,11 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           <div className="hero-content">
             <h1 className="hero-title">
               Atrapa los Regalos Navideños
-            </h1>
+          </h1>
             <p className="hero-synopsis">
-              ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
-              Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
-            </p>
+            ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
+            Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
+          </p>
           </div>
         </div>
       </section>
@@ -140,7 +140,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
 
           {/* JUEGO CENTRAL */}
           <div className="game-page__game-section">
-            <div className="game-page__game-wrapper">
+        <div className="game-page__game-wrapper">
               <div className="game-page__game-wrapper-inner">
                 <div className="game-page__title-wrapper">
                   <button 
@@ -164,25 +164,25 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                   </button>
                   <h2 className="game-page__game-title">Trineo veloz</h2>
                 </div>
-                <MinigameTest 
-                  onGameOver={handleGameOver}
-                  onScoreChange={handleScoreChange}
-                />
+          <MinigameTest 
+            onGameOver={handleGameOver}
+            onScoreChange={handleScoreChange}
+          />
               </div>
-            </div>
+        </div>
 
-            {/* ESTADÍSTICAS */}
-            <div className="game-page__stats">
-              <div className="game-stat">
-                <div className="game-stat__label">Récord</div>
-                <div className="game-stat__value">🏆 {highScore}</div>
-              </div>
-              <div className="game-stat">
-                <div className="game-stat__label">Partidas</div>
-                <div className="game-stat__value">🎮 {gamesPlayed}</div>
-              </div>
-            </div>
+        {/* ESTADÍSTICAS */}
+        <div className="game-page__stats">
+          <div className="game-stat">
+            <div className="game-stat__label">Récord</div>
+            <div className="game-stat__value">🏆 {highScore}</div>
           </div>
+          <div className="game-stat">
+            <div className="game-stat__label">Partidas</div>
+            <div className="game-stat__value">🎮 {gamesPlayed}</div>
+              </div>
+          </div>
+        </div>
 
           {/* POWER-UPS - Desktop derecha, Mobile después */}
           <div className="game-page__info-section game-page__powerups">
@@ -216,7 +216,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                   <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
                 </div>
               </li>
-            </ul>
+          </ul>
           </div>
         </div>
       </section>

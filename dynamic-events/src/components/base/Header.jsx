@@ -98,23 +98,23 @@ export function Header({
               <span className="header__hamburger-line"></span>
             </button>
             <span 
-              className={`header__logo header__logo--${logoColorClass} ${onLogoClick ? "header__logo--clickable" : ""}`}
-              onClick={onLogoClick}
-              role={onLogoClick ? "button" : undefined}
-              tabIndex={onLogoClick ? 0 : undefined}
-              onKeyDown={onLogoClick ? (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onLogoClick();
-                }
-              } : undefined}
-            >
-              {logo}
+        className={`header__logo header__logo--${logoColorClass} ${onLogoClick ? "header__logo--clickable" : ""}`}
+        onClick={onLogoClick}
+        role={onLogoClick ? "button" : undefined}
+        tabIndex={onLogoClick ? 0 : undefined}
+        onKeyDown={onLogoClick ? (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onLogoClick();
+          }
+        } : undefined}
+      >
+        {logo}
             </span>
           </div>
           <nav className="header__nav header__nav--right">{children}</nav>
-        </div>
-      </header>
+      </div>
+    </header>
 
       {/* Overlay del menú móvil */}
       <div 

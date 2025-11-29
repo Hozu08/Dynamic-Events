@@ -115,16 +115,16 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
       <section className="landing-section landing-section--padding">
         <div className="chat-page__chat-wrapper">
           <div className="chat-page__chat-wrapper-inner">
-            {selectedTheme && selectedTheme.title && selectedTheme.icon && (
-              <div style={{ padding: "1rem 2rem 0" }}>
-                <span className="chat-page__theme-badge">
-                  <span style={{ fontSize: "1.5rem" }}>{selectedTheme.icon}</span>
-                  {selectedTheme.title}
-                </span>
-              </div>
-            )}
-            
-            <ChatIA
+          {selectedTheme && selectedTheme.title && selectedTheme.icon && (
+            <div style={{ padding: "1rem 2rem 0" }}>
+              <span className="chat-page__theme-badge">
+                <span style={{ fontSize: "1.5rem" }}>{selectedTheme.icon}</span>
+                {selectedTheme.title}
+              </span>
+            </div>
+          )}
+          
+          <ChatIA
             userName="Aventurero"
             assistantName="Santa Claus"
             apiEndpoint={getChatApiEndpoint()}

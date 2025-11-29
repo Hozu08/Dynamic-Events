@@ -301,21 +301,21 @@ export function ChatIA({
           }
           
           return (
-            <div
-              key={i}
-              className={`chat-message ${
-                msg.role === "user"
-                  ? "chat-message--user"
-                  : "chat-message--assistant"
-              }`}
-            >
+          <div
+            key={i}
+            className={`chat-message ${
+              msg.role === "user"
+                ? "chat-message--user"
+                : "chat-message--assistant"
+            }`}
+          >
               <span className="chat-message__author">
                 {msg.role === "user" ? userName : assistantName}
               </span>
               <span className="chat-message__content">
                 {messageContent}
               </span>
-            </div>
+          </div>
           );
         })}
 
