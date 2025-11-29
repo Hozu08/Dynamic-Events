@@ -7,7 +7,7 @@
 .header {
   width: 100%;
   padding: 0.85rem 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .header__container {
@@ -29,7 +29,7 @@
 .header__logo {
   font-size: 1.45rem;
   font-weight: 800;
-  font-family: 'Arial', sans-serif;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .header__nav {
@@ -56,6 +56,36 @@
 
 .header__nav .nav-link--active {
   color: #a00000;
+}
+
+/* Dropdown en el header - mismo estilo que nav-link */
+.header__nav .dropdown {
+  display: inline-block;
+}
+
+.header__nav .dropdown__trigger {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-radius: 0;
+  transform: none;
+  gap: 0.25rem;
+}
+
+.header__nav .dropdown__trigger:hover {
+  background: transparent !important;
+  color: #000;
+  transform: none;
+}
+
+.header__nav .dropdown__arrow {
+  font-size: 0.7em;
+  transition: transform 0.3s ease;
 }
 
 /* SKIN (Apariencia) */
@@ -198,7 +228,7 @@
 .header__menu-logo {
   font-size: 1.3rem;
   font-weight: 800;
-  font-family: 'Arial', sans-serif;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .header__menu-close {
@@ -253,7 +283,7 @@
   color: #222;
   border: none;
   transition: all 0.2s ease;
-  font-family: 'Arial', sans-serif;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 600;
   text-align: left;
 }

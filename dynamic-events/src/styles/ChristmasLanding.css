@@ -20,6 +20,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 html {
@@ -30,6 +31,7 @@ html {
 body {
   width: 100%;
   overflow-x: hidden;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Eliminar color azul por defecto de los enlaces */
@@ -53,7 +55,7 @@ a:active {
   min-height: 100vh;
   width: 100vw;
   max-width: 100%;
-  font-family: 'Arial', sans-serif;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden; /* Solo ocultar scroll horizontal */
   overflow-y: visible; /* Permitir overflow vertical para animaciones */
 }
