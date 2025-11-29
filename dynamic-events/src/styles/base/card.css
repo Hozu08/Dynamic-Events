@@ -81,9 +81,10 @@
 }
 
 .card__title {
+  font-family: "Great Vibes", cursive;
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.7rem;
+  font-weight: 700;
   text-align: center;
 }
 

@@ -57,7 +57,9 @@
 
 /* Título del juego */
 .game-title {
-  font-size: 2rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 2.3rem;
+  font-weight: 700;
   margin-bottom: 1rem;
   text-align: center;
 }
