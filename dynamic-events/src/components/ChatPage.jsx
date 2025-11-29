@@ -64,8 +64,14 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
         variant="light"
         onLogoClick={onBack}
       >
+        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
+          Minijuegos
+        </a>
+        <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
+          Crear historia IA
+        </a>
         <Dropdown
-          label="Temporadas"
+          label="Escoger época"
           variant="pill"
           size="md"
           position="bottom-left"
@@ -74,7 +80,6 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
               label: "Halloween",
               icon: "🎃",
               onClick: () => {
-                // TODO: Implementar navegación a Halloween
                 console.log("Navegar a Halloween");
               },
             },
@@ -89,31 +94,12 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
               label: "Vacaciones",
               icon: "🏖️",
               onClick: () => {
-                // TODO: Implementar navegación a Vacaciones
                 console.log("Navegar a Vacaciones");
               },
             },
           ]}
         />
-        <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
-          Crear historia IA
-        </a>
-        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigateToGame(); }}>
-          Minijuegos
-        </a>
       </Header>
-
-      {/* HERO SECTION */}
-      <section className="christmas-hero hero hero--gradient-sky">
-        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
-        <div className="hero__content">
-          <h1 className="hero__title hero__title--light">
-            Entra a la Aventura de la
-            <br />
-            Navidad
-          </h1>
-        </div>
-      </section>
 
       {/* ÁREA DE CHAT */}
       <section className="landing-section landing-section--padding">
@@ -188,31 +174,31 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
       </section>
 
       {/* FOOTER */}
-      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('instructions')}
-        >
-          Instrucciones
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('policies')}
-        >
-          Políticas
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('about')}
-        >
-          Conócenos
-        </Button>
+      <footer className="footer">
+        <div className="footer-container">
+          {/* Navegación */}
+          <div className="footer-column">
+            <h3>Navegación</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Inicio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Cambiar época</a>
+            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); onNavigateToGame(); }}>Minijuegos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Crear historias con IA</a>
+          </div>
+          {/* Información */}
+          <div className="footer-column">
+            <h3>Información</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+          </div>
+          {/* Empresa */}
+          <div className="footer-column">
+            <h3>Sobre la empresa</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
+          </div>
+        </div>
       </footer>
 
       {/* MODALES DEL FOOTER */}
