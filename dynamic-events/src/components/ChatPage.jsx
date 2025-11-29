@@ -192,8 +192,6 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
           <div className="footer-column">
             <h3>Navegación</h3>
             <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Cambiar época</a>
-            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); onNavigateToGame(); }}>Minijuegos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Crear historias con IA</a>
           </div>
           {/* Información */}

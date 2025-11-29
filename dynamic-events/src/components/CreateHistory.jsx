@@ -180,6 +180,21 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
         />
       </Header>
 
+      {/* HERO */}
+      <section className="hero hero--index-navidad create-history-hero">
+        <div className="hero-overlay"></div>
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Taller de Santa
+          </h1>
+            <p className="hero-synopsis">
+            En este espacio puedes crear tu historia con un poco de mágia e inteligencia artificial
+          </p>
+          </div>
+        </div>
+      </section>
+
       {/* SECCIÓN DE INSTRUCCIONES */}
       <section className="landing-section">
         <div className="instrucciones-santa">
@@ -435,8 +450,6 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
           <div className="footer-column">
             <h3>Navegación</h3>
             <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Cambiar época</a>
-            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); }}>Minijuegos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Crear historias con IA</a>
           </div>
 

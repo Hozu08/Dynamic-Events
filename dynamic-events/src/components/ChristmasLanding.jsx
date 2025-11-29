@@ -519,8 +519,6 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
           <div className="footer-column">
             <h3>Navegación</h3>
             <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Cambiar época</a>
-            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); document.getElementById('historia-actual')?.scrollIntoView({ behavior: 'smooth' }); }}>Minijuegos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); goToChat(); }}>Crear historias con IA</a>
           </div>
           {/* Información */}
