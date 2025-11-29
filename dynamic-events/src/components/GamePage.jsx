@@ -18,7 +18,7 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  */
-export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos }) {
+export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs }) {
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem('christmasGameHighScore')) || 0
   );
@@ -240,7 +240,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           {/* Empresa */}
           <div className="footer-column">
             <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
           </div>

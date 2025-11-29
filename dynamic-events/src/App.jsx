@@ -3,12 +3,13 @@ import { ChristmasLanding } from "./components/ChristmasLanding";
 import { ChatPage } from "./components/ChatPage";
 import { GamePage } from "./components/GamePage";
 import { CreateHistory } from "./components/CreateHistory";
+import { AboutUs } from "./components/AboutUs";
 
 /**
- * App - Router simple para navegar entre Landing, Chat, CreateHistory y Juego
+ * App - Router simple para navegar entre Landing, Chat, CreateHistory, Juego y AboutUs
  */
 function App() {
-  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game'
+  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game' | 'about-us'
   const [selectedTheme, setSelectedTheme] = useState(null);
 
   // Navegar al chat
@@ -52,6 +53,12 @@ function App() {
     }, 100);
   };
 
+  // Navegar a AboutUs
+  const navigateToAboutUs = () => {
+    setCurrentPage("about-us");
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       {currentPage === "landing" && (
@@ -61,6 +68,7 @@ function App() {
           onNavigateToGame={navigateToGame}
           onNavigateToLanding={navigateToLanding}
           onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToAboutUs={navigateToAboutUs}
         />
       )}
 
@@ -71,6 +79,7 @@ function App() {
           onNavigateToChat={navigateToChat}
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToAboutUs={navigateToAboutUs}
         />
       )}
 
@@ -80,6 +89,7 @@ function App() {
           onNavigateToGame={navigateToGame}
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToAboutUs={navigateToAboutUs}
           selectedTheme={selectedTheme}
         />
       )}
@@ -90,6 +100,17 @@ function App() {
           onNavigateToChat={navigateToChat}
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToAboutUs={navigateToAboutUs}
+        />
+      )}
+
+      {currentPage === "about-us" && (
+        <AboutUs 
+          onBack={navigateToLanding}
+          onNavigateToChat={navigateToChat}
+          onNavigateToCreateHistory={navigateToCreateHistory}
+          onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToLanding={navigateToLanding}
         />
       )}
     </>

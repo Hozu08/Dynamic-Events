@@ -17,7 +17,7 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional) para precargar datos
  */
-export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, selectedTheme = null }) {
+export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, selectedTheme = null }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -462,7 +462,7 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
 
           <div className="footer-column">
             <h3>Sobre la empresa</h3>
-            <a href="#">Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
             <a href="#">Instagram</a>
             <a href="#">Facebook</a>
           </div>

@@ -21,7 +21,7 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional)
  */
-export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, selectedTheme = null }) {
+export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, selectedTheme = null }) {
   const [showFooterModal, setShowFooterModal] = useState(null);
 
   // Log de configuración de API (desarrollo y producción)
@@ -204,7 +204,7 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
           {/* Empresa */}
           <div className="footer-column">
             <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
           </div>

@@ -1,0 +1,332 @@
+/* ==========================================
+   ABOUT US - OOCSS
+   Usa el diseño base de ChristmasLanding
+   ========================================== */
+
+/* ==========================================
+   HERO ESPECÍFICO PARA ABOUT US
+   ========================================== */
+
+/* Hero rojo específico solo para AboutUs */
+.christmas-landing .hero.about-us-hero,
+.christmas-landing .hero.hero--index-navidad.about-us-hero {
+  height: auto !important;
+  min-height: 220px !important;
+  background: linear-gradient(to right, #AB0000, #8B0000) !important;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  padding: 5rem 2rem 3rem 2rem;
+  padding-top: calc(5rem + 70px) !important; /* Compensar altura del header sticky */
+}
+
+.christmas-landing .hero.about-us-hero .hero-overlay,
+.christmas-landing .hero.hero--index-navidad.about-us-hero .hero-overlay {
+  display: none !important;
+}
+
+.christmas-landing .hero.about-us-hero .hero-inner,
+.christmas-landing .hero.hero--index-navidad.about-us-hero .hero-inner {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 !important;
+  text-align: center;
+}
+
+.christmas-landing .hero.about-us-hero .hero-content,
+.christmas-landing .hero.hero--index-navidad.about-us-hero .hero-content {
+  max-width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+.christmas-landing .hero.about-us-hero .hero-title,
+.christmas-landing .hero.hero--index-navidad.about-us-hero .hero-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+  color: #fff !important;
+}
+
+.christmas-landing .hero.about-us-hero .hero-synopsis,
+.christmas-landing .hero.hero--index-navidad.about-us-hero .hero-synopsis {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  color: #fff !important;
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================
+   ESTRUCTURA (Layout)
+   ========================================== */
+
+.about-us__content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.about-us__section {
+  margin-bottom: 5rem;
+}
+
+.about-us__section:last-child {
+  margin-bottom: 0;
+}
+
+/* La sección SappCode no necesita margen adicional porque el wrapper lo maneja */
+.about-us__section.about-us__sappcode {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   SECCIÓN: ¿Qué es Dynamic Events?
+   ========================================== */
+
+.about-us__what-is-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-us__what-is-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-us__section-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #AB0000;
+  margin-bottom: 1rem;
+}
+
+.about-us__section-title--center {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.about-us__text {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.about-us__list {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-us__list li strong {
+  color: #AB0000;
+}
+
+.about-us__what-is-image {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+.about-us__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ==========================================
+   SECCIÓN: Cómo vivimos cada temporada
+   ========================================== */
+
+.about-us__cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.about-us__card {
+  background: #fff;
+  border-top: 4px solid #AB0000;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-us__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.about-us__card-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #AB0000;
+  margin-bottom: 1rem;
+}
+
+.about-us__card-text {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* ==========================================
+   SECCIÓN: SappCode Web Experience
+   ========================================== */
+
+/* Sección completa con fondo beige (ancho completo de la página) */
+.about-us__sappcode-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #fffdf5;
+  padding: 5rem 3rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Wrapper para centrar el contenido */
+.about-us__sappcode-wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.about-us__intro-text {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.about-us__sappcode-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.about-us__sappcode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-us__sappcode-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.about-us__sappcode-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #AB0000, #8B0000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-us__sappcode-letter {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.about-us__sappcode-card-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #AB0000;
+  margin-bottom: 1rem;
+}
+
+.about-us__sappcode-card-text {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1024px) {
+  .about-us__what-is-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-us__what-is-image {
+    order: -1;
+  }
+
+  .about-us__cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-us__sappcode-cards {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us__section-title {
+    font-size: 2.3rem;
+  }
+
+  .about-us__section {
+    margin-bottom: 3rem;
+  }
+
+  .about-us__what-is-content {
+    gap: 2rem;
+  }
+
+  .about-us__card-title,
+  .about-us__sappcode-card-title {
+    font-size: 1.5rem;
+  }
+}
+

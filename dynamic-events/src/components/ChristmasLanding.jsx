@@ -20,7 +20,7 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing (para el logo)
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos }) {
+export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos, onNavigateToAboutUs }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
@@ -531,7 +531,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
           {/* Empresa */}
           <div className="footer-column">
             <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
             <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
           </div>
