@@ -6,7 +6,8 @@
 /* Variables globales */
 :root {
   --color-primary: #0b6a45;
-  --color-accent: #c0002f;
+  --color-accent: #AB0000;
+  --gradient-red: linear-gradient(to right, #AB0000, #8B0000);
   --color-accent-light: rgba(192, 0, 47, 0.12);
   --bg-light: #fdfdfd;
   --bg-paper: #fff6dd;
@@ -59,8 +60,8 @@
   margin: 0 auto;
   background: repeating-linear-gradient(
     45deg,
-    #d22 0 18px,
-    #d22 18px 36px,
+    #AB0000 0 18px,
+    #AB0000 18px 36px,
     #0b6a45 36px 54px,
     #0b6a45 54px 72px
   );
@@ -249,8 +250,8 @@
   border-radius: 32px;
   background: repeating-linear-gradient(
     45deg,
-    #d22 0 18px,
-    #d22 18px 36px,
+    #AB0000 0 18px,
+    #AB0000 18px 36px,
     var(--color-primary) 36px 54px,
     var(--color-primary) 54px 72px
   );
@@ -355,7 +356,7 @@
 .taller-btn-primary {
   border: none;
   border-radius: 999px;
-  background: var(--color-accent, #c0002f);
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   padding: 0.75rem 1.9rem;
   font-weight: 700;
@@ -395,8 +396,8 @@
 .btn-secundario {
   background: transparent;
   border-radius: 999px;
-  border: 1px solid var(--color-accent, #c0002f);
-  color: var(--color-accent, #c0002f);
+  border: 1px solid #AB0000;
+  color: #AB0000;
   padding: 0.6rem 1.4rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -510,7 +511,7 @@
   top: 0.4rem;
   width: 4px;
   height: 85%;
-  background: #8b0000;
+  background: linear-gradient(to right, #AB0000, #8B0000);
   border-radius: 4px;
 }
 

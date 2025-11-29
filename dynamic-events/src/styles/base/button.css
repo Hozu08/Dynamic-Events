@@ -5,9 +5,9 @@
 
 /* Variables para botones */
 :root {
-  --btn-primary-bg: #c0002f;
-  --btn-primary-shadow: rgba(192, 0, 47, 0.4);
-  --btn-secondary-border: #c0002f;
+  --btn-primary-bg: linear-gradient(to right, #AB0000, #8B0000);
+  --btn-primary-shadow: rgba(139, 0, 0, 0.4);
+  --btn-secondary-border: #AB0000;
   --btn-secondary-bg-hover: rgba(192, 0, 47, 0.06);
 }
 
@@ -44,9 +44,9 @@
 
 /* SKIN (Apariencia) - Estilo del formulario */
 .btn--primary {
-  background: var(--btn-primary-bg, #c0002f);
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
-  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
 }
 
 .btn--primary:hover:not(:disabled) {
@@ -72,8 +72,8 @@
 
 .btn--secondary {
   background: transparent;
-  border: 1px solid var(--btn-secondary-border, #c0002f);
-  color: var(--btn-secondary-border, #c0002f);
+  border: 1px solid #AB0000;
+  color: #AB0000;
   box-shadow: none;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .btn--accent {
-  background: var(--btn-primary-bg, #c0002f);
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
 }

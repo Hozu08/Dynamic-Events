@@ -55,7 +55,7 @@
 }
 
 .header__nav .nav-link--active {
-  color: #a00000;
+  color: #AB0000;
 }
 
 /* Dropdown en el header - mismo estilo que nav-link */
@@ -354,7 +354,7 @@
 }
 
 .header__menu-close:hover {
-  color: #a00000;
+  color: #AB0000;
 }
 
 .header__menu-nav .nav-link {
@@ -366,7 +366,7 @@
 }
 
 .header__menu-nav .nav-link--active {
-  color: #a00000;
+  color: #AB0000;
   background: rgba(160, 0, 0, 0.05);
 }
 

@@ -107,14 +107,14 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
       </Header>
 
       {/* HERO */}
-      <section className="hero hero--index-navidad">
+      <section className="hero hero--index-navidad game-page-hero">
         <div className="hero-overlay"></div>
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-title">
               Atrapa los Regalos Navideños
             </h1>
-            <p className="hero-synopsis" style={{ maxWidth: "800px" }}>
+            <p className="hero-synopsis">
               ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
               Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
             </p>

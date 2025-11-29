@@ -126,7 +126,7 @@
 
 /* Botón verde (iniciar) - Estilo del formulario */
 .game-button--start {
-  background: #c0002f;
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   border-radius: 999px;
   border: none;

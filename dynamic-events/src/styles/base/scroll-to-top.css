@@ -72,10 +72,10 @@
 
 /* SKIN (Apariencia) - Estilo del formulario */
 .scroll-to-top--primary {
-  background: var(--btn-primary-bg, #c0002f);
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: white;
   border: 2px solid white;
-  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
 }
 
 .scroll-to-top--primary:hover {
@@ -110,10 +110,10 @@
 }
 
 .scroll-to-top--accent {
-  background: var(--btn-primary-bg, #c0002f);
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: white;
   border: none;
-  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
 }
 
 .scroll-to-top--accent:hover {

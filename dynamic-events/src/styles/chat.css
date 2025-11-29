@@ -58,7 +58,7 @@
 }
 
 .chat-input:focus {
-  border-color: #c0002f;
+  border-color: #AB0000;
   box-shadow: 0 0 0 1px rgba(192, 0, 47, 0.6);
 }
 
@@ -95,7 +95,7 @@
 
 /* Mensaje del usuario - Alineado a la derecha con color rojo navideño */
 .chat-message--user {
-  background: #c0002f;
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   align-self: flex-end;
   margin-left: auto;
@@ -113,7 +113,7 @@
 
 /* Botón primario - Estilos de CreateHistory */
 .chat-button--primary {
-  background: #c0002f;
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   border-radius: 999px;
   border: none;

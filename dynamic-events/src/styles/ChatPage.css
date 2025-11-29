@@ -13,8 +13,8 @@
   margin: 3rem auto;
   background: repeating-linear-gradient(
     45deg,
-    #d22 0 18px,
-    #d22 18px 36px,
+    #AB0000 0 18px,
+    #AB0000 18px 36px,
     #0b6a45 36px 54px,
     #0b6a45 54px 72px
   );
@@ -83,7 +83,7 @@
 }
 
 .chat-page__chat-wrapper-inner .chat-input:focus {
-  border-color: #c0002f;
+  border-color: #AB0000;
   box-shadow: 0 0 0 1px rgba(192, 0, 47, 0.6);
 }
 
@@ -161,7 +161,7 @@
 
 /* Aplicar estilos de CreateHistory a los botones */
 .chat-page__chat-wrapper-inner .chat-button--primary {
-  background: #c0002f;
+  background: linear-gradient(to right, #AB0000, #8B0000);
   color: #fff;
   border-radius: 999px;
   border: 1px solid transparent;
@@ -202,8 +202,8 @@
 .chat-page__chat-wrapper-inner .chat-button--secondary {
   background: transparent;
   border-radius: 999px;
-  border: 1px solid #c0002f;
-  color: #c0002f;
+  border: 1px solid #AB0000;
+  color: #AB0000;
   padding: 0.6rem 1.4rem;
   font-size: 0.9rem;
   font-weight: 600;
