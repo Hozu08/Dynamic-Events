@@ -14,18 +14,25 @@
 .chat-messages {
   border-radius: 12px;
   padding: 1rem;
-  width: 60%;
+  width: 100%;
   margin: 1rem auto;
   text-align: left;
   height: 300px;
   overflow-y: auto;
+  /* Fondo del formulario */
+  background: #fff6dd url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
 }
 
-/* Mensaje individual */
+/* Mensaje individual - Estructura base */
 .chat-message {
-  padding: 0.5rem;
-  border-radius: 8px;
-  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  margin: 0.75rem 0;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 /* Área de input */
@@ -77,19 +84,27 @@
    SKINS (Apariencia/Temas)
    ========================================== */
 
-/* Tema oscuro para mensajes */
+/* Tema oscuro para mensajes - Ahora usa fondo del formulario */
 .chat-messages--dark {
-  background: #4e4e4eff;
+  background: #fff6dd url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
 }
 
-/* Mensaje del usuario */
+/* Mensaje del usuario - Alineado a la derecha con color rojo navideño */
 .chat-message--user {
-  background: #1a546eff;
+  background: #c0002f;
+  color: #fff;
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
 }
 
-/* Mensaje del asistente */
+/* Mensaje del asistente - Alineado a la izquierda con color verde navideño */
 .chat-message--assistant {
-  background: #141414ff;
+  background: #0b6a45;
+  color: #fff;
+  align-self: flex-start;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
 }
 
 /* Botón primario - Estilos de CreateHistory */
@@ -98,7 +113,7 @@
   color: #fff;
   border-radius: 999px;
   border: none;
-  padding: 0.75rem 1.9rem;
+  padding: 0.6rem 0.75rem;
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
@@ -107,6 +122,8 @@
   overflow: hidden;
   font-family: inherit;
   transition: filter 0.3s ease;
+  height: auto;
+  line-height: 1.5;
 }
 
 .chat-button--primary:hover:not(:disabled) {
@@ -165,9 +182,14 @@
 
 /* Indicador de carga */
 .chat-loading {
-  color: #888;
+  color: #0b6a45;
   font-style: italic;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(11, 106, 69, 0.1);
+  border-radius: 18px;
+  max-width: 70%;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
 }
 
 
@@ -187,6 +209,19 @@
   font-weight: bold;
 }
 
+/* Estilos para los mensajes del chat */
+.chat-message__author {
+  font-weight: 700;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 0.2rem;
+}
+
+.chat-message__content {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 /* Contenido de bienvenida en el chat */
 .chat-welcome-content {
   margin-bottom: 1.5rem;
@@ -194,23 +229,23 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Scrollbar personalizado (opcional) */
+/* Scrollbar personalizado para el tema navideño */
 .chat-messages::-webkit-scrollbar {
   width: 8px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: #2a2a2a;
+  background: rgba(192, 0, 47, 0.1);
   border-radius: 10px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: #555;
+  background: rgba(192, 0, 47, 0.4);
   border-radius: 10px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: rgba(192, 0, 47, 0.6);
 }
 
 

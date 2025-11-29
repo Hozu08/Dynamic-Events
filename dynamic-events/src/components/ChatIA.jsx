@@ -42,6 +42,7 @@ export function ChatIA({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const hasAutoStartedRef = useRef(false);
 
   // Detecta si la conversación ha finalizado
@@ -49,10 +50,13 @@ export function ChatIA({
     msg.content.includes(finishMarker)
   );
 
-  // Auto-scroll al último mensaje
+  // Auto-scroll al último mensaje (solo dentro del contenedor del chat)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (messagesEndRef.current && messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages, loading]);
+
 
   // Iniciar automáticamente con el tema seleccionado
   useEffect(() => {
@@ -81,7 +85,7 @@ export function ChatIA({
       
       const newUserMessage = {
         role: "user",
-        content: `${userName} dice: ${initialMessage}`,
+        content: initialMessage,
       };
       const newMessages = [newUserMessage];
       
@@ -163,7 +167,7 @@ export function ChatIA({
 
     const newUserMessage = {
       role: "user",
-      content: `${userName} dice: ${input}`,
+      content: input,
     };
     const newMessages = [...messages, newUserMessage];
 
@@ -270,6 +274,7 @@ export function ChatIA({
 
       {/* Área de mensajes con scroll automático */}
       <div
+        ref={messagesContainerRef}
         className={`chat-messages chat-messages--${theme}`}
         style={{ 
           height: maxMessagesHeight,
@@ -283,21 +288,36 @@ export function ChatIA({
           </div>
         )}
 
-        {messages.map((msg, i) => ( 
-          <div
-            key={i}
-            className={`chat-message ${
-              msg.role === "user"
-                ? "chat-message--user"
-                : "chat-message--assistant"
-            }`}
-          >
-            <span className="text-bold">
-              {msg.role === "user" ? userName : assistantName}:
-            </span>{" "}
-            {msg.content}
-          </div>
-        ))}
+        {messages.map((msg, i) => {
+          // Extraer el contenido real del mensaje eliminando el prefijo "nombre dice:"
+          let messageContent = msg.content;
+          const userNamePrefix = `${userName} dice: `;
+          const assistantNamePrefix = `${assistantName} dice: `;
+          
+          if (msg.role === "user" && messageContent.startsWith(userNamePrefix)) {
+            messageContent = messageContent.replace(userNamePrefix, '');
+          } else if (msg.role === "assistant" && messageContent.startsWith(assistantNamePrefix)) {
+            messageContent = messageContent.replace(assistantNamePrefix, '');
+          }
+          
+          return (
+            <div
+              key={i}
+              className={`chat-message ${
+                msg.role === "user"
+                  ? "chat-message--user"
+                  : "chat-message--assistant"
+              }`}
+            >
+              <span className="chat-message__author">
+                {msg.role === "user" ? userName : assistantName}
+              </span>
+              <span className="chat-message__content">
+                {messageContent}
+              </span>
+            </div>
+          );
+        })}
 
         {/* Indicador de carga */}
         {loading && (
@@ -306,11 +326,15 @@ export function ChatIA({
 
         {/* Mensaje de error */}
         {error && (
-          <div className="chat-message chat-message--assistant">{error}</div>
+          <div className="chat-message chat-message--assistant">
+            <span className="chat-message__author">{assistantName}</span>
+            <span className="chat-message__content">{error}</span>
+          </div>
         )}
 
         {/* Referencia para auto-scroll */}
         <div ref={messagesEndRef} />
+
       </div>
 
       {/* Área de input */}
@@ -337,7 +361,7 @@ export function ChatIA({
             ? "🔄 Reiniciar"
             : loading
             ? "⏳ Enviando..."
-            : "✉️ Enviar"}
+            : "Enviar"}
         </button>
       </div>
     </div>

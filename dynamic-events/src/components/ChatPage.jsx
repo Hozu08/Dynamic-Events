@@ -34,6 +34,9 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
       console.warn('⚠️ VITE_API_URL no tiene protocolo. El sistema agregará https:// automáticamente.');
       console.warn('   Para evitar esto, configura VITE_API_URL con https:// en Vercel');
     }
+
+    // Asegurar que la página inicie en la parte superior
+    window.scrollTo(0, 0);
   }, []);
 
   const openFooterModal = (modalType) => {
@@ -104,16 +107,17 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
       {/* ÁREA DE CHAT */}
       <section className="landing-section landing-section--padding">
         <div className="chat-page__chat-wrapper">
-          {selectedTheme && selectedTheme.title && selectedTheme.icon && (
-            <div style={{ padding: "1rem 2rem 0" }}>
-              <span className="chat-page__theme-badge">
-                <span style={{ fontSize: "1.5rem" }}>{selectedTheme.icon}</span>
-                {selectedTheme.title}
-              </span>
-            </div>
-          )}
-          
-          <ChatIA
+          <div className="chat-page__chat-wrapper-inner">
+            {selectedTheme && selectedTheme.title && selectedTheme.icon && (
+              <div style={{ padding: "1rem 2rem 0" }}>
+                <span className="chat-page__theme-badge">
+                  <span style={{ fontSize: "1.5rem" }}>{selectedTheme.icon}</span>
+                  {selectedTheme.title}
+                </span>
+              </div>
+            )}
+            
+            <ChatIA
             userName="Aventurero"
             assistantName="Santa Claus"
             apiEndpoint={getChatApiEndpoint()}
@@ -170,6 +174,7 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
               console.log("Chat reiniciado");
             }}
           />
+          </div>
         </div>
       </section>
 
