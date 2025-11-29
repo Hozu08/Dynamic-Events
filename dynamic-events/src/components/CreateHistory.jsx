@@ -13,9 +13,11 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToLanding - Callback para volver a la landing
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat con los datos del formulario
+ * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
+ * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional) para precargar datos
  */
-export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, selectedTheme = null }) {
+export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, selectedTheme = null }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -136,7 +138,12 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
         variant="light"
         onLogoClick={onNavigateToLanding}
       >
-        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
+        <a href="#minijuegos" className="nav-link" onClick={(e) => { 
+          e.preventDefault(); 
+          if (onNavigateToMinijuegos) {
+            onNavigateToMinijuegos();
+          }
+        }}>
           Minijuegos
         </a>
         <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>

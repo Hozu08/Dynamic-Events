@@ -17,9 +17,11 @@ import "../styles/base/utilities.css";
  * @param {Object} props
  * @param {Function} props.onBack - Callback para volver a la landing
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
+ * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
+ * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional)
  */
-export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
+export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, selectedTheme = null }) {
   const [showFooterModal, setShowFooterModal] = useState(null);
 
   // Log de configuración de API (desarrollo y producción)
@@ -67,10 +69,15 @@ export function ChatPage({ onBack, onNavigateToGame, selectedTheme = null }) {
         variant="light"
         onLogoClick={onBack}
       >
-        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
+        <a href="#minijuegos" className="nav-link" onClick={(e) => { 
+          e.preventDefault(); 
+          if (onNavigateToMinijuegos) {
+            onNavigateToMinijuegos();
+          }
+        }}>
           Minijuegos
         </a>
-        <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
+        <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
         <Dropdown

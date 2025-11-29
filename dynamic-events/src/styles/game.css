@@ -7,14 +7,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
-  padding: 1rem;
+  margin-top: 0;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Wrapper del canvas */
 .game-canvas-wrapper {
   position: relative;
   display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Canvas del juego */
@@ -23,6 +29,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: block;
   max-width: 100%;
+  width: 100%;
   height: auto;
 }
 
@@ -117,16 +124,40 @@
   border: 3px solid #ffd700;
 }
 
-/* Botón verde (iniciar) */
+/* Botón verde (iniciar) - Estilo del formulario */
 .game-button--start {
-  background-color: #28a745;
-  color: white;
+  background: #c0002f;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  padding: 0.75rem 1.9rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(192, 0, 47, 0.4);
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
 }
 
 .game-button--start:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.05);
+}
+
+.game-button--start::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.game-button--start:hover::after {
+  left: 120%;
 }
 
 /* Botón rojo (reiniciar) */
@@ -253,7 +284,9 @@
 
 @media (max-width: 768px) {
   .game-canvas {
-    max-width: 90vw;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .game-title {
@@ -291,7 +324,9 @@
 
 @media (max-width: 480px) {
   .game-canvas {
-    max-width: 95vw;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .game-button {

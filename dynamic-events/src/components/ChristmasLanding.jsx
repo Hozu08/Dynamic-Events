@@ -18,8 +18,9 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing (para el logo)
+ * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding }) {
+export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
@@ -270,7 +271,13 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
         variant="light"
         onLogoClick={onNavigateToLanding}
       >
-        <a href="#historia-actual" className="nav-link" onClick={(e) => { e.preventDefault(); }}>
+        <a href="#minijuegos" className="nav-link" onClick={(e) => { 
+          e.preventDefault(); 
+          const minijuegosSection = document.getElementById("minijuegos");
+          if (minijuegosSection) {
+            minijuegosSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}>
           Minijuegos
         </a>
         <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
@@ -478,7 +485,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
       </section>
 
       {/* SECCIÓN MINIJUEGOS */}
-      <section className="minijuegos-section">
+      <section id="minijuegos" className="minijuegos-section">
         <div className="minijuegos-inner">
           <h2 className="minijuegos-title">Minijuegos navideños</h2>
           <p className="minijuegos-desc">

@@ -37,6 +37,21 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  // Navegar a minijuegos (ir a landing y hacer scroll a la sección)
+  const navigateToMinijuegos = () => {
+    setCurrentPage("landing");
+    setSelectedTheme(null);
+    // Esperar a que el componente se monte y luego hacer scroll
+    setTimeout(() => {
+      const minijuegosSection = document.getElementById("minijuegos");
+      if (minijuegosSection) {
+        minijuegosSection.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, 100);
+  };
+
   return (
     <>
       {currentPage === "landing" && (
@@ -45,6 +60,7 @@ function App() {
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToGame={navigateToGame}
           onNavigateToLanding={navigateToLanding}
+          onNavigateToMinijuegos={navigateToMinijuegos}
         />
       )}
 
@@ -53,6 +69,8 @@ function App() {
           onNavigateToLanding={navigateToLanding}
           onNavigateToGame={navigateToGame}
           onNavigateToChat={navigateToChat}
+          onNavigateToCreateHistory={navigateToCreateHistory}
+          onNavigateToMinijuegos={navigateToMinijuegos}
         />
       )}
 
@@ -60,6 +78,8 @@ function App() {
         <ChatPage 
           onBack={navigateToLanding}
           onNavigateToGame={navigateToGame}
+          onNavigateToCreateHistory={navigateToCreateHistory}
+          onNavigateToMinijuegos={navigateToMinijuegos}
           selectedTheme={selectedTheme}
         />
       )}
@@ -68,6 +88,8 @@ function App() {
         <GamePage 
           onBack={navigateToLanding}
           onNavigateToChat={navigateToChat}
+          onNavigateToCreateHistory={navigateToCreateHistory}
+          onNavigateToMinijuegos={navigateToMinijuegos}
         />
       )}
     </>

@@ -5,8 +5,8 @@ import "../styles/game.css";
  * CanvasGame - Componente reutilizable de juego en canvas
  */
 export function CanvasGame({
-  width = 600,
-  height = 700,
+  width = 650,
+  height = 550,
   title = "Minijuego",
   description = "¡Juega y diviértete!",
   gameConfig = {
@@ -66,6 +66,7 @@ export function CanvasGame({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+
   // Precarga de imágenes
   const preloadedAssets = useMemo(() => {
     const playerImg = new Image();
@@ -105,6 +106,11 @@ export function CanvasGame({
     const canvas = canvasRef.current;
     if (!canvas) return;
     
+    // Usar altura dinámica
+    const currentHeight = isMobile ? 700 : height;
+    canvas.width = width;
+    canvas.height = currentHeight;
+    
     const ctx = canvas.getContext("2d");
     let running = true;
     let animationFrameId;
@@ -133,7 +139,7 @@ export function CanvasGame({
     // Jugador
     const player = {
       x: width / 2 - 60,
-      y: height - 70,
+      y: currentHeight - 70,
       width: 120,
       height: 60,
       sprite: preloadedAssets.player,
@@ -256,7 +262,7 @@ export function CanvasGame({
     for (let i = 0; i < gameConfig.snowflakeCount; i++) {
       particles.push({
         x: Math.random() * width,
-        y: Math.random() * height,
+        y: Math.random() * currentHeight,
         speed: 0.5 + Math.random() * 1.5,
         size: 20 + Math.random() * 20,
       });
@@ -272,7 +278,11 @@ export function CanvasGame({
     const handleMouseMove = (e) => {
       if (pausedRef.current || countdownRef.current !== null || isMobile) return;
       const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
+      // Calcular posición relativa al canvas, considerando el escalado
+      // El canvas puede tener un tamaño lógico diferente a su tamaño visual
+      const scaleX = width / rect.width;
+      const mouseX = (e.clientX - rect.left) * scaleX;
+      // Centrar el trineo bajo el cursor
       player.targetX = Math.max(0, Math.min(mouseX - player.width / 2, width - player.width));
     };
 
@@ -283,7 +293,11 @@ export function CanvasGame({
       const rect = canvas.getBoundingClientRect();
       const touch = e.touches[0];
       if (touch) {
-        const touchX = touch.clientX - rect.left;
+        // Calcular posición relativa al canvas, considerando el escalado
+        // El canvas puede tener un tamaño lógico diferente a su tamaño visual
+        const scaleX = width / rect.width;
+        const touchX = (touch.clientX - rect.left) * scaleX;
+        // Centrar el trineo bajo el dedo
         player.targetX = Math.max(0, Math.min(touchX - player.width / 2, width - player.width));
       }
     };
@@ -294,7 +308,11 @@ export function CanvasGame({
       const rect = canvas.getBoundingClientRect();
       const touch = e.touches[0];
       if (touch) {
-        const touchX = touch.clientX - rect.left;
+        // Calcular posición relativa al canvas, considerando el escalado
+        // El canvas puede tener un tamaño lógico diferente a su tamaño visual
+        const scaleX = width / rect.width;
+        const touchX = (touch.clientX - rect.left) * scaleX;
+        // Centrar el trineo bajo el dedo
         player.targetX = Math.max(0, Math.min(touchX - player.width / 2, width - player.width));
       }
     };
@@ -392,14 +410,14 @@ export function CanvasGame({
     function gameLoop() {
       if (!running) return;
 
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, currentHeight);
 
       // Fondo
-      const bg = ctx.createLinearGradient(0, 0, 0, height);
+      const bg = ctx.createLinearGradient(0, 0, 0, currentHeight);
       bg.addColorStop(0, "#002");
       bg.addColorStop(1, "#034");
       ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillRect(0, 0, width, currentHeight);
 
       // Actualizar cuenta regresiva
       if (countdownRef.current !== null) {
@@ -464,7 +482,7 @@ export function CanvasGame({
         // Cuenta regresiva
         if (isCountingDown && countdownRef.current > 0) {
           ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-          ctx.fillRect(0, 0, width, height);
+          ctx.fillRect(0, 0, width, currentHeight);
           
           ctx.fillStyle = "white";
           ctx.font = "bold 120px Arial";
@@ -473,8 +491,8 @@ export function CanvasGame({
           ctx.lineWidth = 6;
           ctx.shadowBlur = 30;
           ctx.shadowColor = "rgba(255, 215, 0, 0.8)";
-          ctx.strokeText(countdownRef.current, width / 2, height / 2);
-          ctx.fillText(countdownRef.current, width / 2, height / 2);
+          ctx.strokeText(countdownRef.current, width / 2, currentHeight / 2);
+          ctx.fillText(countdownRef.current, width / 2, currentHeight / 2);
           ctx.textAlign = "left";
           ctx.shadowBlur = 0;
         }
@@ -482,18 +500,18 @@ export function CanvasGame({
         // Menú de pausa
         if (pausedRef.current && !isCountingDown) {
           ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-          ctx.fillRect(0, 0, width, height);
+          ctx.fillRect(0, 0, width, currentHeight);
           
           ctx.fillStyle = "white";
           ctx.font = "bold 48px Arial";
           ctx.textAlign = "center";
           ctx.strokeStyle = "black";
           ctx.lineWidth = 4;
-          ctx.strokeText("PAUSA", width / 2, height / 2 - 80);
-          ctx.fillText("PAUSA", width / 2, height / 2 - 80);
+          ctx.strokeText("PAUSA", width / 2, currentHeight / 2 - 80);
+          ctx.fillText("PAUSA", width / 2, currentHeight / 2 - 80);
           
           // Botón Reanudar
-          const resumeButtonY = height / 2 - 20;
+          const resumeButtonY = currentHeight / 2 - 20;
           ctx.fillStyle = "rgba(0, 200, 0, 0.8)";
           ctx.fillRect(width / 2 - 120, resumeButtonY, 240, 50);
           ctx.strokeStyle = "white";
@@ -505,7 +523,7 @@ export function CanvasGame({
           ctx.fillText("▶️ Presiona ESC", width / 2, resumeButtonY + 33);
           
           // Botón Reiniciar
-          const restartButtonY = height / 2 + 50;
+          const restartButtonY = currentHeight / 2 + 50;
           ctx.fillStyle = "rgba(200, 0, 0, 0.8)";
           ctx.fillRect(width / 2 - 120, restartButtonY, 240, 50);
           ctx.strokeStyle = "white";
@@ -530,7 +548,7 @@ export function CanvasGame({
       particles.forEach((p) => {
         ctx.drawImage(preloadedAssets.particle, p.x, p.y, p.size, p.size);
         p.y += p.speed;
-        if (p.y > height) {
+        if (p.y > currentHeight) {
           p.y = -20;
           p.x = Math.random() * width;
         }
@@ -584,7 +602,7 @@ export function CanvasGame({
           powerups.splice(i, 1);
         }
 
-        if (powerup.y > height) {
+        if (powerup.y > currentHeight) {
           powerups.splice(i, 1);
         }
       });
@@ -615,7 +633,7 @@ export function CanvasGame({
           items[i] = createItem();
         }
 
-        if (item.y > height) {
+        if (item.y > currentHeight) {
           if (!powerupState.shield.active) {
             sounds.hit.currentTime = 0;
             sounds.hit.play();
@@ -698,20 +716,20 @@ export function CanvasGame({
 
       if (showingGameOverRef.current) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-        ctx.fillRect(0, 0, width, height);
+        ctx.fillRect(0, 0, width, currentHeight);
         
         ctx.fillStyle = "#FF0000";
         ctx.font = "bold 72px Arial";
         ctx.textAlign = "center";
         ctx.strokeStyle = "black";
         ctx.lineWidth = 6;
-        ctx.strokeText("GAME OVER", width / 2, height / 2);
-        ctx.fillText("GAME OVER", width / 2, height / 2);
+        ctx.strokeText("GAME OVER", width / 2, currentHeight / 2);
+        ctx.fillText("GAME OVER", width / 2, currentHeight / 2);
         
         ctx.fillStyle = "white";
         ctx.font = "bold 32px Arial";
-        ctx.strokeText(`Puntaje Final: ${scoreRef.current}`, width / 2, height / 2 + 60);
-        ctx.fillText(`Puntaje Final: ${scoreRef.current}`, width / 2, height / 2 + 60);
+        ctx.strokeText(`Puntaje Final: ${scoreRef.current}`, width / 2, currentHeight / 2 + 60);
+        ctx.fillText(`Puntaje Final: ${scoreRef.current}`, width / 2, currentHeight / 2 + 60);
         ctx.textAlign = "left";
       }
 
@@ -755,7 +773,7 @@ export function CanvasGame({
         <canvas
           ref={canvasRef}
           width={width}
-          height={height}
+          height={isMobile ? 700 : height}
           className={`game-canvas game-canvas--${theme}`}
         />
       </div>

@@ -15,8 +15,10 @@ import "../styles/base/utilities.css";
  * @param {Object} props
  * @param {Function} props.onBack - Callback para volver a la landing
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
+ * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
+ * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  */
-export function GamePage({ onBack, onNavigateToChat }) {
+export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos }) {
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem('christmasGameHighScore')) || 0
   );
@@ -62,8 +64,19 @@ export function GamePage({ onBack, onNavigateToChat }) {
         variant="light"
         onLogoClick={onBack}
       >
+        <a href="#minijuegos" className="nav-link nav-link--active" onClick={(e) => { 
+          e.preventDefault(); 
+          if (onNavigateToMinijuegos) {
+            onNavigateToMinijuegos();
+          }
+        }}>
+          Minijuegos
+        </a>
+        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
+          Crear historia IA
+        </a>
         <Dropdown
-          label="Temporadas"
+          label="Escoger época"
           variant="pill"
           size="md"
           position="bottom-left"
@@ -72,7 +85,6 @@ export function GamePage({ onBack, onNavigateToChat }) {
               label: "Halloween",
               icon: "🎃",
               onClick: () => {
-                // TODO: Implementar navegación a Halloween
                 console.log("Navegar a Halloween");
               },
             },
@@ -87,95 +99,133 @@ export function GamePage({ onBack, onNavigateToChat }) {
               label: "Vacaciones",
               icon: "🏖️",
               onClick: () => {
-                // TODO: Implementar navegación a Vacaciones
                 console.log("Navegar a Vacaciones");
               },
             },
           ]}
         />
-        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigateToChat(); }}>
-          Crear historia IA
-        </a>
-        <a href="#historia-actual" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
-          Minijuegos
-        </a>
       </Header>
 
       {/* HERO */}
-      <section className="christmas-hero hero hero--gradient-sky">
-        <div className="hero-illustration" style={{ backgroundImage: "url('/images/hero-background.png')" }}></div>
-        <div className="hero__content">
-          <h1 className="hero__title hero__title--light">
-            🎄 Atrapa los Regalos Navideños 🎁
-          </h1>
-          <p className="hero__subtitle hero__subtitle--light" style={{ fontSize: "1.3rem", maxWidth: "800px", margin: "0 auto" }}>
-            ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
-            Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
-          </p>
+      <section className="hero hero--index-navidad">
+        <div className="hero-overlay"></div>
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Atrapa los Regalos Navideños
+            </h1>
+            <p className="hero-synopsis" style={{ maxWidth: "800px" }}>
+              ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
+              Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ÁREA DEL JUEGO */}
       <section className="landing-section landing-section--padding">
-        <div className="game-page__game-wrapper">
-          <MinigameTest 
-            onGameOver={handleGameOver}
-            onScoreChange={handleScoreChange}
-          />
-        </div>
-
-        {/* ESTADÍSTICAS */}
-        <div className="game-page__stats">
-          <div className="game-stat">
-            <div className="game-stat__label">Récord</div>
-            <div className="game-stat__value">🏆 {highScore}</div>
+        <div className="game-page__content-wrapper">
+          {/* INSTRUCCIONES - Desktop izquierda, Mobile antes */}
+          <div className="game-page__info-section game-page__instructions">
+            <h3 className="game-page__info-title">📖 Cómo Jugar</h3>
+            <ul className="game-page__info-list">
+              <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
+              <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
+              <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
+              <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
+              <li>El juego termina cuando te quedas sin vidas</li>
+              <li>¡Intenta superar tu récord personal!</li>
+            </ul>
           </div>
-          <div className="game-stat">
-            <div className="game-stat__label">Partidas</div>
-            <div className="game-stat__value">🎮 {gamesPlayed}</div>
-          </div>
-        </div>
 
-        {/* INSTRUCCIONES */}
-        <div className="game-page__instructions">
-          <h3>📖 Cómo Jugar</h3>
-          <ul>
-            <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
-            <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
-            <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
-            <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
-            <li>El juego termina cuando te quedas sin vidas</li>
-            <li>¡Intenta superar tu récord personal!</li>
-          </ul>
+          {/* JUEGO CENTRAL */}
+          <div className="game-page__game-section">
+            <div className="game-page__game-wrapper">
+              <div className="game-page__game-wrapper-inner">
+                <h2 className="game-page__game-title">Trineo veloz</h2>
+                <MinigameTest 
+                  onGameOver={handleGameOver}
+                  onScoreChange={handleScoreChange}
+                />
+              </div>
+            </div>
+
+            {/* ESTADÍSTICAS */}
+            <div className="game-page__stats">
+              <div className="game-stat">
+                <div className="game-stat__label">Récord</div>
+                <div className="game-stat__value">🏆 {highScore}</div>
+              </div>
+              <div className="game-stat">
+                <div className="game-stat__label">Partidas</div>
+                <div className="game-stat__value">🎮 {gamesPlayed}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* POWER-UPS - Desktop derecha, Mobile después */}
+          <div className="game-page__info-section game-page__powerups">
+            <h3 className="game-page__info-title">⚡ Power-Ups</h3>
+            <ul className="game-page__info-list">
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-speed.png" alt="Velocidad" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Velocidad:</strong>
+                  <span className="game-page__powerup-desc">Duplica tu velocidad por 8 segundos</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-heart.png" alt="Vida Extra" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Vida Extra:</strong>
+                  <span className="game-page__powerup-desc">Gana una vida adicional instantáneamente</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-star.png" alt="Escudo" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Escudo:</strong>
+                  <span className="game-page__powerup-desc">Protección contra perder vidas por 10 segundos</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-clock.png" alt="Cámara Lenta" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Cámara Lenta:</strong>
+                  <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="christmas-footer u-flex u-flex-center u-gap-lg">
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('instructions')}
-        >
-          Instrucciones
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('policies')}
-        >
-          Políticas
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="md" 
-          className="footer-button"
-          onClick={() => openFooterModal('about')}
-        >
-          Conócenos
-        </Button>
+      <footer className="footer">
+        <div className="footer-container">
+          {/* Navegación */}
+          <div className="footer-column">
+            <h3>Navegación</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Inicio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Cambiar época</a>
+            <a href="#historia-actual" onClick={(e) => { e.preventDefault(); }}>Minijuegos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToChat(); }}>Crear historias con IA</a>
+          </div>
+          {/* Información */}
+          <div className="footer-column">
+            <h3>Información</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+          </div>
+          {/* Empresa */}
+          <div className="footer-column">
+            <h3>Sobre la empresa</h3>
+            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('about'); }}>Conócenos</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
+          </div>
+        </div>
       </footer>
 
       {/* MODALES DEL FOOTER */}
