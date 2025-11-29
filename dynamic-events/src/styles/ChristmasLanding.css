@@ -493,8 +493,11 @@ body {
 
 .minijuegos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  justify-items: center;
 }
 
 .mini-card {
@@ -738,6 +741,8 @@ body {
 
   .minijuegos-grid {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   .footer-container {
@@ -834,6 +839,8 @@ body {
   /* Minijuegos responsive */
   .minijuegos-grid {
     grid-template-columns: 1fr;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
 

@@ -455,7 +455,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 relato único y especial.<br /><br />
                 Tu historia te está esperando.
               </p>
-              <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); goToChat(); }}>
+              <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
                 Crear ahora
               </a>
             </div>
@@ -483,37 +483,23 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
           <h2 className="minijuegos-title">Minijuegos navideños</h2>
           <p className="minijuegos-desc">
             Explora pequeños desafíos interactivos para seguir jugando con la magia
-            de la Navidad: memoria, decisiones rápidas y mucha imaginación.
+            de la Navidad.
           </p>
           <div className="minijuegos-grid">
             <article className="mini-card">
               <h3 className="mini-name">Trineo veloz</h3>
               <p className="mini-text">
-                Ayuda a Papá Noel a esquivar obstáculos mientras reparte regalos por
-                la ciudad.
-              </p>
-              <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); }}>
-                Jugar ahora
-              </a>
-            </article>
-            <article className="mini-card">
-              <h3 className="mini-name">Memoria de regalos</h3>
-              <p className="mini-text">
-                Encuentra las parejas de regalos antes de que se acabe el tiempo.
+                Ayuda a Papá Noel a recoger los regalos de esta navidad.
               </p>
               <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
                 Jugar ahora
               </a>
             </article>
             <article className="mini-card">
-              <h3 className="mini-name">Crea tu villancico</h3>
+              <h3 className="mini-name">Proximamente</h3>
               <p className="mini-text">
-                Combina versos y melodías para inventar tu propio villancico
-                navideño.
+                Nuevos juegos se estan cocinando
               </p>
-              <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); }}>
-                Jugar ahora
-              </a>
             </article>
           </div>
         </div>
