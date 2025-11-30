@@ -505,7 +505,8 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 Jugar ahora
               </a>
             </article>
-            <img 
+            <div className="minijuegos-coming-soon">
+              <img 
                 src="/images/commingSoonChrist.png" 
                 alt="Próximamente - Nuevo minijuego navideño"
                 className="minijuegos-coming-soon__image"
@@ -518,6 +519,7 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 }}
               />
             </div>
+          </div>
         </div>
       </section>
 

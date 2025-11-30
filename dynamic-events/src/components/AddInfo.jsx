@@ -353,7 +353,7 @@ export function AddInfo({
         onBack={onBack}
         onNavigateToChat={onNavigateToChat}
         onNavigateToCreateHistory={onNavigateToCreateHistory}
-        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAddInfo={undefined}
         onNavigateToAboutUs={onNavigateToAboutUs}
         isAddInfoPage={true}
       />
