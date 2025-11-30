@@ -1,0 +1,56 @@
+/* ==========================================
+   TEMA: VACACIONES
+   Variables CSS para el tema de Vacaciones
+   ========================================== */
+
+.theme-vacation {
+  /* Colores principales */
+  --color-primary: #006994;
+  --color-primary-dark: #004d73;
+  --color-secondary: #FF6B6B;
+  --color-accent: #FFB347;
+  --color-accent-dark: #FF8C00;
+  --color-gold: #FFD700;
+  
+  /* Colores de fondo */
+  --bg-light: #f0f8ff;
+  --bg-paper: #FFF8DC;
+  --bg-paper-pattern: url("https://www.transparenttextures.com/patterns/beige-paper.png");
+  
+  /* Colores de texto */
+  --text-dark: #2c3e50;
+  --text-medium: #3b2d21;
+  --text-light: #5a5a5a;
+  
+  /* Bordes */
+  --border-color: #e0e0e0;
+  --border-color-light: #d4c5a9;
+  --border-radius: 20px;
+  --border-radius-large: 30px;
+  --border-radius-inner: 16px;
+  
+  /* Espaciado y layout */
+  --max-width: 1920px;
+  --spacing-section: 4rem 3rem;
+  
+  /* Degradados */
+  --gradient-red: linear-gradient(to right, #FFB347, #FF8C00);
+  --gradient-red-vertical: linear-gradient(to bottom, #FFB347, #FF8C00);
+  
+  /* Borde decorativo de vacaciones (azul y naranja) */
+  --border-decorative: repeating-linear-gradient(
+    45deg,
+    #FFB347 0 18px,
+    #006994 18px 36px,
+    #FF6B6B 36px 54px,
+    #FFB347 54px 72px
+  );
+  
+  /* Hero naranja - valores compartidos */
+  --hero-red-min-height: 220px;
+  --hero-red-padding: 5rem 2rem 3rem 2rem;
+  --hero-red-padding-top: calc(5rem + 70px);
+  --hero-red-title-size: 4rem;
+  --hero-red-synopsis-size: 1.1rem;
+}
+

@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "../../context/ThemeContext";
+import { getAllThemes } from "../../config/themes";
+import { Dropdown } from "./Dropdown";
 import "../../styles/base/header.css";
 
 /**
@@ -18,12 +21,22 @@ export function Header({
   className = "", 
   sticky = true, 
   variant = "light",
-  onLogoClick 
+  onLogoClick,
+  showThemeSelector = true
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const { currentTheme, changeTheme } = useTheme();
+  const allThemes = getAllThemes();
 
   const logoColorClass = variant === "dark" ? "white" : "primary";
+
+  // Items del dropdown de temas
+  const themeItems = allThemes.map(theme => ({
+    label: `${theme.icon} ${theme.name}`,
+    onClick: () => changeTheme(theme.id),
+    icon: theme.icon,
+  }));
 
   // Cerrar menú al hacer clic fuera
   useEffect(() => {
@@ -83,7 +96,7 @@ export function Header({
   
   return (
     <>
-      <header className={`header header--navidad ${sticky ? "header--sticky" : ""} header--${variant} ${className}`}>
+      <header className={`header header--${currentTheme} ${sticky ? "header--sticky" : ""} header--${variant} ${className}`}>
         <div className="header__container">
           <div className="header__left">
             <button
@@ -112,7 +125,19 @@ export function Header({
         {logo}
             </span>
           </div>
-          <nav className="header__nav header__nav--right">{children}</nav>
+          <nav className="header__nav header__nav--right">
+            {children}
+            {showThemeSelector && (
+              <Dropdown
+                label="Escoger época"
+                variant="pill"
+                size="md"
+                position="bottom-left"
+                items={themeItems}
+                className="header__theme-selector"
+              />
+            )}
+          </nav>
       </div>
     </header>
 
@@ -152,6 +177,16 @@ export function Header({
           }}
         >
           {children}
+          {showThemeSelector && (
+            <Dropdown
+              label="Escoger época"
+              variant="pill"
+              size="md"
+              position="bottom-left"
+              items={themeItems}
+              className="header__theme-selector"
+            />
+          )}
         </nav>
       </aside>
     </>

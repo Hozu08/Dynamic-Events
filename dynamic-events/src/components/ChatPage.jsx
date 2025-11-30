@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
+import { getTheme } from "../config/themes";
 import { ChatIA } from "./ChatIA";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
-import { Dropdown } from "./base/Dropdown";
 import { Footer } from "./base/Footer";
 import { getChatApiEndpoint } from "../utils/apiConfig";
 import { logApiConfig } from "../utils/debugApi";
@@ -18,13 +19,16 @@ import "../styles/base/utilities.css";
  * @param {Object} props
  * @param {Function} props.onBack - Callback para volver a la landing
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
+ * @param {Function} props.onNavigateToChat - Callback para navegar al chat
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
  * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional)
  */
-export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo, selectedTheme = null }) {
+export function ChatPage({ onBack, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo, selectedTheme = null }) {
+  const { currentTheme } = useTheme();
+  const theme = getTheme(currentTheme);
   const [showFooterModal, setShowFooterModal] = useState(null);
 
   // Log de configuración de API (desarrollo y producción)
@@ -63,14 +67,15 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
     }
   };
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onBack}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => { 
           e.preventDefault(); 
@@ -83,35 +88,6 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
         <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                onBack();
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* ÁREA DE CHAT */}
@@ -129,13 +105,14 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
           
           <ChatIA
             userName="Aventurero"
-            assistantName="Santa Claus"
+            assistantName={theme.character}
             apiEndpoint={getChatApiEndpoint()}
             title=""
             description=""
             finishMarker="<<FIN_DE_LA_HISTORIA>>"
             placeholder="Escribe tu frase aquí..."
             theme="dark"
+            seasonTheme={currentTheme}
             maxMessagesHeight="400px"
             autoStartWithTheme={selectedTheme}
             onError={handleApiError}
@@ -145,34 +122,23 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
                   <div className="santa-card__text">
                     <h1 className="santa-card__title santa-card__title--chat">
                       {selectedTheme && selectedTheme.title
-                        ? `🎄 ${selectedTheme.title}`
-                        : "Bienvenido a la historia navideña"}
+                        ? `${theme.icon} ${selectedTheme.title}`
+                        : `Bienvenido a la historia de ${theme.name}`}
                     </h1>
                     <div className="santa-card__message santa-card__message--chat">
                       {selectedTheme && selectedTheme.formData
-                        ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
-                           He recibido todos los detalles de tu historia. Ahora voy a crear una historia mágica y única basada en lo que me has contado. ¡Vamos a comenzar esta aventura navideña juntos!`
+                        ? `${theme.greeting} ${theme.welcomeMessage} He recibido todos los detalles de tu historia. Ahora voy a crear una historia mágica y única basada en lo que me has contado. ¡Vamos a comenzar esta aventura juntos!`
                         : selectedTheme && selectedTheme.title
-                        ? `¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! 
-                           Vamos a escribir juntos una historia sobre: ${selectedTheme.title}. 
-                           Escribe tu primera frase para comenzar la aventura.`
-                        : "¡Ho, ho, ho! ¡Bienvenido pequeño soñador y gran creador! Aquí tú y yo escribiremos juntos una historia mágica de Navidad. Escribe tu primera frase para comenzar la aventura."}
+                        ? `${theme.greeting} ${theme.welcomeMessage} Vamos a escribir juntos una historia sobre: ${selectedTheme.title}. Escribe tu primera frase para comenzar la aventura.`
+                        : `${theme.greeting} ${theme.welcomeMessage}`}
                     </div>
                   </div>
                   
-                  {/* Imagen de Santa */}
+                  {/* Imagen del personaje */}
                   <div className="santa-card__image-wrapper santa-card__image-wrapper--chat">
-                    <img 
-                      src="/images/santa.png" 
-                      alt="Santa Claus"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        const emojiDiv = document.createElement('div');
-                        emojiDiv.className = 'santa-card__image';
-                        emojiDiv.textContent = '🎅';
-                        e.target.parentElement.appendChild(emojiDiv);
-                      }}
-                    />
+                    <div className="santa-card__image" style={{ fontSize: '4rem' }}>
+                      {theme.icon}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -290,6 +256,16 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
           </div>
         </div>
       </Modal>
+
+      {/* FOOTER */}
+      <Footer
+        onBack={onBack}
+        onNavigateToLanding={onBack}
+        onNavigateToChat={onNavigateToChat}
+        onNavigateToCreateHistory={onNavigateToCreateHistory}
+        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAboutUs={onNavigateToAboutUs}
+      />
 
       {/* SCROLL TO TOP */}
       <ScrollToTop variant="primary" position="bottom-right" />

@@ -97,7 +97,8 @@ a:active {
    ========================================== */
 
 /* Container principal */
-.christmas-landing {
+.christmas-landing,
+.landing {
   min-height: 100vh;
   width: 100vw;
   max-width: 100%;
@@ -107,7 +108,8 @@ a:active {
 }
 
 /* Compensar header fijo */
-.christmas-landing .christmas-hero {
+.christmas-landing .christmas-hero,
+.landing .christmas-hero {
   margin-top: 0;
   padding-top: 0;
 }
@@ -128,7 +130,8 @@ a:active {
 }
 
 /* Header unificado - usa estilos base */
-.christmas-header {
+.christmas-header,
+.landing-header {
   width: 100%;
   max-width: 100%;
 }
@@ -921,6 +924,16 @@ a:active {
 
 /* Backgrounds */
 .christmas-landing {
+  background: #fdfdfd; /* Background original de Navidad */
+}
+
+/* Mantener background original para Navidad cuando se usa la clase landing */
+.theme-christmas .landing {
+  background: #fdfdfd !important; /* Background original de Navidad */
+}
+
+/* Para otros temas, usar el background del tema */
+.landing {
   background: var(--bg-light);
 }
 

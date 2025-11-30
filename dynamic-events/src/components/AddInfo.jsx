@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
-import { Dropdown } from "./base/Dropdown";
 import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/AddInfo.css";
@@ -63,15 +63,17 @@ export function AddInfo({
     }
   }, [scrollToSection]);
 
+  const { currentTheme } = useTheme();
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onNavigateToLanding || onBack}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => { 
           e.preventDefault(); 
@@ -84,39 +86,6 @@ export function AddInfo({
         <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                if (onNavigateToLanding) {
-                  onNavigateToLanding();
-                } else if (onBack) {
-                  onBack();
-                }
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* HERO */}

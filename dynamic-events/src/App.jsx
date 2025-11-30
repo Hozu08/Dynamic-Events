@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ChristmasLanding } from "./components/ChristmasLanding";
+import { ThemeProvider } from "./context/ThemeContext";
+import { Landing } from "./components/Landing";
 import { ChatPage } from "./components/ChatPage";
 import { GamePage } from "./components/GamePage";
 import { CreateHistory } from "./components/CreateHistory";
@@ -69,9 +70,9 @@ function App() {
   };
 
   return (
-    <>
+    <ThemeProvider>
       {currentPage === "landing" && (
-        <ChristmasLanding 
+        <Landing 
           onNavigateToChat={navigateToChat}
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToGame={navigateToGame}
@@ -98,6 +99,7 @@ function App() {
         <ChatPage 
           onBack={navigateToLanding}
           onNavigateToGame={navigateToGame}
+          onNavigateToChat={navigateToChat}
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToAboutUs={navigateToAboutUs}
@@ -125,6 +127,7 @@ function App() {
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToLanding={navigateToLanding}
           onNavigateToAddInfo={navigateToAddInfo}
+          onNavigateToAboutUs={navigateToAboutUs}
         />
       )}
 
@@ -139,7 +142,7 @@ function App() {
           scrollToSection={scrollToSection}
         />
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

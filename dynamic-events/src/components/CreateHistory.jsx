@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { Header } from "./base/Header";
-import { Dropdown } from "./base/Dropdown";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
@@ -21,6 +21,7 @@ import "../styles/base/utilities.css";
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional) para precargar datos
  */
 export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo, selectedTheme = null }) {
+  const { currentTheme } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -132,14 +133,15 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onNavigateToLanding}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => { 
           e.preventDefault(); 
@@ -152,35 +154,6 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
         <a href="#" className="nav-link nav-link--active" onClick={(e) => { e.preventDefault(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                onNavigateToLanding();
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* HERO */}
@@ -450,6 +423,7 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
       {/* FOOTER */}
       <Footer
         onNavigateToLanding={onNavigateToLanding}
+        onNavigateToChat={onNavigateToChat}
         onNavigateToCreateHistory={onNavigateToCreateHistory}
         onNavigateToAddInfo={onNavigateToAddInfo}
         onNavigateToAboutUs={onNavigateToAboutUs}

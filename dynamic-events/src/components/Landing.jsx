@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
+import { getTheme } from "../config/themes";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Card } from "./base/Card";
@@ -6,13 +8,12 @@ import { Modal } from "./base/Modal";
 import { Hero } from "./base/Hero";
 import { Carousel } from "./base/Carousel";
 import { ScrollToTop } from "./base/ScrollToTop";
-import { Dropdown } from "./base/Dropdown";
 import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/base/utilities.css";
 
 /**
- * ChristmasLanding - Landing page con navegación a Chat y Juego
+ * Landing - Landing page con navegación a Chat y Juego
  * 
  * @param {Object} props
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
@@ -23,7 +24,9 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
  * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
+export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
+  const { currentTheme } = useTheme();
+  const theme = getTheme(currentTheme);
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
@@ -265,14 +268,15 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
   );
 
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onNavigateToLanding}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => { 
           e.preventDefault(); 
@@ -286,37 +290,6 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
         <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                // TODO: Implementar navegación a Halloween
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                onNavigateToLanding();
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                // TODO: Implementar navegación a Vacaciones
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* HERO SECTION */}
@@ -663,3 +636,4 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
     </div>
   );
 }
+

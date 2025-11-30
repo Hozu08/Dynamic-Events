@@ -13,6 +13,7 @@ import "../styles/chat.css";
  * @param {string} props.finishMarker - Marcador que indica el fin de la conversación
  * @param {string} props.placeholder - Placeholder del input
  * @param {string} props.theme - Tema visual (dark, light, christmas)
+ * @param {string} props.seasonTheme - Tema de época (christmas, halloween, vacation) para el backend
  * @param {Function} props.onReset - Callback al reiniciar
  * @param {Function} props.onSend - Callback al enviar mensaje
  * @param {Function} props.onFinish - Callback al finalizar conversación
@@ -27,6 +28,7 @@ export function ChatIA({
   finishMarker = "<<FIN_DE_LA_HISTORIA>>",
   placeholder = "Escribe tu mensaje...",
   theme = "dark",
+  seasonTheme = "christmas", // Tema de época para el backend
   onReset = () => {},
   onSend = () => {},
   onFinish = () => {},
@@ -100,7 +102,7 @@ export function ChatIA({
       fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages, theme: seasonTheme }),
       })
         .then(async (res) => {
           if (!res.ok) {
@@ -183,7 +185,7 @@ export function ChatIA({
       const res = await fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages, theme: seasonTheme }),
       });
 
       if (!res.ok) {

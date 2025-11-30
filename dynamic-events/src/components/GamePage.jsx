@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { MinigameTest } from "./MinigameTest";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
-import { Dropdown } from "./base/Dropdown";
 import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/GamePage.css";
@@ -22,6 +22,7 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  */
 export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
+  const { currentTheme } = useTheme();
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem('christmasGameHighScore')) || 0
   );
@@ -58,14 +59,15 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
   };
 
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onBack}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link nav-link--active" onClick={(e) => { 
           e.preventDefault(); 
@@ -78,35 +80,6 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
         <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                onBack();
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* HERO */}

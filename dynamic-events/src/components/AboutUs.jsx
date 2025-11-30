@@ -1,6 +1,6 @@
+import { useTheme } from "../context/ThemeContext";
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
-import { Dropdown } from "./base/Dropdown";
 import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/AboutUs.css";
@@ -16,17 +16,20 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing
  * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
+ * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
  */
-export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToLanding, onNavigateToAddInfo }) {
+export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToLanding, onNavigateToAddInfo, onNavigateToAboutUs }) {
+  const { currentTheme } = useTheme();
   return (
-    <div className="christmas-landing">
+    <div className={`landing landing--${currentTheme}`}>
       {/* HEADER */}
       <Header
         logo="Dynamic Events"
-        className="christmas-header"
+        className={`landing-header landing-header--${currentTheme}`}
         sticky
         variant="light"
         onLogoClick={onNavigateToLanding || onBack}
+        showThemeSelector={true}
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => { 
           e.preventDefault(); 
@@ -39,39 +42,6 @@ export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, o
         <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
           Crear historia IA
         </a>
-        <Dropdown
-          label="Escoger época"
-          variant="pill"
-          size="md"
-          position="bottom-left"
-          items={[
-            {
-              label: "Halloween",
-              icon: "🎃",
-              onClick: () => {
-                console.log("Navegar a Halloween");
-              },
-            },
-            {
-              label: "Navidad",
-              icon: "🎄",
-              onClick: () => {
-                if (onNavigateToLanding) {
-                  onNavigateToLanding();
-                } else if (onBack) {
-                  onBack();
-                }
-              },
-            },
-            {
-              label: "Vacaciones",
-              icon: "🏖️",
-              onClick: () => {
-                console.log("Navegar a Vacaciones");
-              },
-            },
-          ]}
-        />
       </Header>
 
       {/* HERO */}

@@ -4,19 +4,11 @@ import { loadDataContext } from "../utils/dataLoader.js";
 // Estado del cliente actual (se mantiene en memoria)
 let currentClient = null;
 let currentApiKeyIndex = 0;
-let dataContextIA = "";
+// Cache de contextos por tema
+const dataContextCache = {};
 
-// Inicializar el cliente y cargar el contexto
+// Inicializar el cliente
 const initializeChat = async () => {
-  if (!dataContextIA) {
-    try {
-      dataContextIA = await loadDataContext();
-    } catch (error) {
-      console.error("Error al cargar el contexto de IA:", error);
-      dataContextIA = ""; // Fallback a string vacío
-    }
-  }
-
   const apiKeys = getAvailableApiKeys();
   if (apiKeys.length === 0) {
     throw new Error("No hay API keys disponibles");
@@ -31,13 +23,34 @@ const initializeChat = async () => {
 // Inicializar al cargar el módulo
 await initializeChat();
 
+// Cargar contexto para un tema específico
+const getDataContext = async (theme = 'christmas') => {
+  // Si ya está en cache, retornarlo
+  if (dataContextCache[theme]) {
+    return dataContextCache[theme];
+  }
+
+  try {
+    const context = await loadDataContext(theme);
+    dataContextCache[theme] = context;
+    return context;
+  } catch (error) {
+    console.error(`Error al cargar el contexto de IA para tema ${theme}:`, error);
+    // Fallback a christmas si hay error
+    if (theme !== 'christmas') {
+      return getDataContext('christmas');
+    }
+    return ""; // Fallback a string vacío
+  }
+};
+
 /**
  * Maneja la solicitud de chat con OpenAI
  * @param {Object} req - Request object de Express
  * @param {Object} res - Response object de Express
  */
 export const handleChat = async (req, res) => {
-  const { messages } = req.body;
+  const { messages, theme = 'christmas' } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({
@@ -49,6 +62,9 @@ export const handleChat = async (req, res) => {
   try {
     // Asegurar que el cliente esté inicializado
     await initializeChat();
+
+    // Cargar contexto según el tema
+    const dataContextIA = await getDataContext(theme);
 
     const completion = await currentClient.chat.completions.create({
       model: "gpt-4o-mini",
@@ -86,6 +102,7 @@ export const handleChat = async (req, res) => {
 
       try {
         // Reintentar con la segunda API key
+        const dataContextIA = await getDataContext(theme);
         const retryCompletion = await currentClient.chat.completions.create({
           model: "gpt-4o-mini",
           messages: [
