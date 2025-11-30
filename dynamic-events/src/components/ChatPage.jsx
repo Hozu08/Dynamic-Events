@@ -157,6 +157,7 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToChat, onNavigat
       {/* FOOTER */}
       <Footer
         onBack={onBack}
+        onNavigateToLanding={onBack}
         onNavigateToChat={onNavigateToChat}
         onNavigateToCreateHistory={onNavigateToCreateHistory}
         onNavigateToAddInfo={onNavigateToAddInfo}
@@ -256,16 +257,6 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToChat, onNavigat
           </div>
         </div>
       </Modal>
-
-      {/* FOOTER */}
-      <Footer
-        onBack={onBack}
-        onNavigateToLanding={onBack}
-        onNavigateToChat={onNavigateToChat}
-        onNavigateToCreateHistory={onNavigateToCreateHistory}
-        onNavigateToAddInfo={onNavigateToAddInfo}
-        onNavigateToAboutUs={onNavigateToAboutUs}
-      />
 
       {/* SCROLL TO TOP */}
       <ScrollToTop variant="primary" position="bottom-right" />

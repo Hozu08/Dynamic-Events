@@ -504,6 +504,20 @@ a:active {
   margin-bottom: 0.2rem;
 }
 
+.story-read-link {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(to right, #AB0000, #8B0000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .story-link {
   display: inline-block;
   margin-top: 0.55rem;
@@ -821,19 +835,9 @@ a:active {
 
 .footer-column {
   position: relative;
-  padding-left: 1.2rem;
+  padding-left: 0; /* Eliminado padding para la barra */
 }
 
-.footer-column::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
-  width: 4px;
-  height: 85%;
-  background: #8b0000;
-  border-radius: 4px;
-}
 
 .footer-column h3 {
   font-size: 1.7rem;

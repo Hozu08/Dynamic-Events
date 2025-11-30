@@ -363,6 +363,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                     <p className="story-info">Género: {data.genre}</p>
                     <p className="story-info">Año: {data.year}</p>
                     <p className="story-info">Autor: {data.author}</p>
+                    <p className="story-read-link">Leer historia</p>
                   </div>
                 </article>
               );
@@ -382,6 +383,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="story-info">Género: Fantasía navideña</p>
                 <p className="story-info">Año: 2024</p>
                 <p className="story-info">Autora: Desing Events</p>
+                <p className="story-read-link">Leer historia</p>
               </div>
             </article>
 
@@ -399,7 +401,8 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="story-info">Género: Aventura familiar</p>
                 <p className="story-info">Año: 2023</p>
                 <p className="story-info">Autor: Taller de Historias</p>
-        </div>
+                <p className="story-read-link">Leer historia</p>
+              </div>
             </article>
 
             {/* CARD - El reno tímido */}
@@ -416,6 +419,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="story-info">Género: Cuento infantil</p>
                 <p className="story-info">Año: 2022</p>
                 <p className="story-info">Autora: Desing Events</p>
+                <p className="story-read-link">Leer historia</p>
               </div>
             </article>
           </div>

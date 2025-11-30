@@ -501,20 +501,9 @@
 
 .footer-column {
   position: relative;
-  padding-left: 1.2rem; /* espacio para la barra */
+  padding-left: 0; /* Eliminado padding para la barra */
 }
 
-/* barra vertical */
-.footer-column::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
-  width: 4px;
-  height: 85%;
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  border-radius: 4px;
-}
 
 .footer-column h3 {
   font-size: 1.4rem;
