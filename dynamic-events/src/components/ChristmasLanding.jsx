@@ -505,12 +505,18 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
                 Jugar ahora
               </a>
             </article>
-            <article className="mini-card">
-              <h3 className="mini-name">Proximamente</h3>
-              <p className="mini-text">
-                Nuevos juegos se estan cocinando
-              </p>
-            </article>
+            <img 
+                src="/images/commingSoonChrist.png" 
+                alt="Próximamente - Nuevo minijuego navideño"
+                className="minijuegos-coming-soon__image"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  const fallbackDiv = document.createElement('div');
+                  fallbackDiv.className = 'minijuegos-coming-soon__fallback';
+                  fallbackDiv.innerHTML = '<h3 className="mini-name">Próximamente</h3><p className="mini-text">Nuevos juegos se están cocinando</p>';
+                  e.target.parentElement.appendChild(fallbackDiv);
+                }}
+              />
             </div>
         </div>
       </section>
