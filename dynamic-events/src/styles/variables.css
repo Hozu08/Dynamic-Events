@@ -1,0 +1,56 @@
+/* ==========================================
+   VARIABLES CSS GLOBALES - OOCSS
+   Variables compartidas en todo el proyecto
+   ========================================== */
+
+:root {
+  /* Colores principales */
+  --color-primary: #2d5a3d;
+  --color-primary-dark: #0b6a45;
+  --color-secondary: #8b4513;
+  --color-accent: #AB0000;
+  --color-accent-dark: #8B0000;
+  --color-gold: #d4af37;
+  
+  /* Colores de fondo */
+  --bg-light: #fdfdfd;
+  --bg-paper: #fff6dd;
+  --bg-paper-pattern: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
+  
+  /* Colores de texto */
+  --text-dark: #2c3e50;
+  --text-medium: #3b2d21;
+  --text-light: #7a6750;
+  
+  /* Bordes */
+  --border-color: #e0e0e0;
+  --border-color-light: #e0cfa6;
+  --border-radius: 20px;
+  --border-radius-large: 30px;
+  --border-radius-inner: 16px;
+  
+  /* Espaciado y layout */
+  --max-width: 1920px;
+  --spacing-section: 4rem 3rem;
+  
+  /* Degradados */
+  --gradient-red: linear-gradient(to right, #AB0000, #8B0000);
+  --gradient-red-vertical: linear-gradient(to bottom, #AB0000, #8B0000);
+  
+  /* Borde decorativo navideño (patrón candy cane) */
+  --border-decorative: repeating-linear-gradient(
+    45deg,
+    #AB0000 0 18px,
+    #AB0000 18px 36px,
+    #0b6a45 36px 54px,
+    #0b6a45 54px 72px
+  );
+  
+  /* Hero rojo - valores compartidos */
+  --hero-red-min-height: 220px;
+  --hero-red-padding: 5rem 2rem 3rem 2rem;
+  --hero-red-padding-top: calc(5rem + 70px);
+  --hero-red-title-size: 4rem;
+  --hero-red-synopsis-size: 1.1rem;
+}
+

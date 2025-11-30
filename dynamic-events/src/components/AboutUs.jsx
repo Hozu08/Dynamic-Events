@@ -1,6 +1,7 @@
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
+import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/AboutUs.css";
 import "../styles/base/utilities.css";
@@ -74,7 +75,7 @@ export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, o
       </Header>
 
       {/* HERO */}
-      <section className="hero hero--index-navidad about-us-hero">
+      <section className="hero hero--index-navidad hero--red-page about-us-hero">
         <div className="hero-overlay"></div>
         <div className="hero-inner">
           <div className="hero-content">
@@ -186,30 +187,13 @@ export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, o
       </section>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Navegación */}
-          <div className="footer-column">
-            <h3>Navegación</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToLanding) onNavigateToLanding(); else if (onBack) onBack(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>Crear historias con IA</a>
-          </div>
-          {/* Información */}
-          <div className="footer-column">
-            <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
-          </div>
-          {/* Empresa */}
-          <div className="footer-column">
-            <h3>Conócenos</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Sobre nuestra empresa</a>
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        onNavigateToLanding={onNavigateToLanding}
+        onBack={onBack}
+        onNavigateToCreateHistory={onNavigateToCreateHistory}
+        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAboutUs={onNavigateToAboutUs}
+      />
 
       {/* SCROLL TO TOP */}
       <ScrollToTop variant="primary" position="bottom-right" />

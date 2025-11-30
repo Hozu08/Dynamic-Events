@@ -5,6 +5,7 @@ import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
+import { Footer } from "./base/Footer";
 import { getChatApiEndpoint } from "../utils/apiConfig";
 import { logApiConfig } from "../utils/debugApi";
 import "../styles/ChristmasLanding.css";
@@ -188,30 +189,13 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
       </section>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Navegación */}
-          <div className="footer-column">
-            <h3>Navegación</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Crear historias con IA</a>
-          </div>
-          {/* Información */}
-          <div className="footer-column">
-            <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
-          </div>
-          {/* Empresa */}
-          <div className="footer-column">
-            <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        onBack={onBack}
+        onNavigateToChat={onNavigateToChat}
+        onNavigateToCreateHistory={onNavigateToCreateHistory}
+        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAboutUs={onNavigateToAboutUs}
+      />
 
       {/* MODALES DEL FOOTER */}
       <Modal

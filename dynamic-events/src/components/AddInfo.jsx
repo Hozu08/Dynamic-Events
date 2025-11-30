@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
+import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/AddInfo.css";
 import "../styles/base/utilities.css";
@@ -119,7 +120,7 @@ export function AddInfo({
       </Header>
 
       {/* HERO */}
-      <section className="hero hero--index-navidad add-info-hero">
+      <section className="hero hero--index-navidad hero--red-page add-info-hero">
         <div className="hero-overlay"></div>
         <div className="hero-inner">
           <div className="hero-content">
@@ -347,57 +348,15 @@ export function AddInfo({
       </section>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Navegación */}
-          <div className="footer-column">
-            <h3>Navegación</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToLanding) onNavigateToLanding(); else if (onBack) onBack(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToChat) onNavigateToChat(); }}>Crear historias con IA</a>
-          </div>
-          {/* Información */}
-          <div className="footer-column">
-            <h3>Información</h3>
-            <a href="#" onClick={(e) => { 
-              e.preventDefault(); 
-              const section = document.getElementById('add-info__policies');
-              if (section) {
-                const headerOffset = 100;
-                const elementPosition = section.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { 
-              e.preventDefault(); 
-              const section = document.getElementById('add-info__faq');
-              if (section) {
-                const headerOffset = 100;
-                const elementPosition = section.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { 
-              e.preventDefault(); 
-              const section = document.getElementById('add-info__instructions');
-              if (section) {
-                const headerOffset = 100;
-                const elementPosition = section.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}>Instrucciones y ayuda</a>
-          </div>
-          {/* Empresa */}
-          <div className="footer-column">
-            <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        onNavigateToLanding={onNavigateToLanding}
+        onBack={onBack}
+        onNavigateToChat={onNavigateToChat}
+        onNavigateToCreateHistory={onNavigateToCreateHistory}
+        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAboutUs={onNavigateToAboutUs}
+        isAddInfoPage={true}
+      />
 
       {/* SCROLL TO TOP */}
       <ScrollToTop variant="primary" position="bottom-right" hideAtFooter={false} />

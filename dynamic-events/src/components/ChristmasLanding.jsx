@@ -7,6 +7,7 @@ import { Hero } from "./base/Hero";
 import { Carousel } from "./base/Carousel";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Dropdown } from "./base/Dropdown";
+import { Footer } from "./base/Footer";
 import "../styles/ChristmasLanding.css";
 import "../styles/base/utilities.css";
 
@@ -515,30 +516,13 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
       </section>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Navegación */}
-          <div className="footer-column">
-            <h3>Navegación</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToLanding(); }}>Inicio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); goToChat(); }}>Crear historias con IA</a>
-          </div>
-          {/* Información */}
-          <div className="footer-column">
-            <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
-          </div>
-          {/* Empresa */}
-          <div className="footer-column">
-            <h3>Sobre la empresa</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAboutUs) onNavigateToAboutUs(); }}>Conócenos</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Instagram</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Facebook</a>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        onNavigateToLanding={onNavigateToLanding}
+        onNavigateToChat={goToChat}
+        onNavigateToCreateHistory={onNavigateToCreateHistory}
+        onNavigateToAddInfo={onNavigateToAddInfo}
+        onNavigateToAboutUs={onNavigateToAboutUs}
+      />
 
       {/* MODAL DE HISTORIA */}
       <Modal
