@@ -19,8 +19,10 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing (para el logo)
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
+ * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
+ * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  */
-export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos, onNavigateToAboutUs }) {
+export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, onNavigateToGame, onNavigateToLanding, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [selectedThemeForModal, setSelectedThemeForModal] = useState(null);
   const [showFooterModal, setShowFooterModal] = useState(null); // 'instructions' | 'policies' | 'about' | null
@@ -524,9 +526,9 @@ export function ChristmasLanding({ onNavigateToChat, onNavigateToCreateHistory, 
           {/* Información */}
           <div className="footer-column">
             <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
           </div>
           {/* Empresa */}
           <div className="footer-column">

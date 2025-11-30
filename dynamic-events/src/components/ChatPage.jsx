@@ -19,9 +19,11 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToGame - Callback para navegar al juego
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
+ * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
+ * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional)
  */
-export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, selectedTheme = null }) {
+export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo, selectedTheme = null }) {
   const [showFooterModal, setShowFooterModal] = useState(null);
 
   // Log de configuración de API (desarrollo y producción)
@@ -197,9 +199,9 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToCreateHistory, 
           {/* Información */}
           <div className="footer-column">
             <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
           </div>
           {/* Empresa */}
           <div className="footer-column">

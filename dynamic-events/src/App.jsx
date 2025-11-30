@@ -4,13 +4,15 @@ import { ChatPage } from "./components/ChatPage";
 import { GamePage } from "./components/GamePage";
 import { CreateHistory } from "./components/CreateHistory";
 import { AboutUs } from "./components/AboutUs";
+import { AddInfo } from "./components/AddInfo";
 
 /**
- * App - Router simple para navegar entre Landing, Chat, CreateHistory, Juego y AboutUs
+ * App - Router simple para navegar entre Landing, Chat, CreateHistory, Juego, AboutUs y AddInfo
  */
 function App() {
-  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game' | 'about-us'
+  const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game' | 'about-us' | 'add-info'
   const [selectedTheme, setSelectedTheme] = useState(null);
+  const [scrollToSection, setScrollToSection] = useState(null); // 'policies' | 'faq' | 'instructions'
 
   // Navegar al chat
   const navigateToChat = (theme = null) => {
@@ -59,6 +61,13 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  // Navegar a AddInfo (con opción de scroll a sección específica)
+  const navigateToAddInfo = (section = null) => {
+    setScrollToSection(section);
+    setCurrentPage("add-info");
+    // El scroll se maneja dentro del componente AddInfo
+  };
+
   return (
     <>
       {currentPage === "landing" && (
@@ -69,6 +78,7 @@ function App() {
           onNavigateToLanding={navigateToLanding}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToAboutUs={navigateToAboutUs}
+          onNavigateToAddInfo={navigateToAddInfo}
         />
       )}
 
@@ -80,6 +90,7 @@ function App() {
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToAboutUs={navigateToAboutUs}
+          onNavigateToAddInfo={navigateToAddInfo}
         />
       )}
 
@@ -90,6 +101,7 @@ function App() {
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToAboutUs={navigateToAboutUs}
+          onNavigateToAddInfo={navigateToAddInfo}
           selectedTheme={selectedTheme}
         />
       )}
@@ -101,6 +113,7 @@ function App() {
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToAboutUs={navigateToAboutUs}
+          onNavigateToAddInfo={navigateToAddInfo}
         />
       )}
 
@@ -111,6 +124,19 @@ function App() {
           onNavigateToCreateHistory={navigateToCreateHistory}
           onNavigateToMinijuegos={navigateToMinijuegos}
           onNavigateToLanding={navigateToLanding}
+          onNavigateToAddInfo={navigateToAddInfo}
+        />
+      )}
+
+      {currentPage === "add-info" && (
+        <AddInfo 
+          onBack={navigateToLanding}
+          onNavigateToChat={navigateToChat}
+          onNavigateToCreateHistory={navigateToCreateHistory}
+          onNavigateToMinijuegos={navigateToMinijuegos}
+          onNavigateToAboutUs={navigateToAboutUs}
+          onNavigateToLanding={navigateToLanding}
+          scrollToSection={scrollToSection}
         />
       )}
     </>

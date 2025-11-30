@@ -14,8 +14,9 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
  * @param {Function} props.onNavigateToLanding - Callback para navegar a la landing
+ * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  */
-export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToLanding }) {
+export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToLanding, onNavigateToAddInfo }) {
   return (
     <div className="christmas-landing">
       {/* HEADER */}
@@ -196,9 +197,9 @@ export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, o
           {/* Información */}
           <div className="footer-column">
             <h3>Información</h3>
-            <a href="#">Políticas del sitio</a>
-            <a href="#">Preguntas frecuentes</a>
-            <a href="#">Instrucciones y ayuda</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
           </div>
           {/* Empresa */}
           <div className="footer-column">

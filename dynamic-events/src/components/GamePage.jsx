@@ -17,8 +17,10 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
+ * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
+ * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  */
-export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs }) {
+export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem('christmasGameHighScore')) || 0
   );
@@ -233,9 +235,9 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           {/* Información */}
           <div className="footer-column">
             <h3>Información</h3>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('policies'); }}>Políticas del sitio</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); }}>Preguntas frecuentes</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); openFooterModal('instructions'); }}>Instrucciones y ayuda</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones y ayuda</a>
           </div>
           {/* Empresa */}
           <div className="footer-column">

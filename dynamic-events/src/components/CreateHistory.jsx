@@ -15,9 +15,11 @@ import "../styles/base/utilities.css";
  * @param {Function} props.onNavigateToChat - Callback para navegar al chat con los datos del formulario
  * @param {Function} props.onNavigateToCreateHistory - Callback para navegar a crear historia
  * @param {Function} props.onNavigateToMinijuegos - Callback para navegar a la sección de minijuegos
+ * @param {Function} props.onNavigateToAboutUs - Callback para navegar a AboutUs
+ * @param {Function} props.onNavigateToAddInfo - Callback para navegar a AddInfo
  * @param {Object} props.selectedTheme - Tema seleccionado (opcional) para precargar datos
  */
-export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, selectedTheme = null }) {
+export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo, selectedTheme = null }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -455,9 +457,9 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
 
           <div className="footer-column">
             <h3>Información</h3>
-            <a href="#">Políticas del sitio</a>
-            <a href="#">Preguntas frecuentes</a>
-            <a href="#">Instrucciones</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('policies'); }}>Políticas del sitio</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('faq'); }}>Preguntas frecuentes</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); if (onNavigateToAddInfo) onNavigateToAddInfo('instructions'); }}>Instrucciones</a>
           </div>
 
           <div className="footer-column">
