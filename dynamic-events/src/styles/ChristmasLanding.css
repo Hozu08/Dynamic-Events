@@ -110,7 +110,7 @@ a:active {
 .hero--index-navidad {
   height: 85vh;
   min-height: 550px;
-  background: url("https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover no-repeat;
+  background: url("/images/heroHomeBG.png") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
