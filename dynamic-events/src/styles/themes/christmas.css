@@ -136,3 +136,9 @@
   color: transparent !important;
 }
 
+/* Estilos del footer para Navidad - Títulos más grandes y en negrilla */
+.theme-christmas .footer-column h3 {
+  font-size: 2rem !important; /* Aumentado de 1.7rem */
+  font-weight: 900 !important; /* Negrilla máxima */
+}
+

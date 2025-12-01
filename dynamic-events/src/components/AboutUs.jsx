@@ -88,9 +88,16 @@ export function AboutUs({ onBack, onNavigateToChat, onNavigateToCreateHistory, o
                 <img 
                   src={currentTheme === 'halloween' 
                     ? "https://images.pexels.com/photos/4997839/pexels-photo-4997839.jpeg?_gl=1*1neak1v*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NTY3MDYkbzIkZzEkdDE3NjQ1NTY3MDckajU5JGwwJGgw"
+                    : currentTheme === 'vacation'
+                    ? "https://images.pexels.com/photos/1122408/pexels-photo-1122408.jpeg?_gl=1*y27ppz*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NjU2MzckbzMkZzEkdDE3NjQ1NjU2NzIkajI1JGwwJGgw"
                     : "/images/cracker.png"
                   } 
-                  alt={currentTheme === 'halloween' ? "Imagen de Halloween" : "Árbol de Navidad decorado"} 
+                  alt={currentTheme === 'halloween' 
+                    ? "Imagen de Halloween" 
+                    : currentTheme === 'vacation'
+                    ? "Imagen de vacaciones"
+                    : "Árbol de Navidad decorado"
+                  } 
                   className="about-us__image" 
                 />
               </div>
