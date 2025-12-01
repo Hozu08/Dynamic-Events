@@ -493,6 +493,35 @@
 }
 
 /* ==========================================
+   TEMA HALLOWEEN - Textos blancos
+   ========================================== */
+
+/* Cambiar color de textos del formulario a blanco en Halloween */
+.theme-halloween .field-label,
+.theme-halloween .taller-title,
+.theme-halloween .taller-subtitle,
+.theme-halloween .paso-indicador,
+.theme-halloween .chip-option,
+.theme-halloween .instr-title,
+.theme-halloween .instr-text,
+.theme-halloween .instr-list li,
+.theme-halloween .instr-footer,
+.theme-halloween .taller-pill,
+.theme-halloween .resultado-etiqueta,
+.theme-halloween .resultado-titulo,
+.theme-halloween .resultado-meta,
+.theme-halloween .resultado-texto {
+  color: #ffffff !important;
+}
+
+/* Mantener el color original de los inputs */
+.theme-halloween .field-input,
+.theme-halloween .field-textarea {
+  color: #000 !important; /* Mantener color negro en inputs */
+  background: #fffaf1 !important; /* Mantener fondo original */
+}
+
+/* ==========================================
    RESPONSIVE
    ========================================== */
 
