@@ -124,3 +124,15 @@
   color: #ffffff !important;
 }
 
+/* Logo del menú hamburguesa con los mismos estilos que el logo del header */
+.theme-christmas .header__menu-logo {
+  font-family: "Great Vibes", cursive !important;
+  font-size: 1.8rem !important;
+  font-weight: 400 !important;
+  background: var(--gradient-red) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { Landing } from "./components/Landing";
 import { ChatPage } from "./components/ChatPage";
 import { GamePage } from "./components/GamePage";
@@ -8,9 +8,10 @@ import { AboutUs } from "./components/AboutUs";
 import { AddInfo } from "./components/AddInfo";
 
 /**
- * App - Router simple para navegar entre Landing, Chat, CreateHistory, Juego, AboutUs y AddInfo
+ * AppContent - Contenido interno que tiene acceso al ThemeContext
  */
-function App() {
+function AppContent() {
+  const { currentTheme } = useTheme();
   const [currentPage, setCurrentPage] = useState("landing"); // 'landing' | 'chat' | 'create-history' | 'game' | 'about-us' | 'add-info'
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [scrollToSection, setScrollToSection] = useState(null); // 'policies' | 'faq' | 'instructions'
@@ -47,9 +48,18 @@ function App() {
     setSelectedTheme(null);
     // Esperar a que el componente se monte y luego hacer scroll
     setTimeout(() => {
-      const minijuegosSection = document.getElementById("minijuegos");
+      // Buscar la sección de minijuegos según el tema actual
+      const minijuegosId = 
+        currentTheme === 'christmas' ? "minijuegos" :
+        currentTheme === 'halloween' ? "minijuegos-halloween" :
+        currentTheme === 'vacation' ? "minijuegos-vacation" :
+        "minijuegos";
+      const minijuegosSection = document.getElementById(minijuegosId);
       if (minijuegosSection) {
-        minijuegosSection.scrollIntoView({ behavior: "smooth" });
+        const headerOffset = 100; // Compensar header sticky
+        const elementPosition = minijuegosSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
       } else {
         window.scrollTo(0, 0);
       }
@@ -70,7 +80,7 @@ function App() {
   };
 
   return (
-    <ThemeProvider>
+    <>
       {currentPage === "landing" && (
         <Landing 
           onNavigateToChat={navigateToChat}
@@ -142,6 +152,17 @@ function App() {
           scrollToSection={scrollToSection}
         />
       )}
+    </>
+  );
+}
+
+/**
+ * App - Router simple para navegar entre Landing, Chat, CreateHistory, Juego, AboutUs y AddInfo
+ */
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

@@ -146,7 +146,6 @@
 }
 
 .add-info__list--instructions li::before {
-  content: "🎄";
   font-size: 1rem;
   left: -1.5rem;
 }

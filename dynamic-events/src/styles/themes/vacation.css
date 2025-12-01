@@ -15,7 +15,7 @@
   --color-gold: #FFD700;
 
   /* Colores de fondo */
-  --bg-light: #F8F9FA;
+  --bg-light: #B7F0E7;
   --bg-paper: #FFFFFF;
   --bg-paper-pattern: url("https://www.transparenttextures.com/patterns/beige-paper.png");
 
@@ -80,10 +80,15 @@
 .theme-vacation input,
 .theme-vacation textarea,
 .theme-vacation select,
-.theme-vacation .story-info,
-.theme-vacation .hero-synopsis {
+.theme-vacation .story-info {
   font-family: var(--font-body);
   color: var(--text-dark);
+}
+
+/* Hero synopsis en blanco para vacaciones */
+.theme-vacation .hero-synopsis {
+  font-family: var(--font-body);
+  color: white !important;
 }
 
 /* Hero */
@@ -95,19 +100,26 @@
 .theme-vacation .hero-title {
   color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  font-family: "Pacifico", cursive !important; /* Fuente Pacifico para títulos del hero */
 }
 
-.theme-vacation .hero-btn {
-  background: var(--color-accent);
-  color: white;
-  border: none;
+/* Botón "Leer más" del hero con el mismo estilo que "Jugar ahora" */
+.theme-vacation .hero-btn,
+.theme-vacation .mini-btn {
+  background: var(--color-accent) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(255, 111, 97, 0.4) !important;
   transition: all 0.3s ease;
 }
 
-.theme-vacation .hero-btn:hover {
-  background: var(--color-accent-dark);
+.theme-vacation .hero-btn:hover,
+.theme-vacation .mini-btn:hover {
+  background: var(--color-accent-dark) !important;
+  color: white !important;
+  filter: brightness(0.9) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(255, 111, 97, 0.4) !important;
 }
 
 /* Tarjetas */
@@ -123,17 +135,22 @@
 }
 
 .theme-vacation .story-title {
-  color: var(--text-dark);
+  color: #FF6F61 !important; /* Color para títulos de cards del carrusel */
   font-family: var(--font-title);
 }
 
 .theme-vacation .story-read-link {
-  color: var(--color-accent);
+  color: #1ABC9C !important; /* Color para "Leer historia" */
   font-weight: 600;
 }
 
 .theme-vacation .story-read-link:hover {
-  color: var(--color-accent-dark);
+  color: var(--color-primary-dark) !important; /* Color hover más oscuro */
+}
+
+/* Título de la card "Tesoro en la Playa" */
+.theme-vacation .mini-name {
+  color: #FF6F61 !important;
 }
 
 /* Botones */
@@ -202,6 +219,86 @@
 
 .theme-vacation .dropdown__item--vacation .dropdown__item-label {
   color: #000000 !important;
+}
+
+/* Background de las páginas en diseño de vacaciones */
+.theme-vacation body,
+.theme-vacation .landing {
+  background: #B7F0E7 !important;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Sección "Aventuras de Verano con IA" - fondo blanco */
+.theme-vacation .carta-vacation .carta-inner {
+  background: #ffffff !important;
+}
+
+/* Color del texto en la sección "Aventuras de Verano con IA" */
+.theme-vacation .carta-vacation .carta-title,
+.theme-vacation .carta-vacation .carta-text {
+  color: #005F73 !important;
+}
+
+/* Ajustar tamaño de la imagen sunMan.png en la sección "Aventuras de Verano con IA" */
+.theme-vacation .carta-vacation .vacation-img,
+.theme-vacation .carta-right .vacation-img {
+  width: 100%;
+  max-width: 280px;
+  max-height: 280px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Logo "Dynamic Events" con fuente Pacifico */
+.theme-vacation .header__logo,
+.theme-vacation .header__menu-logo {
+  font-family: "Pacifico", cursive !important;
+  font-size: 2rem !important; /* Aumentar tamaño para evitar recorte */
+}
+
+/* Aplicar mismo estilo a la imagen "Próximamente" */
+.theme-vacation .minijuegos-coming-soon {
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+
+.theme-vacation .minijuegos-coming-soon__image {
+  border-radius: 20px !important;
+}
+
+/* Cards de AddInfo con fondo blanco */
+.theme-vacation .add-info__section-inner {
+  background: #ffffff !important;
+}
+
+/* Footer para diseño de vacaciones */
+.theme-vacation .footer {
+  background: #005F73 !important;
+}
+
+.theme-vacation .footer-column h3 {
+  color: #FFD707 !important;
+  font-family: "Pacifico", cursive !important;
+}
+
+/* Borde de cards en AboutUs con el mismo color que los botones (#FF6F61) */
+.theme-vacation .about-us__card {
+  border-top: 4px solid #FF6F61 !important;
+}
+
+/* Texto de botones en CreateHistory en color blanco */
+.theme-vacation .taller-btn-primary,
+.theme-vacation .btn--primary {
+  color: white !important;
+}
+
+/* Modales con el mismo borde que la sección "Aventuras de Verano con IA" */
+.theme-vacation .modal {
+  background: var(--border-decorative) !important;
+  border-radius: var(--border-radius-large, 30px) !important;
+  padding: 14px !important;
+  box-shadow: 0 15px 32px rgba(0, 0, 0, 0.16) !important;
 }
 
 /* Responsive */

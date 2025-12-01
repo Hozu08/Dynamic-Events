@@ -323,7 +323,19 @@ export function ChatIA({
 
         {/* Indicador de carga */}
         {loading && (
-          <div className="chat-loading">🎅 {assistantName} está pensando...</div>
+          <div className="chat-loading">
+            {seasonTheme === 'vacation' ? (
+              <img 
+                src="/images/fox.png" 
+                alt="Zorro pensando" 
+                className="chat-loading__icon"
+                style={{ width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '8px' }}
+              />
+            ) : (
+              <span>🎅</span>
+            )}
+            {assistantName} está pensando...
+          </div>
         )}
 
         {/* Mensaje de error */}

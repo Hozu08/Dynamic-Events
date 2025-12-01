@@ -144,6 +144,20 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToChat, onNavigat
                         className="santa-card__image"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                       />
+                    ) : currentTheme === 'halloween' ? (
+                      <img 
+                        src="/images/pumpkin.png" 
+                        alt="Calabaza de Halloween" 
+                        className="santa-card__image"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
+                    ) : currentTheme === 'vacation' ? (
+                      <img 
+                        src="/images/fox.png" 
+                        alt="Zorro de vacaciones" 
+                        className="santa-card__image"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
                     ) : (
                       <div className="santa-card__image" style={{ fontSize: '4rem' }}>
                         {theme.icon}

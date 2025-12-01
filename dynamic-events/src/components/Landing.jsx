@@ -198,9 +198,18 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
       >
         <a href="#minijuegos" className="nav-link" onClick={(e) => {
           e.preventDefault();
-          const minijuegosSection = document.getElementById("minijuegos");
+          // Buscar la sección de minijuegos según el tema actual
+          const minijuegosId = 
+            currentTheme === 'christmas' ? "minijuegos" :
+            currentTheme === 'halloween' ? "minijuegos-halloween" :
+            currentTheme === 'vacation' ? "minijuegos-vacation" :
+            "minijuegos";
+          const minijuegosSection = document.getElementById(minijuegosId);
           if (minijuegosSection) {
-            minijuegosSection.scrollIntoView({ behavior: "smooth" });
+            const headerOffset = 100; // Compensar header sticky
+            const elementPosition = minijuegosSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
           }
         }}>
           Minijuegos
@@ -220,7 +229,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
             <p className="hero-synopsis">
               {featuredStory.story.substring(0, 150)}...
             </p>
-            <a href="#historia-actual" className="btn btn--primary btn--md hero-btn" onClick={(e) => {
+            <a href="#historia-actual" className="btn btn--primary btn--md hero-btn mini-btn" onClick={(e) => {
               e.preventDefault();
               openStoryModal(featuredStory);
             }}>
@@ -452,14 +461,14 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                   y déjanos encargarnos de la magia!<br /><br />
                   ¡Tu aventura de verano te espera!
                 </p>
-                <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
+                <a href="#" className="btn btn--primary btn--md carta-btn mini-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
                   Crear aventura
                 </a>
               </div>
               <div className="carta-right">
                 <img
-                  src="/images/summer-adventure.png"
-                  alt="Aventura de verano"
+                  src="/images/sunMan.png"
+                  alt="Hombre sol de verano"
                   className="vacation-img"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -570,7 +579,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
               </article>
               <div className="minijuegos-coming-soon">
                 <img
-                  src="/images/coming-soon-vacation.png"
+                  src="/images/commingSoonV.jpeg"
                   alt="Próximamente - Nueva aventura de verano"
                   className="minijuegos-coming-soon__image"
                   onError={(e) => {

@@ -12,7 +12,7 @@
 .chat-page__chat-wrapper {
   width: 100%;
   max-width: 900px;
-  margin: 3rem auto;
+  margin: 6rem auto 3rem; /* Aumentado margin-top de 3rem a 6rem para evitar choque con header */
   /* Usa variables CSS para el borde decorativo */
   background: var(--border-decorative);
   border-radius: var(--border-radius-large, 30px);
@@ -104,6 +104,13 @@
 .chat-page__theme-badge {
   background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5a 100%);
   color: white;
+}
+
+/* Estilos para el icono de carga en el chat */
+.chat-loading__icon {
+  display: inline-block;
+  vertical-align: middle;
+  object-fit: contain;
 }
 
 /* Estilos para Santa dentro del chat */
@@ -232,6 +239,7 @@
     max-width: 98%;
     border-radius: 20px;
     padding: 12px;
+    margin-top: 5rem; /* Aumentado margin-top en móvil también */
   }
 
   .chat-page__chat-wrapper-inner {
@@ -297,7 +305,7 @@
     max-width: 98%;
     border-radius: 20px;
     padding: 10px;
-    margin: 0;
+    margin: 4rem auto 0; /* Aumentado margin-top en móvil pequeño también */
   }
 
   .chat-page__theme-badge {

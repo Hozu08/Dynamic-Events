@@ -164,14 +164,25 @@ export function AddInfo({
               </div>
               <div className="add-info__section-image">
                 <img 
-                  src={currentTheme === 'halloween' ? "/images/ghost2.png" : "/images/dwarf.png"} 
-                  alt={currentTheme === 'halloween' ? "Fantasma de Halloween" : "Elfo navideño"} 
+                  src={
+                    currentTheme === 'halloween' ? "/images/ghost2.png" :
+                    currentTheme === 'vacation' ? "/images/cat.png" :
+                    "/images/dwarf.png"
+                  } 
+                  alt={
+                    currentTheme === 'halloween' ? "Fantasma de Halloween" :
+                    currentTheme === 'vacation' ? "Gato de vacaciones" :
+                    "Elfo navideño"
+                  } 
                   className="add-info__image"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     const emojiDiv = document.createElement('div');
                     emojiDiv.style.fontSize = '8rem';
-                    emojiDiv.textContent = currentTheme === 'halloween' ? '👻' : '🎁';
+                    emojiDiv.textContent = 
+                      currentTheme === 'halloween' ? '👻' :
+                      currentTheme === 'vacation' ? '🐱' :
+                      '🎁';
                     emojiDiv.style.textAlign = 'center';
                     e.target.parentElement.appendChild(emojiDiv);
                   }}
@@ -297,14 +308,25 @@ export function AddInfo({
               </div>
               <div className="add-info__section-image">
                 <img 
-                  src={currentTheme === 'halloween' ? "/images/vampire.png" : "/images/dwarfSled.png"} 
-                  alt={currentTheme === 'halloween' ? "Vampiro de Halloween" : "Trineo navideño"} 
+                  src={
+                    currentTheme === 'halloween' ? "/images/vampire.png" :
+                    currentTheme === 'vacation' ? "/images/dog.png" :
+                    "/images/dwarfSled.png"
+                  } 
+                  alt={
+                    currentTheme === 'halloween' ? "Vampiro de Halloween" :
+                    currentTheme === 'vacation' ? "Perro de vacaciones" :
+                    "Trineo navideño"
+                  } 
                   className="add-info__image"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     const emojiDiv = document.createElement('div');
                     emojiDiv.style.fontSize = '8rem';
-                    emojiDiv.textContent = currentTheme === 'halloween' ? '🧛' : '🛷';
+                    emojiDiv.textContent = 
+                      currentTheme === 'halloween' ? '🧛' :
+                      currentTheme === 'vacation' ? '🐶' :
+                      '🛷';
                     emojiDiv.style.textAlign = 'center';
                     e.target.parentElement.appendChild(emojiDiv);
                   }}
