@@ -122,7 +122,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                 : isVacation 
                 ? (selectedGame === 'pool' ? 'Billar' : 'Coconut Bowling')
                 : 'Atrapa los Regalos Navideños'}
-            </h1>
+          </h1>
             <p className="hero-synopsis">
               {isHalloween 
                 ? 'Navega por un laberinto oscuro con tu linterna. Recolecta todos los dulces mientras evitas a los monstruos. ¡Cuidado! Tu batería se agota con el tiempo.'
@@ -132,7 +132,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                   : 'Lanza cocos para derribar piñas y botellas. Ajusta el ángulo y la fuerza para conseguir el mejor puntaje. ¡Cada nivel tiene formaciones más desafiantes!')
                 : '¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.'
               }
-            </p>
+          </p>
           </div>
         </div>
       </section>
@@ -182,12 +182,12 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                 )
               ) : (
                 <>
-                  <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
-                  <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
-                  <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
-                  <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
-                  <li>El juego termina cuando te quedas sin vidas</li>
-                  <li>¡Intenta superar tu récord personal!</li>
+              <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
+              <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
+              <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
+              <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
+              <li>El juego termina cuando te quedas sin vidas</li>
+              <li>¡Intenta superar tu récord personal!</li>
                 </>
               )}
             </ul>
@@ -252,10 +252,10 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                     />
                   )
                 ) : (
-                  <MinigameTest 
-                    onGameOver={handleGameOver}
-                    onScoreChange={handleScoreChange}
-                  />
+          <MinigameTest 
+            onGameOver={handleGameOver}
+            onScoreChange={handleScoreChange}
+          />
                 )}
               </div>
         </div>
@@ -370,37 +370,37 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                 )
               ) : (
                 <>
-                  <li className="game-page__powerup-item">
-                    <img src="/images/powerup-speed.png" alt="Velocidad" className="game-page__powerup-icon" />
-                    <div className="game-page__powerup-content">
-                      <strong className="game-page__powerup-name">Velocidad:</strong>
-                      <span className="game-page__powerup-desc">Duplica tu velocidad por 8 segundos</span>
-                    </div>
-                  </li>
-                  <li className="game-page__powerup-item">
-                    <img src="/images/powerup-heart.png" alt="Vida Extra" className="game-page__powerup-icon" />
-                    <div className="game-page__powerup-content">
-                      <strong className="game-page__powerup-name">Vida Extra:</strong>
-                      <span className="game-page__powerup-desc">Gana una vida adicional instantáneamente</span>
-                    </div>
-                  </li>
-                  <li className="game-page__powerup-item">
-                    <img src="/images/powerup-star.png" alt="Escudo" className="game-page__powerup-icon" />
-                    <div className="game-page__powerup-content">
-                      <strong className="game-page__powerup-name">Escudo:</strong>
-                      <span className="game-page__powerup-desc">Protección contra perder vidas por 10 segundos</span>
-                    </div>
-                  </li>
-                  <li className="game-page__powerup-item">
-                    <img src="/images/powerup-clock.png" alt="Cámara Lenta" className="game-page__powerup-icon" />
-                    <div className="game-page__powerup-content">
-                      <strong className="game-page__powerup-name">Cámara Lenta:</strong>
-                      <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
-                    </div>
-                  </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-speed.png" alt="Velocidad" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Velocidad:</strong>
+                  <span className="game-page__powerup-desc">Duplica tu velocidad por 8 segundos</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-heart.png" alt="Vida Extra" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Vida Extra:</strong>
+                  <span className="game-page__powerup-desc">Gana una vida adicional instantáneamente</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-star.png" alt="Escudo" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Escudo:</strong>
+                  <span className="game-page__powerup-desc">Protección contra perder vidas por 10 segundos</span>
+                </div>
+              </li>
+              <li className="game-page__powerup-item">
+                <img src="/images/powerup-clock.png" alt="Cámara Lenta" className="game-page__powerup-icon" />
+                <div className="game-page__powerup-content">
+                  <strong className="game-page__powerup-name">Cámara Lenta:</strong>
+                  <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
+                </div>
+              </li>
                 </>
               )}
-            </ul>
+          </ul>
           </div>
         </div>
       </section>

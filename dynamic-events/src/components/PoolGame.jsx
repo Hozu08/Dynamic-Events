@@ -146,10 +146,12 @@ export function PoolGame({
     const balls = [];
     const ballRadius = gameConfig.ballRadius;
 
-    // Bola blanca (cue ball)
+    // Bola blanca (cue ball) - posición fija
+    const cueBallX = tableX + tableWidth * 0.25;
+    const cueBallY = tableY + tableHeight / 2;
     balls.push({
-      x: tableX + tableWidth * 0.25,
-      y: tableY + tableHeight / 2,
+      x: cueBallX,
+      y: cueBallY,
       vx: 0,
       vy: 0,
       number: 0,
@@ -157,49 +159,103 @@ export function PoolGame({
     });
 
     if (gameModeRef.current === "8ball") {
-      // Modo Bola 8: 15 bolas (1-15)
-      const startX = tableX + tableWidth * 0.7;
-      const startY = tableY + tableHeight / 2;
-      let ballIndex = 1;
-      for (let row = 0; row < 5; row++) {
-        for (let col = 0; col <= row; col++) {
-          if (ballIndex <= 15) {
-            const offsetX = (col - row / 2) * (ballRadius * 2.2);
-            const offsetY = row * (ballRadius * 1.9);
-            balls.push({
-              x: startX + offsetX,
-              y: startY + offsetY,
-              vx: 0,
-              vy: 0,
-              number: ballIndex,
-              pocketed: false,
-            });
-            ballIndex++;
-          }
-        }
-      }
+      // Modo Bola 8: 15 bolas (1-15) en formación triangular
+      // Estructura del triángulo con empaquetamiento hexagonal:
+      // Fila 0: 1 bola (vértice - bola 1, apunta hacia la bola blanca)
+      // Fila 1: 2 bolas
+      // Fila 2: 3 bolas (centro - la bola 8 va aquí en la posición central)
+      // Fila 3: 4 bolas
+      // Fila 4: 5 bolas (base)
+      const ballLayout = [
+        [1],                    // Fila 0 - vértice (bola 1)
+        [2, 3],                 // Fila 1
+        [4, 8, 5],              // Fila 2 - bola 8 en el centro
+        [6, 7, 9, 10],          // Fila 3
+        [11, 12, 13, 14, 15],   // Fila 4 - base
+      ];
+      
+      // Calcular dimensiones - usar valores consistentes para alineación correcta
+      const ballSpacing = ballRadius * 2.2; // Distancia horizontal entre bolas
+      const rowHeight = ballRadius * 1.9; // Distancia vertical entre filas (mismo que 9-ball)
+      
+      // Posición del vértice (bola 1) - DEBE estar exactamente alineado con la bola blanca
+      // El vértice está en la parte superior del triángulo, apuntando hacia la bola blanca
+      // Usar exactamente la misma Y que la bola blanca para alineación perfecta
+      const vertexX = tableX + tableWidth * 0.65;
+      const vertexY = cueBallY; // EXACTAMENTE la misma Y que la bola blanca
+      
+      // startX y startY representan la posición del vértice (fila 0, col 0)
+      // Esta es la bola 1, que debe estar en la misma línea horizontal que la bola blanca
+      const startX = vertexX;
+      const startY = vertexY; // Misma Y que cueBallY
+      
+      // Crear todas las bolas según el layout
+      ballLayout.forEach((rowBalls, row) => {
+        const rowLength = rowBalls.length;
+        rowBalls.forEach((ballNumber, col) => {
+          // Calcular offset para centrar cada fila horizontalmente
+          // El vértice (row=0, col=0) está en (startX, startY) = alineado con bola blanca
+          const offsetX = (col - (rowLength - 1) / 2) * ballSpacing;
+          // Usar empaquetamiento hexagonal: cada fila se desplaza hacia abajo
+          const offsetY = row * rowHeight;
+          balls.push({
+            x: startX + offsetX,
+            y: startY + offsetY,
+            vx: 0,
+            vy: 0,
+            number: ballNumber,
+            pocketed: false,
+          });
+        });
+      });
     } else if (gameModeRef.current === "9ball") {
-      // Modo Bola 9: solo bolas 1-9
-      const startX = tableX + tableWidth * 0.7;
-      const startY = tableY + tableHeight / 2;
-      let ballIndex = 1;
-      for (let row = 0; row < 3; row++) {
-        for (let col = 0; col <= row; col++) {
-          if (ballIndex <= 9) {
-            const offsetX = (col - row / 2) * (ballRadius * 2.2);
-            const offsetY = row * (ballRadius * 1.9);
-            balls.push({
-              x: startX + offsetX,
-              y: startY + offsetY,
-              vx: 0,
-              vy: 0,
-              number: ballIndex,
-              pocketed: false,
-            });
-            ballIndex++;
-          }
-        }
-      }
+      // Modo Bola 9: bolas 1-9 en formación de diamante estándar
+      // Formación correcta de 9-ball:
+      // Fila 0: 1 bola (bola 1 - vértice, apunta hacia la bola blanca)
+      // Fila 1: 2 bolas (bolas 2, 3)
+      // Fila 2: 3 bolas (bolas 4, 9, 5) - la bola 9 en el CENTRO
+      // Fila 3: 2 bolas (bolas 6, 7)
+      // Fila 4: 1 bola (bola 8 en el fondo)
+      const ballLayout = [
+        [1],           // Fila 0 - vértice
+        [2, 3],        // Fila 1
+        [4, 9, 5],     // Fila 2 - bola 9 en el centro
+        [6, 7],        // Fila 3
+        [8],           // Fila 4 - fondo
+      ];
+      
+      // Calcular dimensiones - usar valores consistentes
+      const ballSpacing = ballRadius * 2.2; // Distancia horizontal entre bolas
+      const rowHeight = ballRadius * 1.9; // Distancia vertical entre filas
+      
+      // Posición del vértice (bola 1) - DEBE estar exactamente alineado con la bola blanca
+      // Usar exactamente la misma Y que la bola blanca para alineación perfecta
+      const vertexX = tableX + tableWidth * 0.65;
+      const vertexY = cueBallY; // EXACTAMENTE la misma Y que la bola blanca
+      
+      // startX y startY representan la posición del vértice (fila 0)
+      // Esta es la bola 1, que debe estar en la misma línea horizontal que la bola blanca
+      const startX = vertexX;
+      const startY = vertexY; // Misma Y que cueBallY
+      
+      // Crear todas las bolas según el layout
+      ballLayout.forEach((rowBalls, row) => {
+        const rowLength = rowBalls.length;
+        rowBalls.forEach((ballNumber, col) => {
+          // Calcular offset para centrar cada fila
+          // El vértice (row=0, col=0) está en (startX, startY) = alineado con bola blanca
+          const offsetX = (col - (rowLength - 1) / 2) * ballSpacing;
+          const offsetY = row * rowHeight;
+          balls.push({
+            x: startX + offsetX,
+            y: startY + offsetY,
+            vx: 0,
+            vy: 0,
+            number: ballNumber,
+            pocketed: false,
+          });
+        });
+      });
     }
 
     // Inicializar referencias
