@@ -1,6 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { MinigameTest } from "./MinigameTest";
+import { MazeGame } from "./MazeGame";
+import { CoconutBowling } from "./CoconutBowling";
+import { PoolGame } from "./PoolGame";
 import { Header } from "./base/Header";
 import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
@@ -24,11 +27,35 @@ import "../styles/base/utilities.css";
  */
 export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, onNavigateToMinijuegos, onNavigateToAboutUs, onNavigateToAddInfo }) {
   const { currentTheme } = useTheme();
+  const isHalloween = currentTheme === 'halloween';
+  const isVacation = currentTheme === 'vacation';
+  
+  // Obtener el juego seleccionado desde localStorage (leer una vez al montar)
+  const [selectedGame] = useState(() => {
+    const game = localStorage.getItem('selectedGame');
+    // Limpiar después de leer para que no persista
+    if (game) {
+      localStorage.removeItem('selectedGame');
+    }
+    return game;
+  });
+  
+  // Estadísticas según el tema y juego
+  const getStorageKey = () => {
+    if (isHalloween) return 'mazeGame';
+    if (isVacation) {
+      if (selectedGame === 'pool') return 'poolGame';
+      return 'coconutBowlingGame';
+    }
+    return 'christmasGame';
+  };
+  
+  const storageKey = getStorageKey();
   const [highScore, setHighScore] = useState(
-    parseInt(localStorage.getItem('christmasGameHighScore')) || 0
+    parseInt(localStorage.getItem(`${storageKey}HighScore`)) || 0
   );
   const [gamesPlayed, setGamesPlayed] = useState(
-    parseInt(localStorage.getItem('christmasGamesPlayed')) || 0
+    parseInt(localStorage.getItem(`${storageKey}Played`)) || 0
   );
   const [showFooterModal, setShowFooterModal] = useState(null);
 
@@ -44,11 +71,11 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
   const handleGameOver = (stats) => {
     const newGamesPlayed = gamesPlayed + 1;
     setGamesPlayed(newGamesPlayed);
-    localStorage.setItem('christmasGamesPlayed', newGamesPlayed);
+    localStorage.setItem(`${storageKey}Played`, newGamesPlayed);
 
     if (stats.score > highScore) {
       setHighScore(stats.score);
-      localStorage.setItem('christmasGameHighScore', stats.score);
+      localStorage.setItem(`${storageKey}HighScore`, stats.score);
     }
   };
 
@@ -56,6 +83,7 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
   const handleScoreChange = (score) => {
     if (score > highScore) {
       setHighScore(score);
+      localStorage.setItem(`${storageKey}HighScore`, score);
     }
   };
 
@@ -84,17 +112,27 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
       </Header>
 
       {/* HERO */}
-      <section className="hero hero--index-navidad hero--red-page game-page-hero">
+      <section className={`hero hero--index-${currentTheme} hero--red-page game-page-hero`}>
         <div className="hero-overlay"></div>
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-title">
-              Atrapa los Regalos Navideños
-          </h1>
+              {isHalloween 
+                ? 'Laberinto Encantado' 
+                : isVacation 
+                ? (selectedGame === 'pool' ? 'Billar' : 'Coconut Bowling')
+                : 'Atrapa los Regalos Navideños'}
+            </h1>
             <p className="hero-synopsis">
-            ¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! 
-            Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.
-          </p>
+              {isHalloween 
+                ? 'Navega por un laberinto oscuro con tu linterna. Recolecta todos los dulces mientras evitas a los monstruos. ¡Cuidado! Tu batería se agota con el tiempo.'
+                : isVacation
+                ? (selectedGame === 'pool' 
+                  ? 'Golpea la bola blanca para meter todas las bolas numeradas en las troneras. Usa la física del billar para conseguir el mejor puntaje. ¡Cada bola vale puntos!'
+                  : 'Lanza cocos para derribar piñas y botellas. Ajusta el ángulo y la fuerza para conseguir el mejor puntaje. ¡Cada nivel tiene formaciones más desafiantes!')
+                : '¡Ayuda a Santa a atrapar todos los regalos que caen del cielo! Mueve el trineo con el mouse y no dejes que ningún regalo toque el suelo.'
+              }
+            </p>
           </div>
         </div>
       </section>
@@ -106,12 +144,52 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           <div className="game-page__info-section game-page__instructions">
             <h3 className="game-page__info-title">📖 Cómo Jugar</h3>
             <ul className="game-page__info-list">
-              <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
-              <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
-              <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
-              <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
-              <li>El juego termina cuando te quedas sin vidas</li>
-              <li>¡Intenta superar tu récord personal!</li>
+              {isHalloween ? (
+                <>
+                  <li>Usa <strong>WASD</strong> o las <strong>flechas</strong> para moverte</li>
+                  <li>Recolecta todos los <strong>dulces</strong> 🍬 para ganar puntos</li>
+                  <li>Evita a los <strong>monstruos</strong> o perderás una vida ❤️</li>
+                  <li>Tu <strong>linterna</strong> tiene batería limitada 🔋</li>
+                  <li>La batería se agota con el tiempo - ¡recógela antes!</li>
+                  <li>Recoger dulces recarga un poco la batería</li>
+                  <li>El juego termina si se agota la batería o pierdes todas las vidas</li>
+                  <li>¡Intenta superar tu récord personal!</li>
+                </>
+              ) : isVacation ? (
+                selectedGame === 'pool' ? (
+                  <>
+                    <li><strong>Haz clic</strong> y arrastra desde la bola blanca para apuntar</li>
+                    <li><strong>Suelta</strong> para golpear la bola con la fuerza indicada</li>
+                    <li>La <strong>longitud de la flecha</strong> indica la fuerza del tiro</li>
+                    <li>Mete las <strong>bolas numeradas</strong> 🎱 en las troneras para ganar puntos</li>
+                    <li>En modo <strong>Bola 8</strong>: Mete todas tus bolas (rayadas o lisas) y luego la 8</li>
+                    <li>En modo <strong>Bola 9</strong>: Mete la bola 9 para ganar</li>
+                    <li>Si metes la <strong>bola blanca</strong>, pierdes el turno</li>
+                    <li>Las bolas rebotan entre sí y en los bordes de la mesa</li>
+                    <li>¡Intenta conseguir el mejor puntaje!</li>
+                  </>
+                ) : (
+                  <>
+                    <li><strong>Arrastra</strong> el mouse o usa las <strong>flechas</strong> para ajustar ángulo y fuerza</li>
+                    <li>Presiona <strong>Espacio</strong> o <strong>suelta</strong> el mouse para lanzar el coco</li>
+                    <li>Derriba todas las <strong>piñas</strong> 🍍 y <strong>botellas</strong> 🍾 para avanzar</li>
+                    <li>Cada objetivo tiene <strong>puntos</strong> diferentes (piñas: 10, botellas: 15)</li>
+                    <li>Tienes <strong>3 cocos</strong> por ronda 🥥</li>
+                    <li>Cada nivel tiene <strong>formaciones</strong> más desafiantes</li>
+                    <li>El juego termina si no derribas todos los objetivos</li>
+                    <li>¡Intenta superar tu récord personal!</li>
+                  </>
+                )
+              ) : (
+                <>
+                  <li>Mueve el trineo con el <strong>mouse</strong> de izquierda a derecha</li>
+                  <li>Atrapa los <strong>regalos</strong> que caen para ganar puntos</li>
+                  <li>Si un regalo toca el suelo, pierdes una <strong>vida</strong> ❤️</li>
+                  <li>Cada 10 regalos atrapados, el <strong>nivel</strong> sube y los regalos caen más rápido</li>
+                  <li>El juego termina cuando te quedas sin vidas</li>
+                  <li>¡Intenta superar tu récord personal!</li>
+                </>
+              )}
             </ul>
           </div>
 
@@ -139,12 +217,46 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
                   >
                     ⏸
                   </button>
-                  <h2 className="game-page__game-title">Trineo veloz</h2>
+                  <h2 className="game-page__game-title">
+                    {isHalloween 
+                      ? 'Laberinto Encantado' 
+                      : isVacation 
+                      ? (selectedGame === 'pool' ? 'Billar' : 'Coconut Bowling')
+                      : 'Trineo veloz'}
+                  </h2>
                 </div>
-          <MinigameTest 
-            onGameOver={handleGameOver}
-            onScoreChange={handleScoreChange}
-          />
+                {isHalloween ? (
+                  <MazeGame 
+                    title=""
+                    description=""
+                    onGameOver={handleGameOver}
+                    onScoreChange={handleScoreChange}
+                    theme="halloween"
+                  />
+                ) : isVacation ? (
+                  selectedGame === 'pool' ? (
+                    <PoolGame 
+                      title=""
+                      description=""
+                      onGameOver={handleGameOver}
+                      onScoreChange={handleScoreChange}
+                      theme="vacation"
+                    />
+                  ) : (
+                    <CoconutBowling 
+                      title=""
+                      description=""
+                      onGameOver={handleGameOver}
+                      onScoreChange={handleScoreChange}
+                      theme="vacation"
+                    />
+                  )
+                ) : (
+                  <MinigameTest 
+                    onGameOver={handleGameOver}
+                    onScoreChange={handleScoreChange}
+                  />
+                )}
               </div>
         </div>
 
@@ -161,39 +273,134 @@ export function GamePage({ onBack, onNavigateToChat, onNavigateToCreateHistory, 
           </div>
         </div>
 
-          {/* POWER-UPS - Desktop derecha, Mobile después */}
+          {/* MECÁNICAS/POWER-UPS - Desktop derecha, Mobile después */}
           <div className="game-page__info-section game-page__powerups">
-            <h3 className="game-page__info-title">⚡ Power-Ups</h3>
+            <h3 className="game-page__info-title">
+              {isHalloween ? '⚡ Mecánicas' : isVacation ? '⚡ Mecánicas' : '⚡ Power-Ups'}
+            </h3>
             <ul className="game-page__info-list">
-              <li className="game-page__powerup-item">
-                <img src="/images/powerup-speed.png" alt="Velocidad" className="game-page__powerup-icon" />
-                <div className="game-page__powerup-content">
-                  <strong className="game-page__powerup-name">Velocidad:</strong>
-                  <span className="game-page__powerup-desc">Duplica tu velocidad por 8 segundos</span>
-                </div>
-              </li>
-              <li className="game-page__powerup-item">
-                <img src="/images/powerup-heart.png" alt="Vida Extra" className="game-page__powerup-icon" />
-                <div className="game-page__powerup-content">
-                  <strong className="game-page__powerup-name">Vida Extra:</strong>
-                  <span className="game-page__powerup-desc">Gana una vida adicional instantáneamente</span>
-                </div>
-              </li>
-              <li className="game-page__powerup-item">
-                <img src="/images/powerup-star.png" alt="Escudo" className="game-page__powerup-icon" />
-                <div className="game-page__powerup-content">
-                  <strong className="game-page__powerup-name">Escudo:</strong>
-                  <span className="game-page__powerup-desc">Protección contra perder vidas por 10 segundos</span>
-                </div>
-              </li>
-              <li className="game-page__powerup-item">
-                <img src="/images/powerup-clock.png" alt="Cámara Lenta" className="game-page__powerup-icon" />
-                <div className="game-page__powerup-content">
-                  <strong className="game-page__powerup-name">Cámara Lenta:</strong>
-                  <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
-                </div>
-              </li>
-          </ul>
+              {isHalloween ? (
+                <>
+                  <li className="game-page__powerup-item">
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">🔦 Linterna:</strong>
+                      <span className="game-page__powerup-desc">Ilumina el área alrededor de ti. La batería se agota con el tiempo.</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">🍬 Dulces:</strong>
+                      <span className="game-page__powerup-desc">Recolecta todos los dulces para ganar. Cada uno vale 10 puntos y recarga 5% de batería.</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">👹 Monstruos:</strong>
+                      <span className="game-page__powerup-desc">Evítalos o perderás una vida. Se mueven aleatoriamente por el laberinto.</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">🏆 Victoria:</strong>
+                      <span className="game-page__powerup-desc">Recolecta todos los dulces antes de que se agote la batería para ganar un bonus de 100 puntos.</span>
+                    </div>
+                  </li>
+                </>
+              ) : isVacation ? (
+                selectedGame === 'pool' ? (
+                  <>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🎱 Modos de Juego:</strong>
+                        <span className="game-page__powerup-desc"><strong>Bola 8:</strong> Mete todas tus bolas (rayadas 1-7 o lisas 9-15) y luego la 8. <strong>Bola 9:</strong> Mete la bola 9 para ganar.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🎯 Bolas Rayadas y Lisas:</strong>
+                        <span className="game-page__powerup-desc">Bolas 1-7 son rayadas, 9-15 son lisas. La primera bola que metas determina tu tipo en modo Bola 8.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">⚡ Física Realista:</strong>
+                        <span className="game-page__powerup-desc">Las bolas rebotan entre sí y en los bordes. Usa los rebotes estratégicamente para meter múltiples bolas.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">👥 Multijugador:</strong>
+                        <span className="game-page__powerup-desc">Juega con hasta 2 jugadores. Cada uno tiene su turno. Mete una bola válida para continuar tu turno.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🏆 Puntuación:</strong>
+                        <span className="game-page__powerup-desc">Cada bola vale su número × 10 puntos. La bola 8 vale 80 puntos. Gana el jugador que complete su objetivo primero.</span>
+                      </div>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🥥 Cocos:</strong>
+                        <span className="game-page__powerup-desc">Tienes 3 cocos por ronda. Úsalos estratégicamente para derribar todos los objetivos.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">📐 Ángulo y Fuerza:</strong>
+                        <span className="game-page__powerup-desc">Ajusta el ángulo con flechas izquierda/derecha y la fuerza con arriba/abajo. O arrastra el mouse para apuntar.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🎯 Objetivos:</strong>
+                        <span className="game-page__powerup-desc">Las piñas valen 10 puntos y las botellas 15 puntos. Derriba todos para avanzar de nivel.</span>
+                      </div>
+                    </li>
+                    <li className="game-page__powerup-item">
+                      <div className="game-page__powerup-content">
+                        <strong className="game-page__powerup-name">🏆 Niveles:</strong>
+                        <span className="game-page__powerup-desc">Cada nivel tiene formaciones más desafiantes. Completa un nivel para ganar un bonus de 50 puntos × nivel.</span>
+                      </div>
+                    </li>
+                  </>
+                )
+              ) : (
+                <>
+                  <li className="game-page__powerup-item">
+                    <img src="/images/powerup-speed.png" alt="Velocidad" className="game-page__powerup-icon" />
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">Velocidad:</strong>
+                      <span className="game-page__powerup-desc">Duplica tu velocidad por 8 segundos</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <img src="/images/powerup-heart.png" alt="Vida Extra" className="game-page__powerup-icon" />
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">Vida Extra:</strong>
+                      <span className="game-page__powerup-desc">Gana una vida adicional instantáneamente</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <img src="/images/powerup-star.png" alt="Escudo" className="game-page__powerup-icon" />
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">Escudo:</strong>
+                      <span className="game-page__powerup-desc">Protección contra perder vidas por 10 segundos</span>
+                    </div>
+                  </li>
+                  <li className="game-page__powerup-item">
+                    <img src="/images/powerup-clock.png" alt="Cámara Lenta" className="game-page__powerup-icon" />
+                    <div className="game-page__powerup-content">
+                      <strong className="game-page__powerup-name">Cámara Lenta:</strong>
+                      <span className="game-page__powerup-desc">Ralentiza todo el juego por 7 segundos</span>
+                    </div>
+                  </li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
       </section>

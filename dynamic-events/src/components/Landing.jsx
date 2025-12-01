@@ -64,7 +64,11 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
   };
 
   // Navegar al juego
-  const goToGame = () => {
+  const goToGame = (gameName = null) => {
+    if (gameName) {
+      // Guardar el juego seleccionado en localStorage
+      localStorage.setItem('selectedGame', gameName);
+    }
     if (onNavigateToGame) {
       onNavigateToGame();
     }
@@ -499,7 +503,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="mini-text">
                   Ayuda a Papá Noel a recoger los regalos de esta Navidad.
                 </p>
-                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame('trineo'); }}>
                   Jugar ahora
                 </a>
               </article>
@@ -532,11 +536,11 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
             </p>
             <div className="minijuegos-grid">
               <article className="mini-card">
-                <h3 className="mini-name">Laberinto del Terror</h3>
+                <h3 className="mini-name">Laberinto Encantado</h3>
                 <p className="mini-text">
-                  Encuentra la salida antes de que los espíritus te atrapen.
+                  Navega un laberinto oscuro con tu linterna. Recolecta dulces mientras evitas monstruos.
                 </p>
-                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame('maze'); }}>
                   Jugar ahora
                 </a>
               </article>
@@ -569,28 +573,23 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
             </p>
             <div className="minijuegos-grid">
               <article className="mini-card">
-                <h3 className="mini-name">Tesoro en la Playa</h3>
+                <h3 className="mini-name">Coconut Bowling</h3>
                 <p className="mini-text">
-                  Encuentra el tesoro perdido antes de que suba la marea.
+                  Lanza cocos para derribar piñas y botellas. Ajusta el ángulo y la fuerza para conseguir el mejor puntaje.
                 </p>
-                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame('coconutBowling'); }}>
                   Jugar ahora
                 </a>
               </article>
-              <div className="minijuegos-coming-soon">
-                <img
-                  src="/images/commingSoonV.jpeg"
-                  alt="Próximamente - Nueva aventura de verano"
-                  className="minijuegos-coming-soon__image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    const fallbackDiv = document.createElement('div');
-                    fallbackDiv.className = 'minijuegos-coming-soon__fallback';
-                    fallbackDiv.innerHTML = '<h3 className="mini-name">Próximamente</h3><p className="mini-text">Más diversión está en camino</p>';
-                    e.target.parentElement.appendChild(fallbackDiv);
-                  }}
-                />
-              </div>
+              <article className="mini-card">
+                <h3 className="mini-name">Billar</h3>
+                <p className="mini-text">
+                  Golpea la bola blanca para meter todas las bolas numeradas en las troneras.
+                </p>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame('pool'); }}>
+                  Jugar ahora
+                </a>
+              </article>
             </div>
           </div>
         </section>

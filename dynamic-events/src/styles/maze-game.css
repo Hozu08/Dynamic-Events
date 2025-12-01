@@ -1,0 +1,269 @@
+/* ==========================================
+   MAZE GAME - Estilos para Laberinto Encantado
+   ========================================== */
+
+/* Contenedor principal del juego */
+.maze-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Wrapper del canvas */
+.maze-game-canvas-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Canvas del juego */
+.maze-game-canvas {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  background: #000000;
+}
+
+/* Canvas tema oscuro */
+.maze-game-canvas--dark {
+  background: #000000;
+  border: 3px solid #fff;
+}
+
+/* Canvas tema halloween */
+.maze-game-canvas--halloween {
+  background: linear-gradient(180deg, #1a0033 0%, #330033 100%);
+  border: none;
+}
+
+/* Título del juego */
+.maze-game-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Descripción del juego */
+.maze-game-description {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+  color: #fff;
+}
+
+/* Instrucciones durante el juego */
+.maze-game-instructions {
+  margin-top: 1rem;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.maze-game-instructions p {
+  margin: 0.3rem 0;
+}
+
+/* Área de controles */
+.maze-game-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Botón de juego base */
+.maze-game-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+}
+
+/* Botón verde (iniciar) - Estilo del formulario */
+.maze-game-button--start {
+  background: var(--gradient-red);
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  padding: 0.75rem 1.9rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.maze-game-button--start:hover {
+  filter: brightness(1.05);
+}
+
+.maze-game-button--start::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.maze-game-button--start:hover::after {
+  left: 120%;
+}
+
+/* Botón rojo (reiniciar) - Estilo del formulario */
+.maze-game-button--restart {
+  background: var(--gradient-red);
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  padding: 0.75rem 1.9rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.maze-game-button--restart:hover {
+  filter: brightness(1.05);
+}
+
+.maze-game-button--restart::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-25deg);
+  transition: 0.6s;
+}
+
+.maze-game-button--restart:hover::after {
+  left: 120%;
+}
+
+/* Botón deshabilitado */
+.maze-game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==========================================
+   ESTADOS Y ANIMACIONES
+   ========================================== */
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.maze-game-button--animated {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Efecto de pulso para botón activo */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.maze-game-button--pulse {
+  animation: pulse 2s infinite;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .maze-game-canvas {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .maze-game-title {
+    font-size: 1.5rem;
+  }
+
+  .maze-game-description {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+
+  .maze-game-button {
+    min-width: 150px;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .maze-game-controls {
+    width: 90%;
+  }
+
+  .maze-game-instructions {
+    font-size: 0.85rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .maze-game-canvas {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .maze-game-button {
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+
+  .maze-game-instructions {
+    font-size: 0.8rem;
+  }
+}
+

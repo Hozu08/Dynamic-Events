@@ -139,6 +139,8 @@ export function CanvasGame({
     };
 
     // Jugador
+    // Velocidad mayor en móvil/responsive
+    const baseSpeed = isMobile ? 55 : 38; // 45% más rápido en móvil
     const player = {
       x: width / 2 - 60,
       y: currentHeight - 70,
@@ -146,8 +148,8 @@ export function CanvasGame({
       height: 60,
       sprite: preloadedAssets.player,
       targetX: width / 2 - 60,
-      maxSpeed: 38,
-      baseMaxSpeed: 38,
+      maxSpeed: baseSpeed,
+      baseMaxSpeed: baseSpeed,
     };
     
     // Guardar referencia del player para los botones
