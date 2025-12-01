@@ -12,9 +12,9 @@
 
 .header__container {
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px; /* Limitar ancho máximo para centrar mejor */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 4rem; /* Aumentado de 2rem a 4rem para más espaciado en los extremos */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -411,7 +411,7 @@
 
 @media (max-width: 768px) {
   .header__container {
-    padding: 0 1rem;
+    padding: 0 1.5rem; /* Aumentado de 1rem a 1.5rem para móvil también */
   }
 
   /* Mostrar botón hamburguesa */
