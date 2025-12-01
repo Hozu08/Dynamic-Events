@@ -2,6 +2,8 @@
 
 Dynamic Events es un proyecto desarrollado con el fin de ofrecer una experiencia digital única que evoluciona con las épocas del año. El objetivo es crear un entorno adaptable según la época del año, interactivo ofreciendo historias personalizadas guiadas por IA y entretenido con la implementación de mini juegos.
 
+#Link de despliegue: https://dynamic-events.vercel.app
+
 ## Tabla de Contenidos
 
 - [Resumen del Proyecto](#resumen-del-proyecto)
