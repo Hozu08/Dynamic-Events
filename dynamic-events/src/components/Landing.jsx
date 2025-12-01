@@ -250,7 +250,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
           <div className="stories-row" id="storiesRow" ref={storiesRowRef}>
             {/* Cards de Temas - Mantienen funcionalidad de modal */}
             {themes.map((theme, themeIndex) => {
-              const data = themesMetadata[theme.id] || { genre: "Fantasía navideña", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
+              const data = themesMetadata[theme.id] || { genre: "Fantasía navideña", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
               
               // Imágenes específicas para Halloween - intercaladas
               const halloweenImages = [
@@ -305,7 +305,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
 
             {/* Cards de Historias Originales */}
             {originalStories.map((story, index) => {
-              const metadata = originalStoriesMetadata[story.id] || { genre: "Fantasía", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
+              const metadata = originalStoriesMetadata[story.id] || { genre: "Fantasía", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
               
               // Imágenes específicas para Halloween - intercaladas
               const halloweenImages = [

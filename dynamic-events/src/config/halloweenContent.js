@@ -115,31 +115,31 @@ export const originalStoriesMetadata = {
   'bruja-amable': {
     genre: "Fantasía oscura",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200"
   },
   'calabaza-magica': {
     genre: "Aventura mágica",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200"
   },
   'fantasma-amigo': {
     genre: "Cuento de amistad",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg?auto=compress&cs=tinysrgb&w=1200"
   }
 };
 
 // Metadatos para los temas
 export const themesMetadata = {
-  1: { genre: "Misterio mágico", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  2: { genre: "Aventura oscura", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  3: { genre: "Fantasía salvaje", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  1: { genre: "Misterio mágico", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  2: { genre: "Aventura oscura", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  3: { genre: "Fantasía salvaje", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   4: { genre: "Magia antigua", year: "2024", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/3945682/pexels-photo-3945682.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  5: { genre: "Drama espiritual", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  6: { genre: "Cuento de magia", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  5: { genre: "Drama espiritual", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  6: { genre: "Cuento de magia", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   7: { genre: "Aventura mística", year: "2024", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  8: { genre: "Fantasía eterna", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/3945682/pexels-photo-3945682.jpeg?auto=compress&cs=tinysrgb&w=1200" }
+  8: { genre: "Fantasía eterna", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/3945682/pexels-photo-3945682.jpeg?auto=compress&cs=tinysrgb&w=1200" }
 };

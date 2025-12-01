@@ -115,31 +115,31 @@ export const originalStoriesMetadata = {
   'playa-dorada': {
     genre: "Aventura marina",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200"
   },
   'montaña-aventura': {
     genre: "Aventura de montaña",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200"
   },
   'bosque-encantado': {
     genre: "Fantasía natural",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200"
   }
 };
 
 // Metadatos para los temas
 export const themesMetadata = {
-  1: { genre: "Aventura submarina", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  2: { genre: "Aventura de campamento", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  3: { genre: "Ciencia ficción histórica", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  1: { genre: "Aventura submarina", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  2: { genre: "Aventura de campamento", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  3: { genre: "Ciencia ficción histórica", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   4: { genre: "Fantasía celestial", year: "2024", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  5: { genre: "Cuento de naturaleza", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  6: { genre: "Fantasía imaginativa", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  5: { genre: "Cuento de naturaleza", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  6: { genre: "Fantasía imaginativa", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   7: { genre: "Aventura aérea", year: "2024", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  8: { genre: "Fantasía temporal", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" }
+  8: { genre: "Fantasía temporal", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1619317/pexels-photo-1619317.jpeg?auto=compress&cs=tinysrgb&w=1200" }
 };

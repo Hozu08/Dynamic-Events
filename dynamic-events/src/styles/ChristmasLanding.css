@@ -165,11 +165,11 @@ a:active {
 }
 
 .hero--index-halloween {
-  background: url("/images/hero-halloween.png") center/cover no-repeat;
+  background: url("/images/heroH.png") center/cover no-repeat;
 }
 
 .hero--index-vacation {
-  background: url("/images/hero-vacation.png") center/cover no-repeat;
+  background: url("/images/heroV.png") center/cover no-repeat;
 }
 
 .hero-overlay {

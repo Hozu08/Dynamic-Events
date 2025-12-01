@@ -98,7 +98,7 @@ export function AddInfo({
               Información del sitio
             </h1>
             <p className="hero-synopsis">
-              Conoce nuestras políticas, preguntas frecuentes y la forma correcta de usar Desing Events.
+              Conoce nuestras políticas, preguntas frecuentes y la forma correcta de usar Dynamic Events.
             </p>
           </div>
         </div>
@@ -115,7 +115,7 @@ export function AddInfo({
               <div className="add-info__section-text">
                 <h2 className="add-info__section-title">Políticas del sitio</h2>
                 <p className="add-info__intro-text">
-                  Desing Events es una plataforma creativa enfocada en historias interactivas y minijuegos temáticos. 
+                  Dynamic Events es una plataforma creativa enfocada en historias interactivas y minijuegos temáticos. 
                   Nuestro objetivo es ofrecer una experiencia segura, divertida y familiar.
                 </p>
                 
@@ -204,11 +204,11 @@ export function AddInfo({
                 aria-expanded={openFaqs[0] || false}
               >
                 <span className="add-info__faq-icon">{openFaqs[0] ? '−' : '+'}</span>
-                <h3 className="add-info__faq-question">¿Necesito registrarme para usar Desing Events?</h3>
+                <h3 className="add-info__faq-question">¿Necesito registrarme para usar Dynamic Events?</h3>
               </button>
               {openFaqs[0] && (
                 <p className="add-info__faq-answer">
-                  No, no es necesario registrarse. Puedes usar todas las funcionalidades de Desing Events de forma gratuita 
+                  No, no es necesario registrarse. Puedes usar todas las funcionalidades de Dynamic Events de forma gratuita 
                   sin crear una cuenta. Todas tus historias y puntuaciones se guardan localmente en tu navegador.
                 </p>
               )}
@@ -242,7 +242,7 @@ export function AddInfo({
               </button>
               {openFaqs[2] && (
                 <p className="add-info__faq-answer">
-                  Sí, puedes usar el contenido de Desing Events para fines educativos. Las historias y minijuegos 
+                  Sí, puedes usar el contenido de Dynamic Events para fines educativos. Las historias y minijuegos 
                   están diseñados para ser educativos y recreativos. Sin embargo, no se permite el uso comercial 
                   sin autorización previa.
                 </p>
@@ -275,7 +275,7 @@ export function AddInfo({
               <div className="add-info__section-text">
                 <h2 className="add-info__section-title">Instrucciones y ayuda</h2>
                 <p className="add-info__intro-text">
-                  Si es tu primera vez en Desing Events, te recomendamos:
+                  Si es tu primera vez en Dynamic Events, te recomendamos:
                 </p>
                 
                 <ul className="add-info__list add-info__list--instructions">

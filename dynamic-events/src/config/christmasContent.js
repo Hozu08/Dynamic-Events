@@ -115,7 +115,7 @@ export const originalStoriesMetadata = {
   'carta-tarde': {
     genre: "Fantasía navideña",
     year: "2024",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200"
   },
   'arbol-luces': {
@@ -127,19 +127,19 @@ export const originalStoriesMetadata = {
   'reno-timido': {
     genre: "Cuento infantil",
     year: "2022",
-    author: "Desing Events",
+    author: "Dynamic Events",
     pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200"
   }
 };
 
 // Metadatos para los temas
 export const themesMetadata = {
-  1: { genre: "Fantasía navideña", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  2: { genre: "Aventura mágica", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  3: { genre: "Cuento navideño", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  1: { genre: "Fantasía navideña", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  2: { genre: "Aventura mágica", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  3: { genre: "Cuento navideño", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   4: { genre: "Aventura de superación", year: "2023", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  5: { genre: "Drama navideño", year: "2023", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  6: { genre: "Cuento infantil", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  5: { genre: "Drama navideño", year: "2023", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1200" },
+  6: { genre: "Cuento infantil", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1661907/pexels-photo-1661907.jpeg?auto=compress&cs=tinysrgb&w=1200" },
   7: { genre: "Aventura familiar", year: "2023", author: "Taller de Historias", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" },
-  8: { genre: "Fantasía espiritual", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1200" }
+  8: { genre: "Fantasía espiritual", year: "2024", author: "Dynamic Events", pexelsImage: "https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?auto=compress&cs=tinysrgb&w=1200" }
 };
