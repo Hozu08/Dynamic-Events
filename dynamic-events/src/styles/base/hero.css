@@ -54,7 +54,7 @@
 }
 
 .hero--gradient-red {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
 }
 
 .hero__title--light {

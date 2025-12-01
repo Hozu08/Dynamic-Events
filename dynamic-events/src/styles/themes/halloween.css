@@ -37,13 +37,13 @@
   --gradient-red: linear-gradient(to right, #FF6B35, #D32F2F);
   --gradient-red-vertical: linear-gradient(to bottom, #FF6B35, #D32F2F);
   
-  /* Borde decorativo de Halloween (naranja y morado) */
+  /* Borde decorativo de Halloween (#6EFF8E y #FF7518) */
   --border-decorative: repeating-linear-gradient(
     45deg,
-    #FF6B35 0 18px,
-    #8B4513 18px 36px,
-    #4B0082 36px 54px,
-    #FF6B35 54px 72px
+    #6EFF8E 0 18px,
+    #6EFF8E 18px 36px,
+    #FF7518 36px 54px,
+    #FF7518 54px 72px
   );
   
   /* Hero naranja - valores compartidos */
@@ -148,6 +148,97 @@
   border-top-right-radius: 10px;
 }
 
+/* Menú hamburguesa de Halloween */
+.theme-halloween .header__menu-drawer {
+  background: #0B0B15 !important;
+  border-left: 1px solid #3B0A45 !important;
+}
+
+.theme-halloween .header__menu-header {
+  border-bottom: 1px solid #3B0A45 !important;
+}
+
+.theme-halloween .header__menu-close {
+  color: #ffffff !important;
+}
+
+.theme-halloween .header__menu-close:hover {
+  color: #ffffff !important;
+  opacity: 0.8;
+}
+
+/* Ajustar tamaño de la imagen ghost.png en la sección "Historias de Terror con IA" */
+.theme-halloween .carta-halloween .halloween-img,
+.theme-halloween .carta-right .halloween-img {
+  max-width: 280px !important;
+  max-height: 280px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* Textos oscuros en AddInfo.css a blanco para Halloween */
+.theme-halloween .add-info__intro-text,
+.theme-halloween .add-info__list li,
+.theme-halloween .add-info__faq-question,
+.theme-halloween .add-info__faq-answer,
+.theme-halloween .add-info__help-text,
+.theme-halloween .add-info__help-title,
+.theme-halloween .add-info__policy-number,
+.theme-halloween .add-info__section-text,
+.theme-halloween .add-info__section-inner {
+  color: #ffffff !important;
+}
+
+.theme-halloween .add-info__section-title {
+  color: #FF7518 !important;
+}
+
+.theme-halloween .add-info__list li::before {
+  color: #6EFF8E !important;
+}
+
+/* Textos oscuros en AboutUs.css a blanco para Halloween */
+.theme-halloween .about-us__text,
+.theme-halloween .about-us__list,
+.theme-halloween .about-us__list li,
+.theme-halloween .about-us__card-text,
+.theme-halloween .about-us__intro-text,
+.theme-halloween .about-us__sappcode-card-text,
+.theme-halloween .about-us__what-is-text,
+.theme-halloween .about-us__content-wrapper {
+  color: #ffffff !important;
+}
+
+.theme-halloween .about-us__list li strong {
+  color: #6EFF8E !important;
+}
+
+.theme-halloween .about-us__section-title,
+.theme-halloween .about-us__card-title,
+.theme-halloween .about-us__sappcode-card-title {
+  color: #FF7518 !important;
+}
+
+/* Cards "Cómo vivimos cada temporada" - fondo y border igual al header */
+.theme-halloween .about-us__card {
+  background: #0B0B15 !important;
+  border-top: 1px solid #3B0A45 !important;
+}
+
+/* Sección SappCode - fondo igual al header y border top/bottom */
+.theme-halloween .about-us__sappcode-section {
+  background: #0B0B15 !important;
+  border-top: 1px solid #3B0A45 !important;
+  border-bottom: 1px solid #3B0A45 !important;
+}
+
+/* Cards de la sección SappCode - fondo y border igual al header */
+.theme-halloween .about-us__sappcode-card {
+  background: #0B0B15 !important;
+  border: 1px solid #3B0A45 !important;
+}
+
 /* Texto "Leer historia" en Halloween */
 .theme-halloween .story-read-link {
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
@@ -220,15 +311,39 @@
   color: #ffffff !important;
 }
 
+/* Ícono del menú hamburguesa en blanco para Halloween */
+.theme-halloween .header__hamburger-line {
+  background: #ffffff !important;
+}
+
+/* Logo del menú hamburguesa con fuente Creepster */
+.theme-halloween .header__menu-logo {
+  font-family: "Creepster", cursive !important;
+  font-size: 1.8rem !important;
+  font-weight: 400 !important;
+}
+
 /* 5. Card "Trineo veloz" de minijuegos */
 .theme-halloween .mini-card {
   background: #0B0B15 !important;
   border: 1px solid #3B0A45 !important;
+  border-radius: 20px !important;
 }
 
 /* Color de fuente blanco para el texto de la card */
 .theme-halloween .mini-card .mini-text {
   color: #ffffff !important;
+}
+
+/* Aplicar mismo estilo a la imagen "Próximamente" */
+.theme-halloween .minijuegos-coming-soon {
+  border-radius: 20px !important;
+  border: 1px solid #3B0A45 !important;
+  overflow: hidden;
+}
+
+.theme-halloween .minijuegos-coming-soon__image {
+  border-radius: 20px !important;
 }
 
 /* El mini-name ya tiene color naranja (#FF7518) por los estilos de títulos */
@@ -237,50 +352,123 @@
    BOTONES PARA HALLOWEEN
    ========================================== */
 
+/* Botón Scroll to Top con estilo de "Jugar ahora" */
+.theme-halloween .scroll-to-top--primary,
+.theme-halloween .scroll-to-top--accent {
+  background: #6EFF8E !important;
+  color: #000000 !important;
+  box-shadow: 0 8px 20px rgba(110, 255, 142, 0.4) !important;
+  border: none !important;
+}
+
+.theme-halloween .scroll-to-top--primary:hover,
+.theme-halloween .scroll-to-top--accent:hover {
+  filter: brightness(0.9) !important;
+  color: #000000 !important;
+}
+
+.theme-halloween .scroll-to-top--primary.scroll-to-top--bottom-center.scroll-to-top--visible:hover,
+.theme-halloween .scroll-to-top--accent.scroll-to-top--bottom-center.scroll-to-top--visible:hover {
+  transform: translateX(-50%) translateY(0) !important;
+}
+
 /* Background de todos los botones a #6EFF8E con letra negra */
 /* Excluir: botones del dropdown "Escoger época" y flechas del carrusel */
+/* Aplica a botones que usan .btn base y también a clases específicas para compatibilidad */
+.theme-halloween .btn--primary,
 .theme-halloween .hero-btn,
 .theme-halloween .carta-btn,
 .theme-halloween .mini-btn,
 .theme-halloween .story-modal__button,
-.theme-halloween button:not(.header__hamburger):not(.header__menu-close):not(.modal__close):not(.carousel__button):not(.arrow):not(.arrow-left):not(.arrow-right):not(.dropdown__trigger):not(.dropdown__item) {
+.theme-halloween .taller-btn-primary,
+.theme-halloween button.btn:not(.header__hamburger):not(.header__menu-close):not(.modal__close):not(.carousel__button):not(.arrow):not(.arrow-left):not(.arrow-right):not(.dropdown__trigger):not(.dropdown__item) {
   background: #6EFF8E !important;
   color: #000000 !important;
   box-shadow: 0 8px 20px rgba(110, 255, 142, 0.4) !important;
 }
 
+.theme-halloween .btn--primary:hover,
 .theme-halloween .hero-btn:hover,
 .theme-halloween .carta-btn:hover,
 .theme-halloween .mini-btn:hover,
 .theme-halloween .story-modal__button:hover,
-.theme-halloween button:not(.header__hamburger):not(.header__menu-close):not(.modal__close):not(.carousel__button):not(.arrow):not(.arrow-left):not(.arrow-right):not(.dropdown__trigger):not(.dropdown__item):hover {
+.theme-halloween .taller-btn-primary:hover,
+.theme-halloween button.btn:not(.header__hamburger):not(.header__menu-close):not(.modal__close):not(.carousel__button):not(.arrow):not(.arrow-left):not(.arrow-right):not(.dropdown__trigger):not(.dropdown__item):hover {
   filter: brightness(0.9) !important;
   color: #000000 !important;
 }
 
-/* Asegurar que los botones del dropdown no tengan el color verde */
-.theme-halloween .dropdown__item,
-.theme-halloween .dropdown__menu .dropdown__item,
-.theme-halloween button.dropdown__item {
+/* Colores del dropdown para Halloween - Especificidad máxima para menú hamburguesa */
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item--halloween {
+  background: #FF7518 !important; /* Color naranja de Halloween */
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item--halloween:hover {
+  background: #FF7518 !important;
+  color: #000000 !important;
+  filter: brightness(1.1);
+}
+
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item--halloween .dropdown__item-label,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item--halloween span,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item--halloween * {
+  color: #000000 !important;
+}
+
+/* Mantener estilos para otros items del dropdown (si los hay) */
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween) {
+  background: transparent !important;
+  color: #222 !important;
+  box-shadow: none !important;
+}
+
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween):hover {
+  background: #f0f0f0 !important;
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween) .dropdown__item-label,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween) span,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween) * {
+  color: #222 !important;
+}
+
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween):hover .dropdown__item-label,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween):hover span,
+.theme-halloween .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--halloween):hover * {
+  color: #000 !important;
+}
+
+/* Estilos para desktop también */
+.theme-halloween .dropdown__item--halloween {
+  background: #FF7518 !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+.theme-halloween .dropdown__item--halloween:hover {
+  background: #FF7518 !important;
+  color: #000000 !important;
+  filter: brightness(1.1);
+}
+
+.theme-halloween .dropdown__item--halloween .dropdown__item-label {
+  color: #000000 !important;
+}
+
+.theme-halloween .dropdown__item:not(.dropdown__item--halloween) {
   background: transparent !important;
   color: #000000 !important;
   box-shadow: none !important;
 }
 
-.theme-halloween .dropdown__item:hover,
-.theme-halloween .dropdown__menu .dropdown__item:hover,
-.theme-halloween button.dropdown__item:hover {
+.theme-halloween .dropdown__item:not(.dropdown__item--halloween):hover {
   background: transparent !important;
   color: #000000 !important;
   opacity: 0.8 !important;
-}
-
-/* Asegurar que el label dentro del item también sea negro */
-.theme-halloween .dropdown__item .dropdown__item-label,
-.theme-halloween button.dropdown__item .dropdown__item-label,
-.theme-halloween .header__nav .dropdown__item .dropdown__item-label,
-.theme-halloween .header__menu-nav .dropdown__item .dropdown__item-label {
-  color: #000000 !important;
 }
 
 /* Asegurar que las flechas del carrusel no tengan el color verde */

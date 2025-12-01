@@ -207,7 +207,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   display: flex;
   align-items: center;
   justify-content: center;

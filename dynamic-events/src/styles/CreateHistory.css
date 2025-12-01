@@ -352,44 +352,10 @@
    (Ver: base/button.css para los estilos base)
    ========================================== */
 
-/* Botón primario - Usa el mismo estilo que .btn--primary del botón base */
+/* Botón primario - Usa clase base .btn con modificadores */
 .taller-btn-primary {
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  color: #fff;
-  padding: 0.75rem 1.9rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(192, 0, 47, 0.4);
-  position: relative;
-  overflow: hidden;
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  /* Extiende .btn.btn--primary.btn--md */
   align-self: flex-start;
-}
-
-.taller-btn-primary:hover {
-  filter: brightness(1.05);
-}
-
-.taller-btn-primary::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-}
-
-.taller-btn-primary:hover::after {
-  left: 120%;
 }
 
 /* Botón secundario - Usa el mismo estilo que .btn--secondary del botón base */

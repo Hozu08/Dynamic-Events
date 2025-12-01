@@ -3,6 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
+import "../styles/variables.css";
 import "../styles/ChristmasLanding.css";
 import "../styles/AddInfo.css";
 import "../styles/base/utilities.css";
@@ -163,14 +164,14 @@ export function AddInfo({
               </div>
               <div className="add-info__section-image">
                 <img 
-                  src="/images/dwarf.png" 
-                  alt="Elfo navideño" 
+                  src={currentTheme === 'halloween' ? "/images/ghost2.png" : "/images/dwarf.png"} 
+                  alt={currentTheme === 'halloween' ? "Fantasma de Halloween" : "Elfo navideño"} 
                   className="add-info__image"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     const emojiDiv = document.createElement('div');
                     emojiDiv.style.fontSize = '8rem';
-                    emojiDiv.textContent = '🎁';
+                    emojiDiv.textContent = currentTheme === 'halloween' ? '👻' : '🎁';
                     emojiDiv.style.textAlign = 'center';
                     e.target.parentElement.appendChild(emojiDiv);
                   }}
@@ -296,14 +297,14 @@ export function AddInfo({
               </div>
               <div className="add-info__section-image">
                 <img 
-                  src="/images/dwarfSled.png" 
-                  alt="Trineo navideño" 
+                  src={currentTheme === 'halloween' ? "/images/vampire.png" : "/images/dwarfSled.png"} 
+                  alt={currentTheme === 'halloween' ? "Vampiro de Halloween" : "Trineo navideño"} 
                   className="add-info__image"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     const emojiDiv = document.createElement('div');
                     emojiDiv.style.fontSize = '8rem';
-                    emojiDiv.textContent = '🛷';
+                    emojiDiv.textContent = currentTheme === 'halloween' ? '🧛' : '🛷';
                     emojiDiv.style.textAlign = 'center';
                     e.target.parentElement.appendChild(emojiDiv);
                   }}

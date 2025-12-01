@@ -1,3 +1,6 @@
+/* Importar variables CSS globales primero */
+@import '../variables.css';
+
 /* Importar todos los estilos base OOCSS */
 @import './header.css';
 @import './button.css';

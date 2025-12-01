@@ -30,7 +30,7 @@
   font-family: "Great Vibes", cursive;
   font-size: 1.8rem;
   font-weight: 400;
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -356,6 +356,7 @@
 
 .header__menu-nav .dropdown__item-label {
   text-align: left;
+  color: inherit;
 }
 
 .header__menu-nav .dropdown__item:last-child {
@@ -371,6 +372,9 @@
   background: #e8e8e8;
   color: #000;
 }
+
+/* Permitir que los estilos de los temas sobrescriban los colores del dropdown en el menú hamburguesa */
+/* Los estilos de los temas deben tener mayor especificidad */
 
 /* ==========================================
    SKIN - Menú Hamburguesa

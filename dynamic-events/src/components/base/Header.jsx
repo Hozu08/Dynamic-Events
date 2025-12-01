@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { getAllThemes } from "../../config/themes";
 import { Dropdown } from "./Dropdown";
+import { MobileThemeSelector } from "./MobileThemeSelector";
 import "../../styles/base/header.css";
 
 /**
@@ -33,9 +34,10 @@ export function Header({
 
   // Items del dropdown de temas
   const themeItems = allThemes.map(theme => ({
-    label: `${theme.icon} ${theme.name}`,
+    label: theme.name,
     onClick: () => changeTheme(theme.id),
-    icon: theme.icon,
+    id: theme.id, // Para aplicar estilos específicos por tema (usado en Dropdown)
+    themeId: theme.id, // Alias para compatibilidad
   }));
 
   // Cerrar menú al hacer clic fuera
@@ -132,7 +134,7 @@ export function Header({
                 label="Escoger época"
                 variant="pill"
                 size="md"
-                position="bottom-left"
+                position="bottom-center"
                 items={themeItems}
                 className="header__theme-selector"
               />
@@ -168,25 +170,16 @@ export function Header({
         <nav 
           className="header__menu-nav" 
           onClick={(e) => {
-            // Cerrar menú solo si el click no fue en un dropdown trigger
+            // Cerrar menú solo si el click no fue en un selector de tema móvil
             const target = e.target;
-            const isDropdownTrigger = target.closest('.dropdown__trigger');
-            if (!isDropdownTrigger) {
+            const isThemeSelector = target.closest('.mobile-theme-selector');
+            if (!isThemeSelector) {
               closeMenu();
             }
           }}
         >
           {children}
-          {showThemeSelector && (
-            <Dropdown
-              label="Escoger época"
-              variant="pill"
-              size="md"
-              position="bottom-left"
-              items={themeItems}
-              className="header__theme-selector"
-            />
-          )}
+          {showThemeSelector && <MobileThemeSelector />}
         </nav>
       </aside>
     </>

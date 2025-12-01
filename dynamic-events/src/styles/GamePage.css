@@ -203,7 +203,7 @@
   display: none; /* Oculto por defecto, solo visible en responsive */
   grid-column: 1;
   justify-self: start;
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   border: none;
   border-radius: 999px;
   width: 48px;

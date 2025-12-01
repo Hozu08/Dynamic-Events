@@ -147,6 +147,63 @@
   border-color: var(--color-accent-dark);
 }
 
+/* Colores del dropdown para Vacaciones - Especificidad máxima para menú hamburguesa */
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item--vacation {
+  background: #E4FEFA !important;
+  color: #000000 !important;
+}
+
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item--vacation:hover {
+  background: #E4FEFA !important;
+  color: #000000 !important;
+  filter: brightness(0.95);
+}
+
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item--vacation .dropdown__item-label,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item--vacation span,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item--vacation * {
+  color: #000000 !important;
+}
+
+/* Estilos para otros items del dropdown en Vacaciones (Navidad y Halloween) */
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation) {
+  background: transparent !important;
+  color: #222 !important;
+}
+
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation):hover {
+  background: #f0f0f0 !important;
+  color: #000 !important;
+}
+
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation) .dropdown__item-label,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation) span,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation) * {
+  color: #222 !important;
+}
+
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation):hover .dropdown__item-label,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation):hover span,
+.theme-vacation .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--vacation):hover * {
+  color: #000 !important;
+}
+
+/* Estilos para desktop también */
+.theme-vacation .dropdown__item--vacation {
+  background: #E4FEFA !important;
+  color: #000000 !important;
+}
+
+.theme-vacation .dropdown__item--vacation:hover {
+  background: #E4FEFA !important;
+  color: #000000 !important;
+  filter: brightness(0.95);
+}
+
+.theme-vacation .dropdown__item--vacation .dropdown__item-label {
+  color: #000000 !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .theme-vacation h1 {

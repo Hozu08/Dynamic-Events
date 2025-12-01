@@ -3,6 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Header } from "./base/Header";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
+import "../styles/variables.css";
 import "../styles/ChristmasLanding.css";
 import "../styles/CreateHistory.css";
 import "../styles/base/utilities.css";
@@ -566,7 +567,7 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
                     {currentStep < totalSteps - 1 ? (
                       <button
                         type="button"
-                        className="taller-btn-primary"
+                        className="btn btn--primary btn--md taller-btn-primary"
                         onClick={handleNext}
                         style={{ display: currentStep < totalSteps - 1 ? "inline-flex" : "none" }}
                       >
@@ -575,7 +576,7 @@ export function CreateHistory({ onNavigateToLanding, onNavigateToGame, onNavigat
                     ) : (
                       <button
                         type="button"
-                        className="taller-btn-primary"
+                        className="btn btn--primary btn--md taller-btn-primary"
                         onClick={handleGenerate}
                         style={{ display: currentStep === totalSteps - 1 ? "inline-flex" : "none" }}
                       >

@@ -160,7 +160,7 @@
 
 /* Aplicar estilos de CreateHistory a los botones */
 .chat-page__chat-wrapper-inner .chat-button--primary {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   color: #fff;
   border-radius: 999px;
   border: 1px solid transparent;

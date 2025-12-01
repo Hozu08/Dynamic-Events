@@ -3,57 +3,8 @@
    Separación: Estructura | Skin
    ========================================== */
 
-/* Variables globales - Definidas aquí para compatibilidad */
-:root {
-  /* Colores principales */
-  --color-primary: #2d5a3d;
-  --color-primary-dark: #0b6a45;
-  --color-secondary: #8b4513;
-  --color-accent: #AB0000;
-  --color-accent-dark: #8B0000;
-  --color-gold: #d4af37;
-  
-  /* Colores de fondo */
-  --bg-light: #fdfdfd;
-  --bg-paper: #fff6dd;
-  --bg-paper-pattern: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
-  
-  /* Colores de texto */
-  --text-dark: #2c3e50;
-  --text-medium: #3b2d21;
-  --text-light: #7a6750;
-  
-  /* Bordes */
-  --border-color: #e0e0e0;
-  --border-color-light: #e0cfa6;
-  --border-radius: 20px;
-  --border-radius-large: 30px;
-  --border-radius-inner: 16px;
-  
-  /* Espaciado y layout */
-  --max-width: 1920px;
-  --spacing-section: 4rem 3rem;
-  
-  /* Degradados */
-  --gradient-red: linear-gradient(to right, #AB0000, #8B0000);
-  --gradient-red-vertical: linear-gradient(to bottom, #AB0000, #8B0000);
-  
-  /* Borde decorativo navideño (patrón candy cane) */
-  --border-decorative: repeating-linear-gradient(
-    45deg,
-    #AB0000 0 18px,
-    #AB0000 18px 36px,
-    #0b6a45 36px 54px,
-    #0b6a45 54px 72px
-  );
-  
-  /* Hero rojo - valores compartidos */
-  --hero-red-min-height: 220px;
-  --hero-red-padding: 5rem 2rem 3rem 2rem;
-  --hero-red-padding-top: calc(5rem + 70px);
-  --hero-red-title-size: 4rem;
-  --hero-red-synopsis-size: 1.1rem;
-}
+/* NOTA: Las variables CSS están definidas en variables.css
+   Este archivo usa esas variables para mantener consistencia */
 
 /* Reset base */
 * {
@@ -108,11 +59,7 @@ a:active {
   color: #f0f0f0;
 }
 
-.carta-halloween .carta-btn {
-  background: linear-gradient(to right, #6EFF8E, #2E8B57);
-  color: #0B0B15;
-  font-weight: 600;
-}
+/* El estilo de .carta-btn en Halloween se maneja en halloween.css */
 
 /* Estilos para la sección de Vacaciones */
 .carta-vacation .carta-inner {
@@ -125,8 +72,9 @@ a:active {
 }
 
 .carta-vacation .carta-btn {
-  background: linear-gradient(to right, #FF6F61, #FF8C66);
-  color: white;
+  /* Mantiene estilos específicos de Vacaciones */
+  background: linear-gradient(to right, #FF6F61, #FF8C66) !important;
+  color: white !important;
   font-weight: 600;
 }
 
@@ -196,46 +144,32 @@ a:active {
   /* Hereda de header__nav */
 }
 
-/* Hero específico - Dinámico según la época */
-.hero--index-christmas {
-  height: 85vh;
-  min-height: 550px;
-  background: url("/images/heroHomeBG.png") center/cover no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 0;
-}
-
-.hero--index-halloween {
-  height: 85vh;
-  min-height: 550px;
-  background: url("/images/hero-halloween.png") center/cover no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 0;
-}
-
-.hero--index-vacation {
-  height: 85vh;
-  min-height: 550px;
-  background: url("/images/hero-vacation.png") center/cover no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 0;
-}
-
-/* Fallback para navidad (por compatibilidad) */
+/* Hero base - Estructura común para todos los temas */
+.hero--index,
+.hero--index-christmas,
+.hero--index-halloween,
+.hero--index-vacation,
 .hero--index-navidad {
   height: 85vh;
   min-height: 550px;
-  background: url("/images/heroHomeBG.png") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
   margin-top: 0;
+}
+
+/* Skin - Backgrounds específicos por tema */
+.hero--index-christmas,
+.hero--index-navidad {
+  background: url("/images/heroHomeBG.png") center/cover no-repeat;
+}
+
+.hero--index-halloween {
+  background: url("/images/hero-halloween.png") center/cover no-repeat;
+}
+
+.hero--index-vacation {
+  background: url("/images/hero-vacation.png") center/cover no-repeat;
 }
 
 .hero-overlay {
@@ -293,42 +227,13 @@ a:active {
   margin-bottom: 1.4rem;
 }
 
+/* Hero button - Usa clase base .btn con modificadores */
 .hero-btn {
+  /* Extiende .btn.btn--primary.btn--md */
   display: inline-block;
   width: fit-content;
   align-self: flex-start;
-  padding: 0.75rem 1.9rem;
-  border-radius: 999px;
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  font-family: inherit;
-  transition: filter 0.3s ease;
-}
-
-.hero-btn:hover {
-  filter: brightness(1.05);
-}
-
-.hero-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-}
-
-.hero-btn:hover::after {
-  left: 120%;
 }
 
 /* ==========================================
@@ -339,7 +244,7 @@ a:active {
 .hero--red-page {
   height: auto !important;
   min-height: var(--hero-red-min-height, 220px) !important;
-  background: var(--gradient-red, linear-gradient(to right, #AB0000, #8B0000)) !important;
+  background: var(--gradient-red) !important;
   position: relative;
   display: flex;
   align-items: center;
@@ -594,7 +499,7 @@ a:active {
   font-weight: 700;
   cursor: pointer;
   font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -733,41 +638,7 @@ a:active {
   margin-bottom: 1.8rem;
 }
 
-.carta-btn {
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  color: #fff;
-  padding: 0.75rem 1.9rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  display: inline-block;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
-  position: relative;
-  overflow: hidden;
-  font-family: inherit;
-  transition: filter 0.3s ease;
-}
-
-.carta-btn:hover {
-  filter: brightness(1.05);
-}
-
-.carta-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-}
-
-.carta-btn:hover::after {
-  left: 120%;
-}
+/* Carta button - Ya refactorizado arriba, mantener solo para compatibilidad */
 
 .carta-right {
   flex: 1;
@@ -866,40 +737,11 @@ a:active {
   margin-bottom: 1.3rem;
 }
 
+/* Mini button - Usa clase base .btn con modificadores */
 .mini-btn {
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  color: #fff;
-  padding: 0.75rem 1.9rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.95rem;
+  /* Extiende .btn.btn--primary.btn--md */
   display: inline-block;
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
-  position: relative;
-  overflow: hidden;
-  font-family: inherit;
-  transition: filter 0.3s ease;
-}
-
-.mini-btn:hover {
-  filter: brightness(1.05);
-}
-
-.mini-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-}
-
-.mini-btn:hover::after {
-  left: 120%;
 }
 
 /* Footer */
@@ -997,17 +839,10 @@ a:active {
   margin-bottom: 2rem;
 }
 
+/* Story modal button - Usa clase base .btn con modificadores */
 .story-modal__button {
+  /* Extiende .btn.btn--primary.btn--md */
   width: 100%;
-  padding: 0.75rem 1.9rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  font-family: inherit;
-  transition: filter 0.3s ease;
 }
 
 /* ==========================================
@@ -1040,31 +875,10 @@ a:active {
   color: var(--text-dark);
 }
 
+/* Story modal button styles - Ya usa .btn base, solo ajustes específicos */
 .story-modal__button {
-  background: linear-gradient(to right, #AB0000, #8B0000);
-  color: white;
-  border: none;
-  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
-}
-
-.story-modal__button:hover {
-  filter: brightness(1.05);
-}
-
-.story-modal__button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 70%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: skewX(-25deg);
-  transition: 0.6s;
-}
-
-.story-modal__button:hover::after {
-  left: 120%;
+  /* Extiende .btn.btn--primary.btn--md */
+  width: 100%;
 }
 
 /* Footer Modal */

@@ -59,6 +59,17 @@
   }
 }
 
+@keyframes dropdownFadeInCentered {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 .dropdown__item {
   width: 100%;
   display: flex;
@@ -183,6 +194,26 @@
   border-bottom: 1px solid rgba(45, 90, 61, 0.1);
 }
 
+/* Centrar dropdown "Escoger época" en desktop */
+@media (min-width: 769px) {
+  .header__theme-selector .dropdown__menu--bottom-center {
+    left: 50%;
+    transform: translateX(-50%);
+    animation: dropdownFadeInCentered 0.2s ease;
+  }
+
+  .header__theme-selector .dropdown__item {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .header__theme-selector .dropdown__item-label {
+    text-align: center;
+    width: 100%;
+    flex: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dropdown__menu {
@@ -193,6 +224,8 @@
   .dropdown__item {
     padding: 0.7rem 1rem;
     font-size: 0.95rem;
+    text-align: left;
+    justify-content: flex-start;
   }
 
   .dropdown__item-icon {

@@ -12,6 +12,7 @@ import { Hero } from "./base/Hero";
 import { Carousel } from "./base/Carousel";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
+import "../styles/variables.css";
 import "../styles/ChristmasLanding.css";
 import "../styles/base/utilities.css";
 
@@ -216,11 +217,10 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
           <div className="hero-content">
             <span className="hero-tag">HISTORIA DESTACADA</span>
             <h1 className="hero-title">{featuredStory.title}</h1>
-            <p className="hero-meta">{featuredStory.icon} Historia corta</p>
             <p className="hero-synopsis">
               {featuredStory.story.substring(0, 150)}...
             </p>
-            <a href="#historia-actual" className="hero-btn" onClick={(e) => {
+            <a href="#historia-actual" className="btn btn--primary btn--md hero-btn" onClick={(e) => {
               e.preventDefault();
               openStoryModal(featuredStory);
             }}>
@@ -240,17 +240,37 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
 
           <div className="stories-row" id="storiesRow" ref={storiesRowRef}>
             {/* Cards de Temas - Mantienen funcionalidad de modal */}
-            {themes.map((theme) => {
+            {themes.map((theme, themeIndex) => {
               const data = themesMetadata[theme.id] || { genre: "Fantasía navideña", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
+              
+              // Imágenes específicas para Halloween - intercaladas
+              const halloweenImages = [
+                "https://images.pexels.com/photos/5635101/pexels-photo-5635101.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/619424/pexels-photo-619424.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/5427545/pexels-photo-5427545.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/3095465/pexels-photo-3095465.png?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw"
+              ];
+              
+              // Usar imagen de Halloween si el tema es Halloween, sino usar la imagen original
+              const imageUrl = currentTheme === 'halloween' 
+                ? halloweenImages[themeIndex % halloweenImages.length]
+                : data.pexelsImage;
 
               return (
                 <article key={theme.id} className="story-card story-card--theme" onClick={() => openThemeModal(theme)}>
                   <div className="story-image-wrapper story-image-wrapper--theme">
                     <img
-                      src={data.pexelsImage}
+                      src={imageUrl}
                       alt={theme.title}
                       className="story-image"
                       onError={(e) => {
+                        // Si es Halloween, intentar usar otra imagen de Halloween como fallback
+                        if (currentTheme === 'halloween') {
+                          const fallbackIndex = (themeIndex + 1) % halloweenImages.length;
+                          e.target.src = halloweenImages[fallbackIndex];
+                          return;
+                        }
+                        // Si no es Halloween, mostrar el emoticono como fallback
                         e.target.style.display = 'none';
                         const iconDiv = e.target.parentElement.querySelector('.story-icon-fallback');
                         if (iconDiv) iconDiv.style.display = 'flex';
@@ -258,7 +278,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                     />
                     <div
                       className="story-icon-fallback"
-                      style={{ display: 'none' }}
+                      style={{ display: currentTheme === 'halloween' ? 'none' : 'none' }}
                     >
                       <span style={{ fontSize: '4rem' }}>{theme.icon}</span>
                     </div>
@@ -277,15 +297,38 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
             {/* Cards de Historias Originales */}
             {originalStories.map((story, index) => {
               const metadata = originalStoriesMetadata[story.id] || { genre: "Fantasía", year: "2024", author: "Desing Events", pexelsImage: "https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?auto=compress&cs=tinysrgb&w=1200" };
+              
+              // Imágenes específicas para Halloween - intercaladas
+              const halloweenImages = [
+                "https://images.pexels.com/photos/5635101/pexels-photo-5635101.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/619424/pexels-photo-619424.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/5427545/pexels-photo-5427545.jpeg?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw",
+                "https://images.pexels.com/photos/3095465/pexels-photo-3095465.png?_gl=1*1htnfa*_ga*NDEzMjY2MzYzLjE3NjQ1NDk5MDg.*_ga_8JE65Q40S6*czE3NjQ1NDk5MDgkbzEkZzEkdDE3NjQ1NTAxMTEkajQyJGwwJGgw"
+              ];
+              
+              // Calcular índice total (temas + historias originales)
+              const totalIndex = themes.length + index;
+              
+              // Usar imagen de Halloween si el tema es Halloween, sino usar la imagen original
+              const imageUrl = currentTheme === 'halloween' 
+                ? halloweenImages[totalIndex % halloweenImages.length]
+                : metadata.pexelsImage;
 
               return (
                 <article key={story.id} className="story-card" onClick={() => openStoryModal(story)}>
                   <div className="story-image-wrapper">
                     <img
-                      src={metadata.pexelsImage}
+                      src={imageUrl}
                       className="story-image"
                       alt={story.title}
                       onError={(e) => {
+                        // Si es Halloween, intentar usar otra imagen de Halloween como fallback
+                        if (currentTheme === 'halloween') {
+                          const fallbackIndex = (totalIndex + 1) % halloweenImages.length;
+                          e.target.src = halloweenImages[fallbackIndex];
+                          return;
+                        }
+                        // Si no es Halloween, mostrar el emoticono como fallback
                         e.target.style.display = 'none';
                         const iconDiv = e.target.parentElement.querySelector('.story-icon-fallback');
                         if (iconDiv) iconDiv.style.display = 'flex';
@@ -293,7 +336,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                     />
                     <div
                       className="story-icon-fallback"
-                      style={{ display: 'none' }}
+                      style={{ display: currentTheme === 'halloween' ? 'none' : 'none' }}
                     >
                       <span style={{ fontSize: '4rem' }}>{story.icon}</span>
                     </div>
@@ -329,7 +372,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                   relato único y especial.<br /><br />
                   Tu historia te está esperando.
                 </p>
-                <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
+                <a href="#" className="btn btn--primary btn--md carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
                   Crear ahora
                 </a>
               </div>
@@ -369,14 +412,14 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                   para dar vida a tu propia historia de miedo.<br /><br />
                   ¿Aceptas el reto?
                 </p>
-                <a href="#" className="carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
+                <a href="#" className="btn btn--primary btn--md carta-btn" onClick={(e) => { e.preventDefault(); if (onNavigateToCreateHistory) onNavigateToCreateHistory(); }}>
                   Crear historia de terror
                 </a>
               </div>
               <div className="carta-right">
                 <img
-                  src="/images/halloween-witch.png"
-                  alt="Bruja de Halloween"
+                  src="/images/ghost.png"
+                  alt="ghost"
                   className="halloween-img"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -447,7 +490,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="mini-text">
                   Ayuda a Papá Noel a recoger los regalos de esta Navidad.
                 </p>
-                <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
                   Jugar ahora
                 </a>
               </article>
@@ -484,13 +527,13 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="mini-text">
                   Encuentra la salida antes de que los espíritus te atrapen.
                 </p>
-                <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
                   Jugar ahora
                 </a>
               </article>
               <div className="minijuegos-coming-soon">
                 <img
-                  src="/images/coming-soon-halloween.png"
+                  src="/images/commingSoonH.png"
                   alt="Próximamente - Nuevo juego de terror"
                   className="minijuegos-coming-soon__image"
                   onError={(e) => {
@@ -521,7 +564,7 @@ export function Landing({ onNavigateToChat, onNavigateToCreateHistory, onNavigat
                 <p className="mini-text">
                   Encuentra el tesoro perdido antes de que suba la marea.
                 </p>
-                <a href="#" className="mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
+                <a href="#" className="btn btn--primary btn--md mini-btn" onClick={(e) => { e.preventDefault(); goToGame(); }}>
                   Jugar ahora
                 </a>
               </article>

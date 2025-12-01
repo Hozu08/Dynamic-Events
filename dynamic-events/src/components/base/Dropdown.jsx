@@ -87,11 +87,10 @@ export function Dropdown({
           {items.map((item, index) => (
             <button
               key={index}
-              className="dropdown__item"
+              className={`dropdown__item ${item.id ? `dropdown__item--${item.id}` : item.themeId ? `dropdown__item--${item.themeId}` : ''}`}
               onClick={() => handleItemClick(item)}
               type="button"
             >
-              {item.icon && <span className="dropdown__item-icon">{item.icon}</span>}
               <span className="dropdown__item-label">{item.label}</span>
             </button>
           ))}

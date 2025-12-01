@@ -54,3 +54,73 @@
   --hero-red-synopsis-size: 1.1rem;
 }
 
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA NAVIDAD
+   ========================================== */
+
+/* Aumentar tamaño de fuente de títulos en Navidad */
+.theme-christmas .section-title {
+  font-size: 3.2rem !important; /* Aumentado de 2.5rem */
+}
+
+.theme-christmas .minijuegos-title {
+  font-size: 3.4rem !important; /* Aumentado de 2.7rem */
+}
+
+/* Colores del dropdown para Navidad - Especificidad máxima para menú hamburguesa */
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item--christmas {
+  background: var(--gradient-red) !important;
+  color: #ffffff !important;
+}
+
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item--christmas:hover {
+  background: var(--gradient-red) !important;
+  color: #ffffff !important;
+  filter: brightness(1.1);
+}
+
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item--christmas .dropdown__item-label,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item--christmas span,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item--christmas * {
+  color: #ffffff !important;
+}
+
+/* Estilos para otros items del dropdown en Navidad (Halloween y Vacaciones) */
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas) {
+  background: transparent !important;
+  color: #222 !important;
+}
+
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas):hover {
+  background: #f0f0f0 !important;
+  color: #000 !important;
+}
+
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas) .dropdown__item-label,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas) span,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas) * {
+  color: #222 !important;
+}
+
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas):hover .dropdown__item-label,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas):hover span,
+.theme-christmas .header__menu-nav .dropdown__menu .dropdown__item:not(.dropdown__item--christmas):hover * {
+  color: #000 !important;
+}
+
+/* Estilos para desktop también */
+.theme-christmas .dropdown__item--christmas {
+  background: var(--gradient-red) !important;
+  color: #ffffff !important;
+}
+
+.theme-christmas .dropdown__item--christmas:hover {
+  background: var(--gradient-red) !important;
+  color: #ffffff !important;
+  filter: brightness(1.1);
+}
+
+.theme-christmas .dropdown__item--christmas .dropdown__item-label {
+  color: #ffffff !important;
+}
+

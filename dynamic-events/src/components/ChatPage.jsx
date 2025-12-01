@@ -9,6 +9,7 @@ import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
 import { getChatApiEndpoint } from "../utils/apiConfig";
 import { logApiConfig } from "../utils/debugApi";
+import "../styles/variables.css";
 import "../styles/ChristmasLanding.css";
 import "../styles/ChatPage.css";
 import "../styles/base/utilities.css";
@@ -136,9 +137,18 @@ export function ChatPage({ onBack, onNavigateToGame, onNavigateToChat, onNavigat
                   
                   {/* Imagen del personaje */}
                   <div className="santa-card__image-wrapper santa-card__image-wrapper--chat">
-                    <div className="santa-card__image" style={{ fontSize: '4rem' }}>
-                      {theme.icon}
-                    </div>
+                    {currentTheme === 'christmas' ? (
+                      <img 
+                        src="/images/santa.png" 
+                        alt="Santa Claus" 
+                        className="santa-card__image"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
+                    ) : (
+                      <div className="santa-card__image" style={{ fontSize: '4rem' }}>
+                        {theme.icon}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

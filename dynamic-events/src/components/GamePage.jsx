@@ -6,6 +6,7 @@ import { Button } from "./base/Button";
 import { Modal } from "./base/Modal";
 import { ScrollToTop } from "./base/ScrollToTop";
 import { Footer } from "./base/Footer";
+import "../styles/variables.css";
 import "../styles/ChristmasLanding.css";
 import "../styles/GamePage.css";
 import "../styles/base/utilities.css";

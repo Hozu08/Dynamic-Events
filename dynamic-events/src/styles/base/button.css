@@ -44,7 +44,7 @@
 
 /* SKIN (Apariencia) - Estilo del formulario */
 .btn--primary {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   color: #fff;
   box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
 }
@@ -99,9 +99,9 @@
 }
 
 .btn--accent {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   color: #fff;
-  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 47, 0.4));
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(192, 0, 0, 0.4));
 }
 
 .btn--accent:hover:not(:disabled) {

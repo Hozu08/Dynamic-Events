@@ -128,7 +128,7 @@
 
 /* Botón verde (iniciar) - Estilo del formulario */
 .game-button--start {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   color: #fff;
   border-radius: 999px;
   border: none;
@@ -136,7 +136,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(192, 0, 47, 0.4);
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
   position: relative;
   overflow: hidden;
   font-family: inherit;
@@ -164,7 +164,7 @@
 
 /* Botón rojo (reiniciar) - Estilo del formulario */
 .game-button--restart {
-  background: linear-gradient(to right, #AB0000, #8B0000);
+  background: var(--gradient-red);
   color: #fff;
   border-radius: 999px;
   border: none;
@@ -172,7 +172,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+  box-shadow: 0 8px 20px var(--btn-primary-shadow, rgba(139, 0, 0, 0.4));
   position: relative;
   overflow: hidden;
   font-family: inherit;
