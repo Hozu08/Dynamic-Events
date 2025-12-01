@@ -73,8 +73,8 @@
 }
 
 .add-info__image {
-  max-width: 450px; /* Aumentado de 350px a 450px */
-  max-height: 450px; /* Aumentado de 350px a 450px */
+  max-width: 550px; /* Aumentado de 450px a 550px */
+  max-height: 550px; /* Aumentado de 450px a 550px */
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -295,8 +295,8 @@
   }
 
   .add-info__image {
-    max-width: 360px; /* Aumentado de 280px a 360px */
-    max-height: 360px; /* Aumentado de 280px a 360px */
+    max-width: 420px; /* Aumentado de 360px a 420px */
+    max-height: 420px; /* Aumentado de 360px a 420px */
   }
 }
 
@@ -347,8 +347,8 @@
   }
 
   .add-info__image {
-    max-width: 280px; /* Aumentado de 220px a 280px */
-    max-height: 280px; /* Aumentado de 220px a 280px */
+    max-width: 340px; /* Aumentado de 280px a 340px */
+    max-height: 340px; /* Aumentado de 280px a 340px */
   }
 }
 
@@ -400,8 +400,8 @@
   }
 
   .add-info__image {
-    max-width: 250px; /* Aumentado de 200px a 250px */
-    max-height: 250px; /* Aumentado de 200px a 250px */
+    max-width: 300px; /* Aumentado de 250px a 300px */
+    max-height: 300px; /* Aumentado de 250px a 300px */
   }
 }
 

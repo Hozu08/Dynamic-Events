@@ -694,6 +694,9 @@ a:active {
   border-radius: 20px;
   padding: 1.9rem 1.7rem;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuir el contenido verticalmente */
 }
 
 /* Contenedor para la imagen "Próximamente" - sin card, solo la imagen */
@@ -744,6 +747,14 @@ a:active {
   text-decoration: none;
 }
 
+/* Centrado solo para botones dentro de mini-card */
+.mini-card .mini-btn {
+  display: block;
+  margin: 0 auto; /* Centrar horizontalmente */
+  margin-top: auto; /* Empujar el botón hacia abajo para centrado vertical */
+  width: fit-content; /* Ajustar ancho al contenido */
+}
+
 /* Footer */
 .footer {
   background: #c0002f;
@@ -760,7 +771,7 @@ a:active {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
-  text-align: left;
+  text-align: center; /* Centrado del contenido */
 }
 
 .footer-column {
@@ -773,6 +784,7 @@ a:active {
   font-size: 1.7rem;
   font-weight: 700;
   margin-bottom: 1.2rem;
+  text-align: center; /* Centrado de los títulos */
 }
 
 .footer-column a {
@@ -781,7 +793,7 @@ a:active {
   font-size: 1.05rem;
   margin-bottom: 0.7rem;
   transition: 0.2s ease;
-  text-align: left;
+  text-align: center; /* Centrado de los enlaces */
   text-decoration: none;
   cursor: pointer;
 }

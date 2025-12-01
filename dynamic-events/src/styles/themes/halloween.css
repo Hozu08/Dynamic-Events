@@ -198,6 +198,11 @@
   color: #6EFF8E !important;
 }
 
+/* Subtítulos verdes en "¿Cómo usar Dynamic Events?" para Halloween */
+.theme-halloween .add-info__help-text strong {
+  color: #6EFF8E !important;
+}
+
 /* Textos oscuros en AboutUs.css a blanco para Halloween */
 .theme-halloween .about-us__text,
 .theme-halloween .about-us__list,

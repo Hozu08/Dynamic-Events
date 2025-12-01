@@ -475,6 +475,7 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1.2rem;
+  text-align: center; /* Centrado de los títulos */
 }
 
 .footer-column a {
@@ -483,7 +484,7 @@
   font-size: 1.05rem;
   margin-bottom: 0.7rem;
   transition: 0.2s ease;
-  text-align: left;
+  text-align: center; /* Centrado de los enlaces */
 }
 
 .footer-column a:hover {
