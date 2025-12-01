@@ -643,7 +643,7 @@ Asegúrate de que estos archivos existan antes de ejecutar:
 - `dotenv` ^17.2.3 - Variables de entorno
 - `express-rate-limit` ^8.2.1 - Rate limiting
 
-## 📁 Estructura de Archivos
+## Estructura de Archivos
 
 ```
 Dynamic-Events/
